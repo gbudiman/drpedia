@@ -30,17 +30,16 @@ Check Value 9
 First Aide 9 
 Force Barricade 9 
 Literacy 6 
-Lore (Type) 6
-Melee Weapon, Small 6
-Melee Weapon, Standard 6
-Melee Weapon, Two-Hand 6
+Lore 6
+Melee Weapon - Small 6
+Melee Weapon - Standard 6
+Melee Weapon - Two Handed 6
 Parry 6
 Pistol Whip 9 
 Shield 6
-Society Membership (Varies) 0 Must receive in-game, cannot start with society membership
 Teach 1 
 Throwing 6 
-Throwing, Javelins 6
+Throwing - Javelins 6
 Tie Binds 6
 
 == Assassin ==
@@ -53,16 +52,16 @@ Blinding 3
 Choking Blow 3 
 Cover of Night 3 
 Disguise 3 
-Fade In The Crowd 3 
-Guild Member 6 Backstab & Cover of Night
-Melee Weapon, Small 3 
-Murder Most Foul 6 Guild Member
+Fade In A Crowd 3 
+Guild Membership 6 Backstab & Cover of Night
+Melee Weapon - Small 3 
+Murder Most Foul 6 Guild Membership
 Parry 3 
 Throwing 3 
 Vanish 3
 
 == Caravan Driver ==
-Bartender’s Tongue 6 
+Bartender's Tongue 6 
 Bolt Action 3 
 Brawling 3 
 Charisma 3 
@@ -71,7 +70,7 @@ Check Value 3
 Feign Death 6 
 Income 3 
 Instruct 3 Teach
-Melee Weapon, Standard 3 
+Melee Weapon - Standard 3 
 Pistol Whip 3 
 Refuse 3 
 Teach 0 
@@ -87,7 +86,7 @@ Cure Toxins 6 Educated
 Educated 3 Literacy
 Escape Bonds 6 Tie Binds
 Interrogate 3 
-Melee Weapon, Small 3 
+Melee Weapon - Small 3 
 Mind Resistance 6 
 Tie Binds 3 
 Torture 3 
@@ -111,7 +110,7 @@ Throwing 3
 
 == Distiller ==
 Analyze Compound 3
-Bartender’s Tongue
+Bartender's Tongue
 Brawling 3
 Brew Master 6 Brewing
 Brewing 6 Analyze Compound
@@ -120,8 +119,8 @@ Cure Toxins 3
 Educated 6 Literacy
 Income 3 
 Literacy 3 
-Melee Weapon, Large 3 
-Melee Weapon, Standard 3 
+Melee Weapon - Large 3 
+Melee Weapon - Standard 3 
 Scrounge 3 
 Teach 0
 
@@ -137,7 +136,7 @@ Literacy 3
 Mangle Limb 3
 Medical Assistance 6 Literacy
 Medical Genius 6 Medical Assistance
-Melee Weapon, Small 3 
+Melee Weapon - Small 3 
 Sever 3 
 Teach 0 
 Torture 3
@@ -151,7 +150,7 @@ Force Barricade 3
 Forging the Future 6
 Income 3
 Literacy 3
-Melee Weapon, Small 3
+Melee Weapon - Small 3
 Patch Job 3
 Repair 6
 SCIENCE! 6
@@ -160,17 +159,17 @@ Weld 6
 
 == Entertainer ==
 Balance 3
-Bartender’s Tongue 6 Chest
+Bartender's Tongue 6 Cheat
 Bolt Action 3 
 Bomb Awareness 3
 Cheat 6 Lie
 Check Value 3
-Disarming Blow 6 Melee Weapon (Any)
+Disarming Blow 6 Melee Weapon - Small | Melee Weapon - Standard | Melee Weapon - Large | Melee Weapon - Two Handed
 Entertain 6
 Head Shrink 6 Entertain
 Income 3 
 Lie 3 
-Melee Weapon, Standard 3 
+Melee Weapon - Standard 3 
 Refuse 3 
 Throwing 3
 
@@ -185,8 +184,8 @@ Chase 3
 Crop Tending 3 
 First Aide 3
 Income 3 Crop Tending
-Melee Weapon, Standard 3
-Take Down 6 Barwling
+Melee Weapon - Standard 3
+Take Down 6 Brawling
 Throwing 3
 
 == Fishmonger ==
@@ -198,15 +197,15 @@ Brawling 3
 Cheat 3 
 Fishing 6 
 Lie 3 
-Melee Weapon, Two-Hand 3 
-Nail 3 Throwing, Javelins or Bow
+Melee Weapon - Two Handed 3 
+Nail 3 Throwing - Javelins | Bow
 Sailing 3 
-Throwing, Javelins 3 
+Throwing - Javelins 3 
 Tie Binds 3
 
 == Gambler ==
-Backstab 6 Melee Weapon, Small
-Bartender’s Tongue 6 
+Backstab 6 Melee Weapon - Small
+Bartender's Tongue 6 
 Black Market Connections 3 
 Brawling 3 
 Charisma 3 
@@ -215,27 +214,27 @@ Check Your Sleeves 6
 Disarming Blow 3 
 Feign Death 3 
 Lie 3 
-Melee Weapon, Small 3 
+Melee Weapon - Small 3 
 Pick Pockets 6 
 Throwing 3 
-Unlock 
+Unlock 3
 
 == Guard ==
 Barricade 3 
 Blind Fighting 6
 Bounce 6 Shield
-Break Shield 6 Melee Weapon (Any)
-Break Weapon 6 Melee Weapon (Any)
+Break Shield 6 Melee Weapon - Small | Melee Weapon - Standard | Melee Weapon - Large | Melee Weapon - Two Handed
+Break Weapon 6 Melee Weapon - Small | Melee Weapon - Standard | Melee Weapon - Large | Melee Weapon - Two Handed
 Carry 3
 Fearful Glare 3 
 Force Barricade 3 
 Interfere 3
 Knock Down 6 Shield
-Mangle Limb 6 Melee Weapon (Any)
-Melee Weapon, Standard 3
+Mangle Limb 6 Melee Weapon - Small | Melee Weapon - Standard | Melee Weapon - Large | Melee Weapon - Two Handed
+Melee Weapon - Standard 3
 Parry 3 
 Shield 3
-Wide Strike 6 Melee Weapon, Any
+Wide Strike 6 Melee Weapon - Small | Melee Weapon - Standard | Melee Weapon - Large | Melee Weapon - Two Handed
 
 == Gun Slinger ==
 Blinding 6 
@@ -255,7 +254,7 @@ Throwing 3
 
 == Hook-Up ==
 Attach 3 
-Bartender’s Tongue 6 
+Bartender's Tongue 6 
 Black Market Connections 6 Bartender's Tongue
 Building Tomorrow 6 
 Check Quality 3 
@@ -278,23 +277,23 @@ Charge 3
 Chase 3 
 Double-Tap 6 
 Frightening Force 6 
-Hunter’s Mark 6 Alert & Chase
-Melee Weapon Expert 6 Melee Weapon, Large
-Melee Weapon, Large 3 
-Melee Weapon, Small 3 
-Melee Weapon, Standard 3 
-Nail 6 Throwing, Javelines
-Throwing, Javelins 3
+Hunter's Mark 6 Alert & Chase
+Melee Weapon Expert 6 Melee Weapon - Large
+Melee Weapon - Large 3 
+Melee Weapon - Small 3 
+Melee Weapon - Standard 3 
+Nail 6 Throwing - Javelins
+Throwing - Javelins 3
 
 == Jones ==
 Attach 3 
 Balance 3
 Big Dig 3 Bomb Awareness
-Bolt-Action 6 
+Bolt Action 6 
 Bomb Awareness 3 
 Brawling 6
 Concentrated Fire 6 Disarming Shot
-Disarming Shot 3 Bolt-Action
+Disarming Shot 3 Bolt Action
 Double-Tap 6 Disarming Shot
 Escape Bonds 3 
 Literacy 3
@@ -304,13 +303,13 @@ Teach 0
 Unlock 6 Bomb Awareness
 
 == Mad Scientist == 
-Black Market Connection 6 
+Black Market Connections 6 
 Bomb Awareness 6 Literacy
 Building Tomorrow 6 
 First Aide 3 
 Income 6 
 Literacy 3 
-Melee Weapon, Two-Hand 3 
+Melee Weapon - Two Handed 3 
 Mind Resistance 6 
 Patch Job 3 
 Repair 3 
@@ -331,13 +330,13 @@ Iron Fists 6 Brawling
 Knockout 6 Iron Fists
 Literacy 3
 Nerve Punch 6 Brawling
-Takedown 3 Brawling
+Take Down 3 Brawling
 Wide Strike 6 Brawling
 
 == Merchant ==
 Analyze Compound 3 
 Barricade 6 
-Bartender’s Tongue 6 
+Bartender's Tongue 6 
 Beg For Life 6 Charisma
 Black Market Connections 6 
 Carry 3 
@@ -355,7 +354,7 @@ Bolt Action 6
 Brawling 3 
 Break Armor 3 
 Challenge 3
-Charge 6 Melee Weapon, Large
+Charge 6 Melee Weapon - Large
 Destroy Armor 6 
 Disarming Shot 6
 Fearful Glare 6 Break Armor
@@ -363,13 +362,13 @@ Florentine 6
 Frightening Force 6
 Instruct 3 Teach
 Literacy 3 
-Melee Weapon, Large 3 
+Melee Weapon - Large 3 
 Teach 0
 
 == Politician ==
 Avoid 3 
-Backstab 6 Melee Wapon, Small
-Bartender’s Tongue 6 
+Backstab 6 Melee Weapon - Small
+Bartender's Tongue 6 
 Beg For Life 3 
 Charisma 3 
 Cheat 3 
@@ -379,7 +378,7 @@ Entertain 6
 Escape 3 
 Escape Bonds 3 
 Literacy 3 
-Melee Weapon, Small 3 
+Melee Weapon - Small 3 
 Income 3 
 Lie 6 Income
 
@@ -387,7 +386,7 @@ Lie 6 Income
 Avoid 3
 Barricade 6 Faith Healing
 Bless Weapon 3 Pray for Justice
-Call The All Mighty 6 
+Call The Almighty 6 
 Carry 3 
 Charisma 3
 Educated 3 Literacy
@@ -397,7 +396,7 @@ Holy Rites 3 Educated
 Interfere 3 
 Literacy 3 
 Mind Resistance 3
-Pray For Justice 6 Faith Healing
+Pray for Justice 6 Faith Healing
 Refuse 3
 
 == Primitive ==
@@ -410,15 +409,15 @@ Challenge 6
 Chase 3 
 Chop 3 
 Mangle Limb 6 
-Melee Weapon, Two-Hand 3 
+Melee Weapon - Two Handed 3 
 Melee Weapon Expert 3 
 Shield 3 
 Throwing 3 
 Tie Binds 3 
-Wide Strike 6 Melee Weapon, Two-Hand
+Wide Strike 6 Melee Weapon - Two Handed
 
 == Printer ==
-Bartender’s Tongue 3 
+Bartender's Tongue 3 
 Black Market Connections 3 
 Bolt Action 3 
 Charisma 6 
@@ -440,16 +439,16 @@ Chase 3
 Double-Tap 6 
 Lie 3 
 Literacy 3 
-Melee Weapon, Small 3 
+Melee Weapon - Small 3 
 Mind Resistance 3
-Psionic Basic Skill 3
-Psionic Intermediate Skill 6 Psionic Basic x2
-Psionic Advanced Skill 6 Psionic Intermediate Skill x2
+Psionic Skill - Basic 3
+Psionic Skill - Intermediate 6 Psionic Skill - Basic
+Psionic Skill - Advanced 6 Psionic Skill - Intermediate
 Refuse 3 
 Throwing 3
 
 == Publican ==
-Bartender’s Tongue 3 Charisma
+Bartender's Tongue 3 Charisma
 Beg For Life 3 
 Charisma 3
 Check Quality 3 Trade Ties
@@ -460,7 +459,7 @@ First Aide 3
 Income 6 
 Literacy 3
 Medical Assistance 6 First Aide
-Melee Weapon Small 3
+Melee Weapon - Small 3
 Pick Pockets 3
 Trade Ties 6 Deep Pockets
 
@@ -477,7 +476,7 @@ Knockout 6 Take Down
 Nerve Punch 3 
 Parry 3 Brawling
 Pick Pockets 6 
-Takedown 3 Brawling
+Take Down 3 Brawling
 Teach 0 
 Torture 6
 
@@ -492,8 +491,8 @@ Check Value 3
 Chop 3 
 Disguise 3 
 Income 3 
-Mangle Limb 6 Melee Weapon, Standard
-Melee Weapon, Standard 3 
+Mangle Limb 6 Melee Weapon - Standard
+Melee Weapon - Standard 3 
 Scatter Shot 6 Bolt Action
 Trap Making 6
 
@@ -505,16 +504,16 @@ Carry 3
 Check Status 3 
 Cure Toxins 3 
 First Aide 3 
-Guild Member 9 Black Market Connections, Interrogate
+Guild Membership 9 Black Market Connections & Interrogate
 Income 3 
 Interfere 3 Rescue
-Interrogate 6 Melee Weapon, Small
+Interrogate 6 Melee Weapon - Small
 Literacy 3 
 Mangle Limb 6 
 Medical Assistance 3 
-Melee Weapon, Small 3 
+Melee Weapon - Small 3 
 Rescue 3 
-Sever 3 Melee Weapon, Small
+Sever 3 Melee Weapon - Small
 
 == Scavenger ==
 Analyze Creature 3 
@@ -528,13 +527,13 @@ Chop 3
 Cover of Night 6 
 Escape Bonds 3 
 Feign Death 3 
-Melee Weapon, Two-Hand 3
+Melee Weapon - Two Handed 3
 Patch Job 6 Chop
 Scrounge 3
 
 == Scoundrel ==
 Attach 3 
-Backstab 6 Melee Weapon, Small
+Backstab 6 Melee Weapon - Small
 Black Market Connections 6 
 Blinding 6 
 Bolt Action 3 
@@ -542,11 +541,11 @@ Brawling 3
 Charisma 3 
 Cheat 6 Charisma
 Choking Blow 3 
-Disarming Blow 6 Melee Weapon (Any)
-Guild Member 6 Backstab & Black Market Connection
+Disarming Blow 6 Melee Weapon - Small | Melee Weapon - Standard | Melee Weapon - Large | Melee Weapon - Two Handed
+Guild Membership 6 Backstab & Black Market Connections
 Interrogate 3 
 Lie 3 
-Melee Weapon, Small 3
+Melee Weapon - Small 3
 
 == Sniper ==
 Alert 3 
@@ -558,7 +557,7 @@ Cover of Night 6
 Destroy Shield 3 
 Destroy Weapon 3 
 Disarming Shot 3
-Guild Member 6 Murder Most Foul
+Guild Membership 6 Murder Most Foul
 Gun Aficionado 6 Concentrated Fire
 Murder Most Foul 6 Sniped Shot
 Sniped Shot 6 Concentrated Fire
@@ -572,17 +571,17 @@ Double-Tap 6
 Florentine 6
 Force Barricade 6 Charge
 Interfere 3
-Melee Weapon Expert 6, Melee Weapon, Standard & Melee Weapon, Large
-Melee Weapon, Large 3
-Melee Weapon, Standard 3
+Melee Weapon Expert 6 Melee Weapon - Standard & Melee Weapon - Large
+Melee Weapon - Large 3
+Melee Weapon - Standard 3
 Nail 3
 Sever 3
 Shield 3 
-Throwing, Javelins 3
+Throwing - Javelins 3
 
 == Spy ==
 Balance 3 
-Bartender’s Tongue 6 
+Bartender's Tongue 6 
 Blinding 3 
 Chase 3 
 Cover of Night 6 
@@ -591,7 +590,7 @@ Escape 3
 Escape Bonds 3 
 Fade In A Crowd 6 
 Feign Death 3 
-Guild Member 6 Unlock and Lie
+Guild Membership 6 Unlock & Lie
 Income 3 
 Lie 3 
 Scrounge 6
@@ -608,7 +607,7 @@ Feign Death 6
 Head Shrink 6
 Instruct 3 Literacy
 Literacy 3
-Lore (Any) 3 Requires in-game teacher
+Lore 3
 Patch Job 3 Educated
 Refuse 6 Check Your Sleeves
 Teach 0
@@ -624,7 +623,7 @@ Escape Bonds 6
 Fade In A Crowd 6 
 Feign Death 3 
 Lie 3 
-Melee Weapon, Small 3 
+Melee Weapon - Small 3 
 Pick Pockets 6 
 Scrounge 3 
 Trap Making 6 
@@ -637,10 +636,10 @@ Brawling 3
 Carry 3 
 Force Barricade 3 
 Frightening Force 6
-Melee Weapon Expert 3 Melee Weapon, Standard & Large
-Melee Weapon, Large 3
-Melee Weapon, Small 3
-Melee Weapon, Standard 3
+Melee Weapon Expert 3 Melee Weapon - Standard & Melee Weapon - Large
+Melee Weapon - Large 3
+Melee Weapon - Small 3
+Melee Weapon - Standard 3
 Patch Job 3
 Sever 6
 Shield 3
@@ -652,12 +651,12 @@ Building Tomorrow 6 Literacy
 Check Quality 3
 Chop 3
 Educated 3 Literacy
-Improved Armor 6 Educated
+Improved Armor/Shield 6 Educated
 Improved Pistol/Bow 6 Educated
 Improved Weapon 6 Educated
 Income 3
 Literacy 3
-Master Craftsman 6 Improved Armor, Pistol/Bow, Weapon
+Master Craftsman 6 Improved Armor/Shield & Improved Pistol/Bow & Improved Weapon
 Patch Job 3 
 Repair 3
 SCIENCE! 6 Educated
@@ -690,7 +689,7 @@ Break Weapon
 Brew Master 
 Brewing
 Building Tomorrow 
-Call the Almighty 
+Call The Almighty 
 Carry
 Challenge
 Charge
