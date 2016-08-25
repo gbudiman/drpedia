@@ -13,9 +13,19 @@ class Builder
 
     #ap @skills_list
     #ap @skills_advantage
-    ap @skills_by_strain
+    #ap @skills_open
+    #ap @skills_by_strain.to_json
 
     assert_all
+  end
+
+  def pack_data
+    return {
+      list: @skills_list,
+      advantage: @skills_advantage,
+      open: @skills_open,
+      strain: @skills_by_strain
+    }
   end
 
 private
@@ -27,13 +37,13 @@ private
 
   def assert_advantage_skills
     if @skills_advantage.keys.length == 20
-      raise RuntimeError, "Advantage skills is #{@skills_advatage.keys.length} < 20"
+      raise RuntimeError, "Advantage skills is #{@skills_advantage.keys.length} < 20"
     end
   end
 
   def assert_strain_count
     if @skills_by_strain.keys.length != 38
-      raise RuntimeError, "Strain count is #{@skills_advatage.keys.length} != 38"
+      raise RuntimeError, "Strain count is #{@skills_advantage.keys.length} != 38"
     end
   end
 
@@ -70,8 +80,10 @@ private
       end
     end
 
-    ap mismatches
-    raise RuntimeError, "Mismatched skills exists" if mismatches.length != 0
+    if mismatches.length != 0
+      ap mismatches
+      raise RuntimeError, "Mismatched skills exists" 
+    end
   end
 
   def parse_section _x
@@ -130,7 +142,7 @@ private
   def parse_advantage_skill _x
     parts = _x.split(/\:/)
     return if parts.length != 2
-    strain = parts[0].strip
+    strain = parts[0].strip.to_sym
 
     @skills_advantage[strain] = Hash.new
     parts[1].split(/\,/).each do |skill|
@@ -146,11 +158,10 @@ private
 
   def parse_open_skill _x
     if _x =~ /(\d+)/
+      cost = $1.to_i
       parts = _x.split(/\d+/)
-
       skill = parts[0].strip.to_sym
-      cost = _x.to_i
-
+      
       @skills_open[skill] = cost
     end
   end
