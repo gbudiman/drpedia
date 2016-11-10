@@ -97,7 +97,8 @@ var generate_skill_cat = function() {
     var t = $('<li></li>')
               .addClass('list-group-item disabled')
               .attr('skill_name', skill_name)
-              .append(skill_name);
+              .append(skill_name)
+              .append('<span class="badge"></span>');
     s.append(t);
   })
 
@@ -111,36 +112,49 @@ var generate_skill_cat = function() {
 
 function recalculate() {
   var detect_has_innate = function(data) {
-    return data.innate.indexOf(selected_strain) != -1;
+    var strain_index = data.innate.indexOf(selected_strain);
+    return strain_index == -1 ? 99 : 3;
   }
 
   var detect_is_open_skill = function(data) {
-    return data.open != undefined;
+    return data.open || 99;
   }
 
   var detect_is_profession_skill = function(data) {
+    var min_cost = 99;
     var is_available = false;
 
     $.each(selected_professions, function(index, profession) {
       if (data[profession] != undefined) {
+        if (data[profession].cost < min_cost) {
+          min_cost = data[profession].cost;
+        }
         is_available = is_available || true;
       }
     });
 
-    return is_available;
+    return min_cost;
   }
 
   var detect_available_skill = function(skill_name, data) {
+    var min_cost = 99;
     var is_available = false;
     
-    is_available = is_available || detect_is_profession_skill(data);
-    is_available = is_available || detect_has_innate(data);
-    is_available = is_available || detect_is_open_skill(data);
+    // is_available = is_available || detect_is_profession_skill(data);
+    // is_available = is_available || detect_has_innate(data);
+    // is_available = is_available || detect_is_open_skill(data);
+    min_cost = Math.min(min_cost, detect_is_profession_skill(data));
+    min_cost = Math.min(min_cost, detect_has_innate(data));
+    min_cost = Math.min(min_cost, detect_is_open_skill(data));
 
-    if (is_available) {
-      $('[skill_name="' + skill_name + '"]').removeClass('disabled');
+    if (min_cost != 99) {
+      $('[skill_name="' + skill_name + '"]')
+        .removeClass('disabled')
+        .find('.badge').text(min_cost);
     } else {
-      $('[skill_name="' + skill_name + '"]').addClass('disabled');
+      $('[skill_name="' + skill_name + '"]')
+        .addClass('disabled')
+        .find('.badge').text('');
     }
   };
 
