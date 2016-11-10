@@ -1,6 +1,16 @@
 %div{id: 'setup', class: 'row'}
   %div{id: 'setup-strain', class: 'col-sm-12'}
   %div{id: 'setup-profession', class: 'col-sm-12'}
-%div{id: 'graphical'}
+  %div{id: 'setup-search', class: 'col-sm-12'}
+    %div{class: 'col-xs-8'}
+      %input{type: 'text', class: 'form-control col-xs-8', id: 'search-input', placeholder: 'Search skills...'}
+    %div{class: 'col-xs-4'}
+      %input{type: 'checkbox', id: 'only-available-checkbox'} Only Available
+%div{id: 'graphical', class: 'row graphical-container'}
 
 = javascript_include_tag 'tree_builder'
+
+:css
+  .graphical-container {
+    overflow-y: auto;
+  }

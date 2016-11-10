@@ -102,6 +102,10 @@ var generate_skill_cat = function() {
   })
 
   $('div#graphical').append(s);
+  $('.graphical-container')
+    .css('max-height', '90vh')
+    .css('margin-left', '-4px')
+    .css('margin-right', '0px');
   recalculate();
 };
 
@@ -143,6 +147,33 @@ function recalculate() {
   $.each(skill_cat, function(skill_name, skill_data) {
     detect_available_skill(skill_name, skill_data);
   });
+
+  update_availability();
+}
+
+function update_search_result(value) {
+  var pattern = new RegExp(value);
+  $('[skill_name]').each(function() {
+    var matcher = $(this).attr('skill_name').toLowerCase();
+
+    if (matcher.match(pattern)) {
+      $(this).show();
+    } else {
+      $(this).hide();
+    }
+  })
+}
+
+function update_availability() {
+  console.log('called');
+  var only_available = $('#only-available-checkbox').prop('checked');
+
+  if (only_available) {
+    $('.list-group-item').show();
+    $('.list-group-item.disabled').hide();
+  } else {
+    $('.list-group-item.disabled').show();
+  }
 }
 
 $(function() {
@@ -160,5 +191,15 @@ $(function() {
     skill_cat = skill_cat_json_data; 
     generate_skill_cat(); 
   });
+
+  $('#search-input').on('keypress', function(e) {
+    if (e.which == 13) { 
+      e.preventDefault(); 
+      update_search_result($(this).val());
+    }
+  });
+
+  $('#only-available-checkbox').on('change', update_availability);
+  update_availability();
 });
 
