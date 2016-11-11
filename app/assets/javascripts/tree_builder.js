@@ -309,10 +309,14 @@ $(function() {
     generate_skill_cat(); 
   });
 
-  $('#search-input').on('keypress', function(e) {
-    if (e.which == 13) { 
+  $('#search-input').on('keyup', function(e) {
+    var query = $(this).val().trim().toLowerCase();
+
+    if (query.length == 0) {
+      update_search_result(query);
+    } else if (e.which == 13) { 
       e.preventDefault(); 
-      update_search_result($(this).val());
+      update_search_result(query);
     }
   });
 
