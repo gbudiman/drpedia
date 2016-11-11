@@ -108,7 +108,7 @@ var generate_skill_cat = function() {
 
   $('div#graphical').append(s);
   $('.graphical-container')
-    .css('max-height', '90vh')
+    //.css('max-height', '90vh')
     .css('margin-left', '-4px')
     .css('margin-right', '0px');
   recalculate();
