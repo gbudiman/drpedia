@@ -129,11 +129,11 @@ function attach_anchor() {
         .attr('popover-applied', true)
         .attr('data-trigger', 'click')
         .attr('data-placement', 'right')
-        .attr('data-container', 'body')
         .attr('data-html', true)
     }
     target_element.attr('data-content', pull_skill_cat_data(skill_name, min_cost));
     target_element.popover('show');
+    
   })
 }
 
