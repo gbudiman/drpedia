@@ -22,6 +22,7 @@ var generate_strains_select_box = function() {
   $('#strain-selector').multiselect({
     buttonWidth: '100%',
     onDropdownShow: disable_popover,
+    dropRight: true,
     onChange: function(option, checked) {
       selected_strain = option.text();
       recalculate();
@@ -101,7 +102,7 @@ var generate_skill_cat = function() {
     //           .append(skill_name);
 
     var t = $('<li></li>')
-              .addClass('list-group-item faded clickable-skill')
+              .addClass('list-group-item faded clickable-skill col-xs-12 col-sm-6 col-md-3')
               .attr('skill-name', skill_name)
               .append('<span class="skill-label">' + skill_name + '</span>')
               //.append(a)
@@ -133,6 +134,7 @@ function attach_anchor() {
         .attr('popover-applied', true)
         .attr('data-trigger', 'click')
         .attr('data-placement', 'right')
+        .attr('data-container', 'body')
         .attr('data-html', true)
     }
     target_element.attr('data-content', pull_skill_cat_data(skill_name, min_cost));

@@ -1,8 +1,8 @@
-%div{id: 'setup', class: 'row'}
-  %div{id: 'setup-strain', class: 'col-sm-12'}
-  %div{id: 'setup-profession', class: 'col-sm-12'}
-  %div{id: 'setup-search', class: 'col-sm-12'}
-    %div{class: 'col-xs-8'}
+%div{id: 'setup'}
+  %div{id: 'setup-strain', class: 'col-xs-6 vcenter'}
+  %div{id: 'setup-profession', class: 'col-xs-6 vcenter'}
+  %div{id: 'setup-search', class: 'col-sm-12 vcenter'}
+    %div{class: 'col-xs-8 row'}
       %input{type: 'text', class: 'form-control col-xs-8', id: 'search-input', placeholder: 'Search skills...'}
     %div{class: 'col-xs-4'}
       %input{type: 'checkbox', id: 'only-available-checkbox'} Only Available
@@ -13,6 +13,10 @@
 :css
   body {
     overflow-x: hidden;
+  }
+
+  .vcenter {
+    padding: 0.2em;
   }
 
   .graphical-container {
