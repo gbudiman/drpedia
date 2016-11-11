@@ -11,6 +11,10 @@
 = javascript_include_tag 'tree_builder'
 
 :css
+  body {
+    overflow-x: hidden;
+  }
+
   .graphical-container {
     overflow-y: auto;
   }
@@ -35,4 +39,14 @@
 
   .popover {
     cursor: default;
+  }
+
+  .skill-not-accessible {
+    color: #aaa;
+    text-decoration: line-through;
+  }
+
+  .skill-cheapest {
+    font-weight: 800;
+    color: #3c763d;
   }
