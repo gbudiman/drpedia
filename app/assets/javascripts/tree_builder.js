@@ -96,13 +96,8 @@ var generate_skill_cat = function() {
             .addClass('list-group');
 
   $.each(skills, function(index, skill_name) {
-    // var a = $('<a></a>')
-    //           .addClass('clickable-skill')
-    //           .attr('href', '#')
-    //           .append(skill_name);
-
     var t = $('<li></li>')
-              .addClass('list-group-item faded clickable-skill col-xs-12 col-sm-6 col-md-3')
+              .addClass('list-group-item faded clickable-skill')
               .attr('skill-name', skill_name)
               .append('<span class="skill-label">' + skill_name + '</span>')
               //.append(a)
