@@ -188,7 +188,7 @@ function pull_skill_cat_data(skill, min_cost) {
       var class_name = 'skill-not-accessible';
       if (selected_professions != undefined && 
           selected_professions.indexOf(profession_name) != -1) {
-        class_name = 'text-prumary';
+        class_name = 'text-primary';
       }
 
       if (pdata.cost == min_cost && class_name != 'skill-not-accessible') {

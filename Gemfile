@@ -33,7 +33,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'rspec-rails'
 gem 'awesome_print'
 gem 'haml-rails'
-gem 'drpedia_lite', '>= 0.0.2'
+gem 'drpedia_lite', '>= 0.0.3'
 gem 'test-unit'
 gem 'rb-readline'
 
