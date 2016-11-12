@@ -145,6 +145,7 @@ function attach_anchor() {
 function pull_skill_cat_data(skill, min_cost) {
   var data = skill_cat[skill];
   var by_strain = new Object();
+  var strain_preq = null;
   var by_open = new Array();
   var by_profession = new Object();
   var s = '';
@@ -160,6 +161,7 @@ function pull_skill_cat_data(skill, min_cost) {
         by_open.push('Open: ' + class_data);
         break;
       case "innate_preq":
+        strain_preq = class_data;
         break;
       default:
         by_profession[class_type] = data[class_type];
@@ -179,7 +181,16 @@ function pull_skill_cat_data(skill, min_cost) {
 
       var f = '<span class="' + class_name + '">' + strain_name + ': ' + cost + '</span>';
       s += f + '<br />'
-    })
+
+      if (strain_preq && strain_preq[strain_name]) {
+        var concat = new Array();
+        var combinator = strain_preq[strain_name].predicate == 'and' ? ' & ' : ' | ';
+        $.each(strain_preq[strain_name].list, function(preq_skill, _junk) {
+          concat.push(preq_skill + ' (3)');
+        })
+        s += '<span class="preq">&laquo; ' + concat.join(combinator) + '</span><br />';
+      }
+    });
 
     s += '<hr class="thin-divider" />';
   }
@@ -191,9 +202,11 @@ function pull_skill_cat_data(skill, min_cost) {
   if (Object.keys(by_profession).length > 0) {
     $.each(by_profession, function(profession_name, pdata) {
       var class_name = 'skill-not-accessible';
+      var preq;
       if (selected_professions != undefined && 
           selected_professions.indexOf(profession_name) != -1) {
         class_name = 'text-primary';
+        preq = find_preq(profession_name, skill, pdata);
       }
 
       if (pdata.cost == min_cost && class_name != 'skill-not-accessible') {
@@ -201,11 +214,36 @@ function pull_skill_cat_data(skill, min_cost) {
       }
 
       var f = '<span class="' + class_name + '">' + profession_name + ': ' + pdata.cost + '</span>';
-      s += f + '<br />'
+      s += f + '<br />';
+      if (preq && preq.length > 0) {
+        s += '<span class="preq">' + preq + '</span><br />';
+      }
     })
   }
 
   return s;
+}
+
+function find_preq(profession, skill, pdata) {
+  var s = '';
+
+  if (pdata.preq == null) {
+    return '';
+  } else {
+    var combinator = pdata.preq.predicate == 'and' ? ' & ' : ' | ';
+    var cost = skill_cat[skill][profession].cost;
+
+    //s += Object.keys(pdata.preq.list).join(combinator) + ' (' + cost + ')';
+
+    var concat = new Array();
+    $.each(pdata.preq.list, function(preq_skill, _junk) {
+      //s += find_preq(profession, preq_skill, skill_cat[preq_skill][profession]);
+      concat.push(preq_skill + ' (' + skill_cat[preq_skill][profession].cost + ')');
+    });
+    s += concat.join(combinator);
+  }
+
+  return ' &laquo; ' + s;
 }
 
 function recalculate() {
