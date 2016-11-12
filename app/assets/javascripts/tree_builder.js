@@ -70,13 +70,15 @@ var generate_professions_select_box = function() {
 
         non_selected_options.each(function() {
           var input = $('input[value="' + $(this).val() + '"]');
-          input.prop('faded', true);
+          //input.prop('faded', true);
+          input.prop('disabled', true);
           input.parent().addClass('text-muted');
         })
       } else {
         $('#profession-selector option').each(function() {
           var input = $('input[value="' + $(this).val() + '"]');
-          input.prop('faded', false);
+          //input.prop('faded', false);
+          input.prop('disabled', false);
           input.parent().removeClass('text-muted');
         });
       }
