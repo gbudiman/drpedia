@@ -23,6 +23,7 @@ var generate_strains_select_box = function() {
     buttonWidth: '100%',
     onDropdownShow: disable_popover,
     dropRight: true,
+    maxHeight: 512,
     onChange: function(option, checked) {
       selected_strain = option.text();
       recalculate();
@@ -57,6 +58,8 @@ var generate_professions_select_box = function() {
         return labels.join(', ');
       }
     },
+
+    maxHeight: 512,
     onDropdownShow: disable_popover,
     onChange: function(option, checked) {
       var selected_options = $('#profession-selector option:selected');
