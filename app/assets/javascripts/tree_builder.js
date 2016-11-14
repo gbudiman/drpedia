@@ -238,7 +238,11 @@ function find_preq(profession, skill, pdata) {
     var concat = new Array();
     $.each(pdata.preq.list, function(preq_skill, _junk) {
       //s += find_preq(profession, preq_skill, skill_cat[preq_skill][profession]);
-      concat.push(preq_skill + ' (' + skill_cat[preq_skill][profession].cost + ')');
+      if (skill_cat[preq_skill][profession]) {
+        concat.push(preq_skill + ' (' + skill_cat[preq_skill][profession].cost + ')');
+      } else {
+        concat.push(preq_skill + ' (Open: 9)');
+      }
     });
     s += concat.join(combinator);
   }
@@ -335,7 +339,7 @@ function disable_popover() {
 
 $(function() {
   $.ajaxSetup({cache: false});
-  
+
   $.getJSON('/strains.json', function(strains_json_data) { 
     strains = strains_json_data; 
     generate_strains_select_box();
