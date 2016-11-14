@@ -1,4 +1,4 @@
-%div{id: 'setup', "data-spy" => "affix", class: 'col-xs-12'}
+%div{id: 'setup', "data-spy" => "affix", class: 'col-xs-12', "data-offset-top" => "64"}
   %div{id: 'setup-strain', class: 'col-xs-6 svcenter'}
   %div{id: 'setup-profession', class: 'col-xs-6 svcenter'}
   %div{id: 'setup-search', class: 'col-sm-12 svcenter'}
@@ -25,13 +25,17 @@
     overflow: visible;
   }
 
+  .affix {
+    top: 0;
+  }
+
   .preq {
     font-style: italic;
     color: #a94442;
   }
 
   .setup-padding {
-    margin-bottom: 6em;
+    margin-bottom: 2em;
   }
 
   .svcenter {

@@ -16,4 +16,12 @@
     = javascript_include_tag 'bootstrap-multiselect'
     = stylesheet_link_tag 'bootstrap-multiselect.min'
   %body
+    / %nav{class: 'navbar navbar-inverse'}
+    /   %div{class: 'container-fluid'}
+    /   %a{class: 'navbar-brand', href: '#'} DRpedia
     = yield
+
+:css
+  .navbar-inverse {
+    border-radius: 0px;
+  }
