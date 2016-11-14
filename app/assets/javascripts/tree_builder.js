@@ -334,6 +334,8 @@ function disable_popover() {
 }
 
 $(function() {
+  $.ajaxSetup({cache: false});
+  
   $.getJSON('/strains.json', function(strains_json_data) { 
     strains = strains_json_data; 
     generate_strains_select_box();
