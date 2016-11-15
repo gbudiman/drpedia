@@ -27,6 +27,7 @@ var generate_strains_select_box = function() {
     onChange: function(option, checked) {
       selected_strain = option.text();
       recalculate();
+      replan();
     }
   });
 };
@@ -89,6 +90,7 @@ var generate_professions_select_box = function() {
       })
 
       recalculate();
+      replan();
     }
   })
 };
@@ -97,12 +99,19 @@ var generate_skill_cat = function() {
   var skills = Object.keys(skill_cat);
   skills.sort();
 
-  var s = $('<ul></ul>')
-            .addClass('list-group');
+  // var s = $('<ul></ul>')
+  //           .addClass('list-group')
+  //           .attr('id', 'graphical-list');
+  var s = $('#graphical-list');
+
+  var col_classes = 'col-xs-12 col-sm-6 col-md-4 col-lg-3';
+  if (is_builder) {
+    col_classes = 'col-xs-12 col-lg-6'
+  }
 
   $.each(skills, function(index, skill_name) {
     var t = $('<li></li>')
-              .addClass('list-group-item faded clickable-skill col-xs-12 col-sm-6 col-md-4 col-lg-3')
+              .addClass('list-group-item skill-draggable faded clickable-skill ' + col_classes)
               .attr('skill-name', skill_name)
               .append('<span class="skill-label">' + skill_name + '</span>')
               //.append(a)
@@ -118,6 +127,7 @@ var generate_skill_cat = function() {
     .css('margin-right', '0px');
   recalculate();
   attach_anchor();
+  attach_drag_functor();
 };
 
 function attach_anchor() {

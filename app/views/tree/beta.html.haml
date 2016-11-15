@@ -1,0 +1,100 @@
+%div{id: 'setup', class: 'col-xs-12 row', "data-spy" => "affix", "data-offset-top" => "64"}
+  %div{id: 'setup-strain', class: 'col-xs-6 svcenter'}
+  %div{id: 'setup-profession', class: 'col-xs-6 svcenter'}
+  %div{id: 'setup-search', class: 'col-xs-12 svcenter'}
+    %div{class: 'col-xs-6 svcenter'}
+      %input{type: 'text', class: 'form-control col-xs-6', id: 'search-input', placeholder: 'Search skills...'}
+    %div{class: 'col-xs-6 svcenter'}
+      %input{type: 'checkbox', id: 'only-available-checkbox'} Only Available
+%div{id: 'graphical', class: 'graphical-container col-xs-6' }
+  %div{id: 'graphical-list', class: 'list-group'}
+%div{id: 'builder', class: 'col-xs-6'}
+  %div{id: 'acquired', class: 'col-xs-12'}
+    Drop acquired skills here
+    %ul{class: 'list-group', id: 'acquired-list'}
+  %div{id: 'planned', class: 'col-xs-12'}
+    Drop planned skills here
+    %ul{class: 'list-group', id: 'planned-list'}
+
+:javascript
+  var is_builder = true;
+
+= javascript_include_tag 'tree_builder'
+= javascript_include_tag 'dynamic_builder'
+
+:css
+  body {
+    overflow-x: hidden;
+  }
+
+  #setup {
+    z-index: 1000;
+    background-color: white;
+    padding-right: 0px;
+  }
+
+  #acquired, #planned {
+    //width: 250px;
+    //height: 250px;
+    height: 250px;
+    //z-index: -10;
+  }
+
+  #graphical {
+    overflow: visible;
+    padding-left: 8px;
+    padding-right: 6px;
+  }
+
+  .affix {
+    top: 0;
+  }
+
+  .preq {
+    font-style: italic;
+    color: #a94442;
+  }
+
+  .setup-padding {
+    margin-bottom: 2em;
+  }
+
+  .svcenter {
+    padding: 0.2em;
+  }
+
+  .graphical-container {
+    overflow-y: auto;
+  }
+
+  .link-faded {
+    color: #aaa;
+  }
+
+  .clickable-skill{
+    cursor: pointer
+  }
+
+  .list-group-item.faded {
+    background-color: #eee;
+    color: #aaa
+  }
+
+  .thin-divider {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+
+  .popover {
+    cursor: default;
+  }
+
+  .skill-not-accessible {
+    color: #aaa;
+    text-decoration: line-through;
+  }
+
+  .skill-cheapest {
+    font-weight: 800;
+    color: #3c763d;
+  }
