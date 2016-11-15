@@ -133,6 +133,10 @@ var generate_skill_cat = function() {
 function attach_anchor() {
   var target_element;
   $('li.clickable-skill').on('click', function() {
+    if ($(this).hasClass('no-click')) {
+      return;
+    }
+
     disable_popover();
 
     target_element = $(this).find('span.skill-label');
@@ -145,6 +149,7 @@ function attach_anchor() {
         .attr('data-trigger', 'click')
         .attr('data-placement', 'right')
         .attr('data-html', true)
+        .attr('data-container', 'body')
     }
     target_element.attr('data-content', pull_skill_cat_data(skill_name, min_cost));
     target_element.popover('show');

@@ -35,6 +35,8 @@ function attach_drag_functor() {
       .css('border', '1px solid #ddd')
       .css('background-color', '')
       .css('z-index', '');
+
+    $('.popover').hide();
   })
 }
 
@@ -45,18 +47,24 @@ function attach_drop_functor(_element_id) {
   var target_size = $(list_id).css('width');
   $(element_id).droppable({
     drop: function(event, ui) {
+      event.preventDefault();
       var dragged_object = ui.draggable;
+
 
       //$(list_id).append(dragged_object);
       if (_element_id  == 'graphical') {
         append_lexicographically(list_id, dragged_object);
       } else {
         $(list_id).append(dragged_object);
+        //resize_height();
+
       }
 
       dragged_object
-        .css('width', target_size);
-      event.preventDefault();
+        .css('width', target_size)
+        .css('z-index', '');
+
+      $('.popover').hide();
     }
   })
 }
