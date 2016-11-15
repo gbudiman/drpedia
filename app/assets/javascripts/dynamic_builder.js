@@ -18,7 +18,8 @@ function attach_drag_functor() {
 
     $('.skill-droppable')
       .css('border', '1px solid #388038')
-      .css('background-color', '#ddffdd')
+      //.css('background-color', '#ddffdd')
+      .css('overflow-y', 'visible')
       .css('z-index', -10);
 
     $(this).css('z-index', 1000);
@@ -50,19 +51,14 @@ function attach_drop_functor(_element_id) {
       event.preventDefault();
       var dragged_object = ui.draggable;
 
-
-      //$(list_id).append(dragged_object);
-      if (_element_id  == 'graphical') {
-        append_lexicographically(list_id, dragged_object);
-      } else {
-        $(list_id).append(dragged_object);
-        //resize_height();
-
-      }
+      append_lexicographically(list_id, dragged_object);
 
       dragged_object
         .css('width', target_size)
         .css('z-index', '');
+
+      $('.skill-droppable')
+        .css('overflow-y', 'auto');
 
       $('.popover').hide();
     }
