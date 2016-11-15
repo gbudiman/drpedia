@@ -319,7 +319,7 @@ function update_search_result(value) {
 
   var pattern = new RegExp(value);
   $('#only-available-checkbox').prop('checked', false);
-  $('[skill-name]').each(function() {
+  $('#graphical-list').find('[skill-name]').each(function() {
     var matcher = $(this).attr('skill-name').toLowerCase();
 
     if (matcher.match(pattern)) {

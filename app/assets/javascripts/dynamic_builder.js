@@ -10,11 +10,31 @@ function attach_drag_functor() {
     if ($(this).hasClass('faded')) {
       return false;
     }
+    
+    $('.popover').hide();
+
+    $('.skill-draggable')
+      .css('z-index', -10);
+
+    $('.skill-droppable')
+      .css('border', '1px solid #388038')
+      .css('background-color', '#ddffdd')
+      .css('z-index', -10);
+
+    $(this).css('z-index', 1000);
   })
 
   $('.skill-draggable').on('dragstop', function(event, ui) {
     $(this).css('left', '')
            .css('top', '');
+
+    $('.skill-draggable')
+      .css('z-index', '');
+
+    $('.skill-droppable')
+      .css('border', '1px solid #ddd')
+      .css('background-color', '')
+      .css('z-index', '');
   })
 }
 

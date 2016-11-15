@@ -9,10 +9,11 @@
 %div{id: 'graphical', class: 'graphical-container col-xs-6' }
   %div{id: 'graphical-list', class: 'list-group'}
 %div{id: 'builder', class: 'col-xs-6'}
-  %div{id: 'acquired', class: 'col-xs-12'}
+  %div{id: 'acquired', class: 'col-xs-12 svupdown skill-droppable'}
     Drop acquired skills here
     %ul{class: 'list-group', id: 'acquired-list'}
-  %div{id: 'planned', class: 'col-xs-12'}
+  %br
+  %div{id: 'planned', class: 'col-xs-12 svupdown skill-droppable'}
     Drop planned skills here
     %ul{class: 'list-group', id: 'planned-list'}
 
@@ -37,6 +38,8 @@
     //width: 250px;
     //height: 250px;
     height: 250px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     //z-index: -10;
   }
 
@@ -44,6 +47,7 @@
     overflow: visible;
     padding-left: 8px;
     padding-right: 6px;
+    position: relative;
   }
 
   .affix {
@@ -61,6 +65,10 @@
 
   .svcenter {
     padding: 0.2em;
+  }
+
+  .svupdown {
+    margin-bottom: 1em;
   }
 
   .graphical-container {
