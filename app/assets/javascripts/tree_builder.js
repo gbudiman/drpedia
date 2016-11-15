@@ -368,5 +368,7 @@ $(function() {
 
   $('#only-available-checkbox').on('change', update_availability);
   update_availability();
+
+  $('#deactivation-notificaion').modal('show');
 });
 
