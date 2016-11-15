@@ -10,11 +10,15 @@
   %div{id: 'graphical-list', class: 'list-group'}
 %div{id: 'builder', class: 'col-xs-6'}
   %div{id: 'acquired', class: 'col-xs-12 svupdown skill-droppable'}
-    Drop acquired skills here
+    %div{class: 'builder-header'}
+      Drop acquired skills here
+      %span{class: 'badge', id: 'acquired-xp'} 0
     %ul{class: 'list-group', id: 'acquired-list'}
   %br
   %div{id: 'planned', class: 'col-xs-12 svupdown skill-droppable'}
-    Drop planned skills here
+    %div{class: 'builder-header'}
+      Drop planned skills here
+      %span{class: 'badge', id: 'planned-xp'} 0
     %ul{class: 'list-group', id: 'planned-list'}
 
 :javascript
@@ -51,6 +55,11 @@
 
   .affix {
     top: 0;
+  }
+
+  .builder-header {
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
   }
 
   .preq {

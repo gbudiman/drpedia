@@ -52,6 +52,8 @@ function attach_drop_functor(_element_id) {
       var dragged_object = ui.draggable;
 
       append_lexicographically(list_id, dragged_object);
+      update_xp_count('#planned');
+      update_xp_count('#acquired');
 
       dragged_object
         .css('width', target_size)
@@ -63,6 +65,20 @@ function attach_drop_functor(_element_id) {
       $('.popover').hide();
     }
   })
+}
+
+function update_xp_count(element_id) {
+  var xp_element = $(element_id).find('.builder-header').find('.badge');
+  var list = $(element_id + '-list').children('li');
+
+  var count = 0;
+  $.each(list, function() {
+    count += parseInt($(this).find('.badge').text());
+
+  })
+  console.log(xp_element);
+  console.log(list);
+  xp_element.text(count);
 }
 
 function append_lexicographically(list_id, dragged_object) {
