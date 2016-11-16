@@ -98,7 +98,7 @@ function check_complex_constraint(predicate, lists, skills, skill, profession, e
       if (skills.indexOf(x) == -1) {
         errors.push(skill + ' (' + profession + ') needs ' + x);
         sub_satisfaction = false;
-        return false;
+        //return false;
       }
     })
   } else if (predicate == 'or') {
