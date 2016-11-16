@@ -1,4 +1,4 @@
-%div{id: 'setup', class: 'col-xs-12 row', "data-spy" => "affix", "data-offset-top" => "64"}
+%div{id: 'setup', class: 'col-xs-12 row'}
   %div{id: 'setup-strain', class: 'col-xs-6 svcenter'}
   %div{id: 'setup-profession', class: 'col-xs-6 svcenter'}
   %div{id: 'setup-search', class: 'col-xs-12 svcenter'}
@@ -6,20 +6,24 @@
       %input{type: 'text', class: 'form-control col-xs-6', id: 'search-input', placeholder: 'Search skills...'}
     %div{class: 'col-xs-6 svcenter'}
       %input{type: 'checkbox', id: 'only-available-checkbox'} Only Available
-%div{id: 'graphical', class: 'graphical-container col-xs-6' }
-  %div{id: 'graphical-list', class: 'list-group'}
-%div{id: 'builder', class: 'col-xs-6'}
-  %div{id: 'acquired', class: 'col-xs-12 svupdown skill-droppable'}
+%div{class: 'row body-container'}
+  %div{id: 'graphical', class: 'graphical-container col-xs-6' }
+    %div{id: 'graphical-list', class: 'list-group'}
+  %div{id: 'builder', class: 'builder-container col-xs-6'}
     %div{class: 'builder-header'}
       Drop acquired skills here
       %span{class: 'badge', id: 'acquired-xp'} 0
-    %ul{class: 'list-group', id: 'acquired-list'}
-  %br
-  %div{id: 'planned', class: 'col-xs-12 svupdown skill-droppable'}
+
+    %div{id: 'acquired', class: 'col-xs-12 svupdown skill-droppable'}
+      
+      %ul{class: 'list-group', id: 'acquired-list'}
+    %br
     %div{class: 'builder-header'}
       Drop planned skills here
       %span{class: 'badge', id: 'planned-xp'} 0
-    %ul{class: 'list-group', id: 'planned-list'}
+    %div{id: 'planned', class: 'col-xs-12 svupdown skill-droppable'}
+      
+      %ul{class: 'list-group', id: 'planned-list'}
 
 :javascript
   var is_builder = true;
@@ -36,20 +40,42 @@
     z-index: 1000;
     background-color: white;
     padding-right: 0px;
+    margin-left: -15px;
   }
 
   #acquired, #planned {
-    height: 250px;
+    height: 256px;
     border: 1px solid #ddd;
     border-radius: 4px;
     overflow-y: auto;
+    overflow-x: hidden;
     //z-index: -10;
+    position: relative;
   }
 
   #graphical {
-    overflow: visible;
-    padding-left: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    //overflow: visible;
+    //padding-left: 16px;
     padding-right: 6px;
+    position: relative;
+  }
+
+  #builder {
+    overflow-y: auto;
+    position: relative;
+    padding-left: 0px;
+    padding-right: 16px;
+  }
+
+  .ui-draggable-dragging {
+  }
+
+  .body-container {
+    //z-index: -100;
+    background-color: transparent;
     position: relative;
   }
 
@@ -57,8 +83,13 @@
     padding: 0;
   }
 
+  .skill-droppable {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
   .affix {
-    top: 0;
+    top: 64;
   }
 
   .builder-header {

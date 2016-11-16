@@ -1,41 +1,34 @@
 function attach_drag_functor() {
   $('.skill-draggable').draggable({
-    drag: function(event, ui) {},
-    start: function(event, ui) {},
-    stop: function(event, ui) {},
+    scroll: false,
+    appendTo: 'body',
+    helper: 'clone',
+    opacity: 0.8
   });
 
   $('.skill-draggable').on('dragstart', function(event, ui) {
-    //$(this).css('z-index', 100);
     if ($(this).hasClass('faded')) {
       return false;
     }
-    
+
+
+    $('.ui-draggable-dragging').css('width', $(this).css('width'));
     $('.popover').hide();
 
-    $('.skill-draggable')
-      .css('z-index', -10);
 
     $('.skill-droppable')
       .css('border', '1px solid #388038')
-      //.css('background-color', '#ddffdd')
-      .css('overflow-y', 'visible')
-      .css('z-index', -10);
-
-    $(this).css('z-index', 1000);
+      .css('background-color', '#ddffdd');
   })
 
   $('.skill-draggable').on('dragstop', function(event, ui) {
     $(this).css('left', '')
            .css('top', '');
 
-    $('.skill-draggable')
-      .css('z-index', '');
 
     $('.skill-droppable')
       .css('border', '1px solid #ddd')
-      .css('background-color', '')
-      .css('z-index', '');
+      .css('background-color', '');
 
     $('.popover').hide();
   })
@@ -57,18 +50,20 @@ function attach_drop_functor(_element_id) {
 
       dragged_object
         .css('width', '')
-        .css('z-index', '');
+        //.css('z-index', '');
 
       $('.skill-droppable')
-        .css('overflow-y', 'auto');
+        .css('overflow-y', 'auto')
+        //.css('z-index', '');
 
+      //$('#graphical').css('overflow', 'auto');
       $('.popover').hide();
     }
   })
 }
 
 function update_xp_count(element_id) {
-  var xp_element = $(element_id).find('.builder-header').find('.badge');
+  var xp_element = $(element_id + '-xp');
   var list = $(element_id + '-list').children('li');
 
   var count = 0;
@@ -146,17 +141,35 @@ function is_valid_skill(skill_name) {
   return !$('[skill-name="' + skill_name + '"]').hasClass('faded');
 }
 
+function resize_graphical() {
+  var target_max_height = $(window).height() - $('#setup').height() - 32;
+  $('#graphical').css('max-height', target_max_height);
+  $('#builder').css('max-height', target_max_height);
+}
+
 $(function() {
   //$('#acquired').resizable();
   //$('#planned').resizable();
 
-  $('#acquired').css('marginTop', ($(window).scrollTop() + 96) + 'px');
+  //$('#acquired').css('marginTop', ($(window).scrollTop() + 96) + 'px');
 
-  $(window).scroll(function() {
-    $('#acquired')
-      .stop()
-      .animate({'marginTop': ($(window).scrollTop() + 96) + 'px'}, 0);
-  });
+  // $(window).scroll(function() {
+  //   console.log($(window).scrollTop() + " | " + $('#acquired').css('marginTop'));
+  //   var scroll_top = $(window).scrollTop();
+
+  //   // if (scroll_top < 96) {
+  //   //   scroll_top = 96;
+  //   // } else {
+  //   //   scroll_top += 96;
+  //   // }
+
+  //   // if (scroll_top > 96) {
+  //   //   $('#acquired').css('marginTop', scroll_top + 'px');
+  //   // }
+  // });
+
+  $(window).resize(resize_graphical);
+  resize_graphical();
 
   attach_drop_functor('acquired');
   attach_drop_functor('planned');
