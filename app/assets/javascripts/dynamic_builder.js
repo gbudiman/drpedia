@@ -44,19 +44,19 @@ function attach_drag_functor() {
 function attach_drop_functor(_element_id) {
   var element_id = '#' + _element_id;
   var list_id = element_id + '-list';
-
-  var target_size = $(list_id).css('width');
+  
   $(element_id).droppable({
     drop: function(event, ui) {
       event.preventDefault();
       var dragged_object = ui.draggable;
+      var target_size = $(list_id).css('width');
 
       append_lexicographically(list_id, dragged_object);
       update_xp_count('#planned');
       update_xp_count('#acquired');
 
       dragged_object
-        .css('width', target_size)
+        .css('width', '')
         .css('z-index', '');
 
       $('.skill-droppable')

@@ -153,7 +153,9 @@ function attach_anchor() {
     }
     target_element.attr('data-content', pull_skill_cat_data(skill_name, min_cost));
     target_element.popover('show');
-
+    $('.popover').off('click').on('click', function() {
+      $(this).hide();
+    })
   })
 }
 
