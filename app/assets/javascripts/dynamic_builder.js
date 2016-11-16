@@ -81,6 +81,8 @@ function append_lexicographically(list_id, dragged_object) {
   var seek_skill_name = dragged_object.attr('skill-name');
   var appended = false;
   //console.log(seek_skill_name);
+  if ($(list_id).find('[skill-name="' + seek_skill_name + '"]').length > 0) { return; }
+
   $(list_id).children('li').each(function() {
     var iterated_skill_name = $(this).attr('skill-name');
     var s_compare = seek_skill_name.localeCompare(iterated_skill_name);
@@ -116,19 +118,24 @@ function replan_list(target_id) {
     var skill_label = that.attr('skill-name');
 
     if (that.hasClass('faded')) {
-      var cloned = that.clone(true, true);
-      that.parent().append(cloned);
-      append_lexicographically(target_id, cloned);
       append_lexicographically('#graphical-list', that);
+      var cloned = that.clone(true, true);
+      //that.parent().append(cloned);
+      
+      
 
       cloned.addClass('invalid');
       cloned.find('.skill-label')
               .addClass('text-danger')
               .css('text-decoration', 'line-through');
-      cloned.append('<span class="removable pull-right">Remove</span>');
-      cloned.find('.removable').on('click', function() {
-        $(this).parent().remove();
-      })
+
+      if (cloned.find('.removable').length == 0) {
+        cloned.append('<span class="removable pull-right">Remove</span>');
+        cloned.find('.removable').on('click', function() {
+          $(this).parent().remove();
+        })
+      }
+      append_lexicographically(target_id, cloned);
     }
 
     if (that.hasClass('invalid')) {
@@ -138,6 +145,7 @@ function replan_list(target_id) {
               .css('text-decoration', 'none')
               .addClass('faded');
         $('#graphical-list').find('[skill-name="' + skill_label + '"]').remove();
+        that.find('.removable').remove();
       }
     }
   })
