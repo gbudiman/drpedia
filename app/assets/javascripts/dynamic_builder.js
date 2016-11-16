@@ -73,11 +73,11 @@ function update_xp_count(element_id) {
 
   var count = 0;
   $.each(list, function() {
-    count += parseInt($(this).find('.badge').text());
+    if ($(this).find('.badge').text().trim().length > 0) {
 
+      count += parseInt($(this).find('.badge').text());
+    }
   })
-  console.log(xp_element);
-  console.log(list);
   xp_element.text(count);
 }
 
@@ -107,6 +107,10 @@ function append_lexicographically(list_id, dragged_object) {
 function replan() {
   replan_list('#acquired-list');
   replan_list('#planned-list');
+  update_xp_count('#planned');
+  update_xp_count('#acquired');
+
+  update_availability();
 }
 
 function replan_list(target_id) {
@@ -130,7 +134,8 @@ function replan_list(target_id) {
       if (is_valid_skill(skill_label)) {
         that.find('.skill-label')
               .removeClass('text-danger')
-              .css('text-decoration', 'none');
+              .css('text-decoration', 'none')
+              .addClass('faded');
         $('#graphical-list').find('[skill-name="' + skill_label + '"]').remove();
       }
     }

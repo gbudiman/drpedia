@@ -343,7 +343,7 @@ function update_availability() {
 
   if (only_available) {
     $('.list-group-item').show();
-    $('.list-group-item.faded').hide();
+    $('#graphical').find('.list-group-item.faded').hide();
   } else {
     $('.list-group-item.faded').show();
 
