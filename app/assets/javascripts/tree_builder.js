@@ -118,7 +118,7 @@ var generate_skill_cat = function() {
               .append('<span class="skill-label">' + skill_name + '</span>')
               
               .append('<span class="pull-right badge"></span>')
-              .append('<span class="pull-right pseudo-point">&nbsp;</span>');
+              .append('<span class="pull-right pseudo-point">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>');
 
     s.append(t);
   })
@@ -130,7 +130,10 @@ var generate_skill_cat = function() {
     .css('margin-right', '0px');
   recalculate();
   attach_anchor();
-  attach_drag_functor();
+
+  if (is_builder) {
+    attach_drag_functor();
+  }
 };
 
 function attach_anchor() {
@@ -147,15 +150,17 @@ function attach_anchor() {
     //target_element = $(this).find('span.pseudo-point');
     var skill_name = $(this).find('span.skill-label').text();
     var min_cost = parseInt($(this).find('span.badge').text());
-    var top_id = target_element.parent().parent().parent().attr('id');
+    //var top_id = target_element.parent().parent().parent().parent().attr('id');
+
+    //console.log(top_id);
     if (target_element.attr('popover-applied') != 'true') {
       target_element
         .attr('popover-applied', true)
         .attr('data-trigger', 'click')
-        .attr('data-placement', 'right')
+        .attr('data-placement', 'bottom')
         .attr('data-html', true)
         //.attr('data-container', 'body')
-        .attr('data-viewport', '#' + top_id)
+        //.attr('data-viewport', '#' + top_id)
     }
     target_element.attr('data-content', pull_skill_cat_data(skill_name, min_cost));
     
@@ -169,6 +174,10 @@ function attach_anchor() {
     // $('.popover').off('click').on('click', function() {
     //   $(this).hide();
     // })
+  })
+
+  $('li.clickable-skill').on('taphold', function() {
+    console.log('taphold');
   })
 }
 
@@ -398,5 +407,10 @@ $(function() {
 
   $('#only-available-checkbox').on('change', update_availability);
   update_availability();
+
+  if (!is_builder) {
+    var target_max_height = $(window).height() - $('#setup').height() - 32;
+    $('#graphical').css('max-height', target_max_height);
+  }
 });
 
