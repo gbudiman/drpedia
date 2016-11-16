@@ -119,10 +119,8 @@ function replan_list(target_id) {
 
     if (that.hasClass('faded')) {
       append_lexicographically('#graphical-list', that);
+
       var cloned = that.clone(true, true);
-      //that.parent().append(cloned);
-      
-      
 
       cloned.addClass('invalid');
       cloned.find('.skill-label')
@@ -135,6 +133,7 @@ function replan_list(target_id) {
           $(this).parent().remove();
         })
       }
+      cloned.popover();
       append_lexicographically(target_id, cloned);
     }
 
