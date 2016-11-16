@@ -46,6 +46,7 @@ function attach_drop_functor(_element_id) {
       append_lexicographically(list_id, dragged_object);
       update_xp_count('#planned');
       update_xp_count('#acquired');
+      generate_constraints();
 
       dragged_object
         .css('width', '')
@@ -105,6 +106,7 @@ function replan() {
   update_xp_count('#acquired');
 
   update_availability();
+  generate_constraints();
 }
 
 function replan_list(target_id) {
@@ -112,14 +114,11 @@ function replan_list(target_id) {
     var that = $(this);
     var skill_label = that.attr('skill-name');
 
-    //console.log(that.attr('skill-name') + ' | ' + that.hasClass('faded'));
     if (that.hasClass('faded')) {
       var cloned = that.clone(true, true);
       that.parent().append(cloned);
       append_lexicographically(target_id, cloned);
       append_lexicographically('#graphical-list', that);
-      //cloned.css('width', $('#graphical-list').css('width'));
-
 
       cloned.addClass('invalid');
       cloned.find('.skill-label')
