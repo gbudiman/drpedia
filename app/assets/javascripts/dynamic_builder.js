@@ -3,7 +3,8 @@ function attach_drag_functor() {
     scroll: false,
     appendTo: 'body',
     helper: 'clone',
-    opacity: 0.8
+    opacity: 0.8,
+    delay: 125
   });
 
   $('.skill-draggable').on('dragstart', function(event, ui) {
