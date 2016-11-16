@@ -106,7 +106,7 @@ var generate_skill_cat = function() {
 
   var col_classes = 'col-xs-12 col-sm-6 col-md-4 col-lg-3';
   if (is_builder) {
-    col_classes = 'col-xs-12 col-lg-6'
+    col_classes = 'col-xs-12 col-lg-6';
   }
 
   $.each(skills, function(index, skill_name) {
@@ -114,13 +114,13 @@ var generate_skill_cat = function() {
               .addClass('list-group-item skill-draggable faded clickable-skill ' + col_classes)
               .attr('skill-name', skill_name)
               .append('<span class="skill-label">' + skill_name + '</span>')
-              //.append(a)
+              .append('<span class="pull-right pseudo-point">&nbsp;</span>')
               .append('<span class="badge"></span>');
 
     s.append(t);
   })
 
-  $('div#graphical').append(s);
+  $('div#graphical-list').append(s);
   $('.graphical-container')
     //.css('max-height', '90vh')
     .css('margin-left', '-4px')
@@ -140,6 +140,7 @@ function attach_anchor() {
     disable_popover();
 
     target_element = $(this).find('span.skill-label');
+    //target_element = $(this).find('span.pseudo-point');
     var skill_name = target_element.text();
     var min_cost = parseInt($(this).find('span.badge').text());
 
@@ -149,7 +150,7 @@ function attach_anchor() {
         .attr('data-trigger', 'click')
         .attr('data-placement', 'right')
         .attr('data-html', true)
-        .attr('data-container', 'body')
+        //.attr('data-container', 'body')
     }
     target_element.attr('data-content', pull_skill_cat_data(skill_name, min_cost));
     target_element.popover('show');
