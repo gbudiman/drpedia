@@ -5,6 +5,8 @@ var skill_cat;
 var selected_strain;
 var selected_professions;
 
+var last_popover_skill;
+
 var generate_strains_select_box = function() {
   var s = $('<select></select>')
             .attr('id', 'strain-selector');
@@ -114,8 +116,9 @@ var generate_skill_cat = function() {
               .addClass('list-group-item skill-draggable faded clickable-skill ' + col_classes)
               .attr('skill-name', skill_name)
               .append('<span class="skill-label">' + skill_name + '</span>')
-              .append('<span class="pull-right pseudo-point">&nbsp;</span>')
-              .append('<span class="badge"></span>');
+              
+              .append('<span class="pull-right badge"></span>')
+              .append('<span class="pull-right pseudo-point">&nbsp;</span>');
 
     s.append(t);
   })
@@ -137,13 +140,14 @@ function attach_anchor() {
       return;
     }
 
+    var is_popped_over = $('.popover').hasClass('in');
     disable_popover();
 
     target_element = $(this).find('span.skill-label');
     //target_element = $(this).find('span.pseudo-point');
-    var skill_name = target_element.text();
+    var skill_name = $(this).find('span.skill-label').text();
     var min_cost = parseInt($(this).find('span.badge').text());
-
+    var top_id = target_element.parent().parent().parent().attr('id');
     if (target_element.attr('popover-applied') != 'true') {
       target_element
         .attr('popover-applied', true)
@@ -151,12 +155,20 @@ function attach_anchor() {
         .attr('data-placement', 'right')
         .attr('data-html', true)
         //.attr('data-container', 'body')
+        .attr('data-viewport', '#' + top_id)
     }
     target_element.attr('data-content', pull_skill_cat_data(skill_name, min_cost));
-    target_element.popover('show');
-    $('.popover').off('click').on('click', function() {
-      $(this).hide();
-    })
+    
+    if (is_popped_over && last_popover_skill == skill_name) {
+      target_element.popover('hide');
+    } else {
+      target_element.popover('show');
+      last_popover_skill = skill_name;
+    }
+
+    // $('.popover').off('click').on('click', function() {
+    //   $(this).hide();
+    // })
   })
 }
 
@@ -352,7 +364,7 @@ function update_availability() {
 }
 
 function disable_popover() {
-  $('.popover').hide();
+  $('.popover').popover('hide');
 }
 
 $(function() {

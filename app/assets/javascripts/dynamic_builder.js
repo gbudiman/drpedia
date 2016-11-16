@@ -14,7 +14,7 @@ function attach_drag_functor() {
 
 
     $('.ui-draggable-dragging').css('width', $(this).css('width'));
-    $('.popover').hide();
+    disable_popover();
 
 
     $('.skill-droppable')
@@ -31,7 +31,7 @@ function attach_drag_functor() {
       .css('border', '1px solid #ddd')
       .css('background-color', '');
 
-    $('.popover').hide();
+    disable_popover();
   })
 }
 
@@ -50,15 +50,14 @@ function attach_drop_functor(_element_id) {
       generate_constraints();
 
       dragged_object
-        .css('width', '')
-        //.css('z-index', '');
+        .css('width', '');
 
       $('.skill-droppable')
         .css('overflow-y', 'auto')
         //.css('z-index', '');
 
       //$('#graphical').css('overflow', 'auto');
-      $('.popover').hide();
+      disable_popover();
     }
   })
 }
