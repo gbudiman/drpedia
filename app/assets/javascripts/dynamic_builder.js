@@ -42,7 +42,6 @@ function attach_drop_functor(_element_id) {
     drop: function(event, ui) {
       event.preventDefault();
       var dragged_object = ui.draggable;
-      var target_size = $(list_id).css('width');
 
       append_lexicographically(list_id, dragged_object);
       update_xp_count('#planned');
@@ -115,14 +114,21 @@ function replan_list(target_id) {
 
     //console.log(that.attr('skill-name') + ' | ' + that.hasClass('faded'));
     if (that.hasClass('faded')) {
-      var cloned = that.clone();
-      append_lexicographically('#graphical-list', cloned);
-      cloned.css('width', $('#graphical-list').css('width'));
+      var cloned = that.clone(true, true);
+      that.parent().append(cloned);
+      append_lexicographically(target_id, cloned);
+      append_lexicographically('#graphical-list', that);
+      //cloned.css('width', $('#graphical-list').css('width'));
 
-      that.addClass('invalid');
-      that.find('.skill-label')
-            .addClass('text-danger')
-            .css('text-decoration', 'line-through');
+
+      cloned.addClass('invalid');
+      cloned.find('.skill-label')
+              .addClass('text-danger')
+              .css('text-decoration', 'line-through');
+      cloned.append('<span class="removable pull-right">Remove</span>');
+      cloned.find('.removable').on('click', function() {
+        $(this).parent().remove();
+      })
     }
 
     if (that.hasClass('invalid')) {
@@ -148,26 +154,6 @@ function resize_graphical() {
 }
 
 $(function() {
-  //$('#acquired').resizable();
-  //$('#planned').resizable();
-
-  //$('#acquired').css('marginTop', ($(window).scrollTop() + 96) + 'px');
-
-  // $(window).scroll(function() {
-  //   console.log($(window).scrollTop() + " | " + $('#acquired').css('marginTop'));
-  //   var scroll_top = $(window).scrollTop();
-
-  //   // if (scroll_top < 96) {
-  //   //   scroll_top = 96;
-  //   // } else {
-  //   //   scroll_top += 96;
-  //   // }
-
-  //   // if (scroll_top > 96) {
-  //   //   $('#acquired').css('marginTop', scroll_top + 'px');
-  //   // }
-  // });
-
   $(window).resize(resize_graphical);
   resize_graphical();
 
