@@ -25,15 +25,21 @@ function get_skills_in_builder_section(id) {
 }
 
 function check_constraints(skills) {
+  var errors = new Array();
+  
+
   $.each(skills, function(i, skill) {
-    check_prerequisite(skills, skill);
+    var s_error = check_prerequisite(skills, skill);
+    errors = errors.concat(s_error);
   })
+
+  $('#error-log').text('');
+  $('#error-log').html(errors.join('<br />'));
 }
 
 function check_prerequisite(skills, skill) {
   var global_satisfaction = false;
   var errors = new Array();
-
 
   augmented_professions = (selected_professions || new Array()).concat(' - ');
 
@@ -76,10 +82,10 @@ function check_prerequisite(skills, skill) {
   });
   
   if (!global_satisfaction) {
-    $('#error-log').text(errors.join('<br />'));
-  } else {
-    $('#error-log').text('');
+    return errors;
   }
+
+  return new Array();
 }
 
 function check_complex_constraint(predicate, lists, skills, skill, profession, errors) {
@@ -90,7 +96,7 @@ function check_complex_constraint(predicate, lists, skills, skill, profession, e
     sub_satisfaction = true;
     $.each(lists, function(x, _junk) {
       if (skills.indexOf(x) == -1) {
-        errors.push(skill + ' ' + profession + ' needs ' + x);
+        errors.push(skill + ' (' + profession + ') needs ' + x);
         sub_satisfaction = false;
         return false;
       }
@@ -100,11 +106,11 @@ function check_complex_constraint(predicate, lists, skills, skill, profession, e
     $.each(lists, function(x, _junk) {
       if (skills.indexOf(x) != -1) {
         sub_satisfaction = true;
-        errors.push(skill + ' ' + profession + ' needs ' + x);
+        errors.push(skill + ' (' + profession + ') needs ' + x);
         return false;
       }
     })
   }
 
-  return sub_satisfaction
+  return sub_satisfaction;
 }
