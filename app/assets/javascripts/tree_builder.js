@@ -138,7 +138,9 @@ var generate_skill_cat = function() {
 function attach_anchor() {
   var target_element;
   $('li.clickable-skill').on('click', function() {
-    attach_drag_functor($(this));
+    if (is_builder) {
+      attach_drag_functor($(this));
+    }
 
     if ($(this).hasClass('no-click')) {
       return;
