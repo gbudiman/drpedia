@@ -150,14 +150,23 @@ function attach_anchor() {
     //target_element = $(this).find('span.pseudo-point');
     var skill_name = $(this).find('span.skill-label').text();
     var min_cost = parseInt($(this).find('span.badge').text());
-    //var top_id = target_element.parent().parent().parent().parent().attr('id');
+    //var containing_element = target_element.parent().parent().parent();
 
+    var y_position = $(this).position().top;
+    var window_height = $(window).height();
+    var data_placement = 'right';
+
+    if (y_position < 100) {
+      data_placement = 'bottom';
+    } else if (y_position > window_height - 200) {
+      data_placement = 'top';
+    }
     //console.log(top_id);
     if (target_element.attr('popover-applied') != 'true') {
       target_element
         .attr('popover-applied', true)
         .attr('data-trigger', 'click')
-        .attr('data-placement', 'bottom')
+        .attr('data-placement', data_placement)
         .attr('data-html', true)
         //.attr('data-container', 'body')
         //.attr('data-viewport', '#' + top_id)
