@@ -4,25 +4,25 @@
       %div{class: 'modal-header'}
         %h4{class: 'text-center'} Note
       %div{class: 'modal-body'}
-        This app will be temporarily deactivated starting 
+        This app has been temporarily deactivated since
         %b{class: 'text-danger'} Thursday, Nov 17 2016 
         pending approval from DR National.
         %hr
         If you would still like access to offline version of this app, please send message to me
         %a{href: 'https://www.facebook.com/gloria.budiman'} (Gloria Budiman)
       %div{class: 'modal-footer'}
-        %button{class: 'btn btn-primary', 'data-dismiss' => 'modal'} Mmmkay...
+        %button{class: 'btn btn-primary'} Mmmkay...
 
-%div{id: 'setup', "data-spy" => "affix", class: 'col-xs-12', "data-offset-top" => "64"}
-  %div{id: 'setup-strain', class: 'col-xs-6 svcenter'}
-  %div{id: 'setup-profession', class: 'col-xs-6 svcenter'}
-  %div{id: 'setup-search', class: 'col-sm-12 svcenter'}
-    %div{class: 'col-xs-6 svcenter'}
-      %input{type: 'text', class: 'form-control col-xs-6', id: 'search-input', placeholder: 'Search skills...'}
-    %div{class: 'col-xs-6 svcenter'}
-      %input{type: 'checkbox', id: 'only-available-checkbox'} Only Available
+/ %div{id: 'setup', "data-spy" => "affix", class: 'col-xs-12', "data-offset-top" => "64"}
+/   %div{id: 'setup-strain', class: 'col-xs-6 svcenter'}
+/   %div{id: 'setup-profession', class: 'col-xs-6 svcenter'}
+/   %div{id: 'setup-search', class: 'col-sm-12 svcenter'}
+/     %div{class: 'col-xs-6 svcenter'}
+/       %input{type: 'text', class: 'form-control col-xs-6', id: 'search-input', placeholder: 'Search skills...'}
+/     %div{class: 'col-xs-6 svcenter'}
+/       %input{type: 'checkbox', id: 'only-available-checkbox'} Only Available
 %div{class: 'clearfix setup-padding'}
-%div{id: 'graphical', class: 'graphical-container'}
+/%div{id: 'graphical', class: 'graphical-container'}
 
 = javascript_include_tag 'tree_builder'
 
