@@ -130,14 +130,16 @@ var generate_skill_cat = function() {
   recalculate();
   attach_anchor();
 
-  if (is_builder) {
-    attach_drag_functor();
+  if (is_builder && is_desktop_site) {
+    attach_drag_functor('all');
   }
 };
 
 function attach_anchor() {
   var target_element;
   $('li.clickable-skill').on('click', function() {
+    attach_drag_functor($(this));
+
     if ($(this).hasClass('no-click')) {
       return;
     }
@@ -209,9 +211,9 @@ function attach_anchor() {
       // //   .attr('data-trigger', 'click')
       // //   .attr('data-html', true)
       // //   .attr('data-content', pull_skill_cat_data(skill_name, min_cost));
-      target_element.popover({
-        placement: data_placement
-      });
+      // target_element.popover({
+      //   placement: data_placement
+      // });
       // try {
         
       // } catch(err) {
