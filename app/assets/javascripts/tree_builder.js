@@ -137,7 +137,7 @@ var generate_skill_cat = function() {
 
 function attach_anchor() {
   var target_element;
-  $('li.clickable-skill').on('click', function() {
+  $('li.clickable-skill').on('tap', function() {
     if (is_builder) {
       attach_drag_functor($(this));
     }
@@ -463,5 +463,7 @@ $(function() {
     var target_max_height = $(window).height() - $('#setup').height() - 32;
     $('#graphical').css('max-height', target_max_height);
   }
+
+  $.mobile.loading().hide();
 });
 
