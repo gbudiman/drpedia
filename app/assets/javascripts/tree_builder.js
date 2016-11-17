@@ -29,7 +29,10 @@ var generate_strains_select_box = function() {
     onChange: function(option, checked) {
       selected_strain = option.text();
       recalculate();
-      replan();
+
+      if (is_builder) {
+        replan();
+      }
     }
   });
 };
@@ -92,7 +95,10 @@ var generate_professions_select_box = function() {
       })
 
       recalculate();
-      replan();
+
+      if (is_builder) {
+        replan();
+      }
     }
   })
 };
