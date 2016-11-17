@@ -5,7 +5,7 @@ var skill_cat;
 var selected_strain;
 var selected_professions;
 
-var last_popover_skill;
+var last_popover_skill = '';
 
 var generate_strains_select_box = function() {
   var s = $('<select></select>')
@@ -116,9 +116,8 @@ var generate_skill_cat = function() {
               .addClass('list-group-item skill-draggable faded clickable-skill ' + col_classes)
               .attr('skill-name', skill_name)
               .append('<span class="skill-label">' + skill_name + '</span>')
-              
-              .append('<span class="pull-right badge"></span>')
-              .append('<span class="pull-right pseudo-point">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+              .append('<span class="pull-right badge"></span>');
+              //.append('<span class="pull-right pseudo-point">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>');
 
     s.append(t);
   })
@@ -161,21 +160,64 @@ function attach_anchor() {
     } else if (y_position > window_height - 200) {
       data_placement = 'top';
     }
+
+    var text_content = target_element.html();
+    if (data_placement != 'right') {
+      if (target_element.width() < 100) {
+        var diff = (100 - target_element.width()) / 2;
+
+        for (i = 0; i < diff; i++) {
+          text_content += '&nbsp;'
+        }
+
+        target_element.html(text_content);
+      }
+    } else {
+      text_content = text_content.replace(/\&nbsp\;/g, '');
+      target_element.html(text_content);
+    }
     //console.log(top_id);
     if (target_element.attr('popover-applied') != 'true') {
       target_element
         .attr('popover-applied', true)
         .attr('data-trigger', 'click')
-        .attr('data-placement', data_placement)
         .attr('data-html', true)
         //.attr('data-container', 'body')
         //.attr('data-viewport', '#' + top_id)
     }
-    target_element.attr('data-content', pull_skill_cat_data(skill_name, min_cost));
     
-    if (is_popped_over && last_popover_skill == skill_name) {
+    //target_element.attr('data-placement', data_placement)
+    target_element.attr('data-content', pull_skill_cat_data(skill_name, min_cost));
+  
+
+    skill_name = skill_name.trim();
+    var is_reclick = last_popover_skill.localeCompare(skill_name) == 0;
+    
+    if (is_popped_over && is_reclick) {
       target_element.popover('hide');
+      //target_element.popover('destroy');
+      last_popover_skill = '';
     } else {
+      // target_element.popover('destroy');
+
+      // console.log('recreating');
+      
+
+      // console.log(target_element);
+      // // target_element
+      // //   .attr('popover-applied', true)
+      // //   .attr('data-trigger', 'click')
+      // //   .attr('data-html', true)
+      // //   .attr('data-content', pull_skill_cat_data(skill_name, min_cost));
+      target_element.popover({
+        placement: data_placement
+      });
+      // try {
+        
+      // } catch(err) {
+      //   console.log(err);
+      // }
+
       target_element.popover('show');
       last_popover_skill = skill_name;
     }
@@ -183,10 +225,6 @@ function attach_anchor() {
     // $('.popover').off('click').on('click', function() {
     //   $(this).hide();
     // })
-  })
-
-  $('li.clickable-skill').on('taphold', function() {
-    console.log('taphold');
   })
 }
 
