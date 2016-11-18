@@ -13,6 +13,8 @@
   %div{id: 'graphical', class: 'graphical-container col-xs-6' }
     %div{id: 'graphical-list', class: 'list-group'}
   %div{id: 'builder', class: 'builder-container col-xs-6'}
+    %div{id: 'error-log', class: 'col-xs-12 svupdown text-danger'}
+
     %div{class: 'builder-header'}
       Drop acquired skills here
       %span{class: 'badge', id: 'acquired-xp'} 0
@@ -26,7 +28,7 @@
     %div{id: 'planned', class: 'col-xs-12 svupdown skill-droppable'}
       %ul{class: 'list-group', id: 'planned-list'}
 
-    %div{id: 'error-log', class: 'col-xs-12 svupdown'}
+    
 
 :javascript
   var is_builder = true;
@@ -153,4 +155,8 @@
   .skill-cheapest {
     font-weight: 800;
     color: #3c763d;
+  }
+
+  .drag-simulable {
+    background-color: #fcf3cf;
   }

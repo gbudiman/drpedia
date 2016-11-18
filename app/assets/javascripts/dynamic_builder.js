@@ -12,31 +12,6 @@ function update_xp_count(element_id) {
   xp_element.text(count);
 }
 
-function append_lexicographically(list_id, dragged_object) {
-  var seek_skill_name = dragged_object.attr('skill-name');
-  var appended = false;
-  //console.log(seek_skill_name);
-  if ($(list_id).find('[skill-name="' + seek_skill_name + '"]').length > 0) { return; }
-
-  $(list_id).children('li').each(function() {
-    var iterated_skill_name = $(this).attr('skill-name');
-    var s_compare = seek_skill_name.localeCompare(iterated_skill_name);
-
-    //console.log('comparing ' + seek_skill_name + ' | ' + iterated_skill_name + ' = ' + s_compare);
-
-    if (s_compare == -1) {
-      dragged_object.insertBefore($(this));
-      appended = true;
-      return false;
-    }
-    // console.log($(this).attr('skill-name'));
-  })
-
-  if (!appended) {
-    $(list_id).append(dragged_object);
-  }
-}
-
 function replan() {
   replan_list('#acquired-list');
   replan_list('#planned-list');
@@ -89,6 +64,26 @@ function is_valid_skill(skill_name) {
   return !$('[skill-name="' + skill_name + '"]').hasClass('faded');
 }
 
+function attach_tappable_drop(id) {
+  $('#' + id).on('click', function() {
+    var list_id = '#' + id + '-list';
+
+    if (is_desktop_site) { return; }
+
+    if ($(this).hasClass('drop-simulable')) {
+      $('.drag-simulable').each(function() {
+        append_lexicographically(list_id, $(this));
+      })
+
+      highlight_droppable_regions(false);
+      $('.drag-simulable').removeClass('drag-simulable');
+      update_xp_count('#planned');
+      update_xp_count('#acquired');
+      generate_constraints();
+    }
+  })
+}
+
 function resize_graphical() {
   var target_max_height = $(window).height() - $('#setup').height() - 32;
   $('#graphical').css('max-height', target_max_height);
@@ -102,4 +97,8 @@ $(function() {
   attach_drop_functor('acquired');
   attach_drop_functor('planned');
   attach_drop_functor('graphical');
+
+  attach_tappable_drop('acquired');
+  attach_tappable_drop('planned');
+  attach_tappable_drop('graphical');
 });
