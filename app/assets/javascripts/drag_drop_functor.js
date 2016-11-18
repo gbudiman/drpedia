@@ -60,7 +60,7 @@ function attach_drag_functor(selement) {
       return false;
     }
     $('.ui-draggable-dragging').css('width', $(this).css('width'));
-    highlight_droppable_regions(true, get_parent_id_of_clicked_object(selement));
+    highlight_droppable_regions(true, get_parent_id_of_clicked_object($(this)));
     
   })
 
@@ -81,7 +81,6 @@ function highlight_droppable_regions(enable, clicked_from) {
       }
     });
 
-    
     disable_popover();
 
     $.each(class_exec, function(i, x) {
@@ -92,7 +91,6 @@ function highlight_droppable_regions(enable, clicked_from) {
         $('#' + x)
           .css('border', '1px solid #388038')
           .css('background-color', '#ddffdd');
-        
       }
 
       $('#' + x + ' .skill-draggable').css('opacity', 0.5);
@@ -201,6 +199,8 @@ function attach_touch_option_control() {
   $('#is-touch-device').on('change', function() {
     is_mobile = $(this).prop('checked');
     is_desktop_site = !is_mobile;
+    
+    toggle_input_control_alert();
 
     if (is_mobile) {
       disable_drag('all');
@@ -213,7 +213,22 @@ function attach_touch_option_control() {
   });
 }
 
+function toggle_input_control_alert() {
+  $('.alert-dismissible').hide();
+
+  if (!is_desktop_site) {
+    $('#alert-mobile').show();
+  } else {
+    $('#alert-desktop').show();
+  }
+}
+
 $(function() {
   detect_touch_device();
   attach_touch_option_control();
+  toggle_input_control_alert();
+
+  $('.alert-dismissible .close').on('click', function() {
+    $(this).parent().hide();
+  })
 })

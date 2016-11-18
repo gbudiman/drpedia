@@ -9,21 +9,34 @@
         %input{type: 'checkbox', id: 'only-available-checkbox'} Available Only &nbsp;
         
       %input{type: 'checkbox', id: 'is-touch-device'} Enable Touch Input
+
 %div{class: 'row body-container'}
   %div{id: 'graphical', class: 'graphical-container col-xs-6' }
     %div{id: 'graphical-list', class: 'list-group'}
   %div{id: 'builder', class: 'builder-container col-xs-6'}
+    %div{class: 'alert alert-success alert-dismissible', id: 'alert-desktop', hidden: true}
+      %button{type: 'button', class: 'close'}
+        %span &times;
+      You can drag skills and drop them to green regions.
+
+    %div{class: 'alert alert-success alert-dismissible', id: 'alert-mobile', hidden: true}
+      %button{type: 'button', class: 'close'}
+        %span &times;
+      You are on mobile device.
+      %br
+      To move skills between boxes, tap one or more skills then tap green regions to move selected skills.
+
     %div{id: 'error-log', class: 'col-xs-12 svupdown text-danger'}
 
     %div{class: 'builder-header'}
-      Drop acquired skills here
+      Acquired skills
       %span{class: 'badge', id: 'acquired-xp'} 0
 
     %div{id: 'acquired', class: 'col-xs-12 svupdown skill-droppable'}
       %ul{class: 'list-group', id: 'acquired-list'}
     %br
     %div{class: 'builder-header'}
-      Drop planned skills here
+      Planned skills
       %span{class: 'badge', id: 'planned-xp'} 0
     %div{id: 'planned', class: 'col-xs-12 svupdown skill-droppable'}
       %ul{class: 'list-group', id: 'planned-list'}
@@ -41,6 +54,35 @@
 :css
   body {
     overflow-x: hidden;
+    font-size: 12px;
+  }
+
+  .alert {
+    padding: 8px 24px 8px 8px;
+  }
+
+  .btn {
+    font-size: 12px;
+  }
+
+  .popover {
+    font-size: 12px;
+  }
+
+  .popover-content {
+    padding: 4px 8px;
+  }
+
+  .list-group-item {
+    padding: 4px 8px;
+  }
+
+  .form-control {
+    font-size: 12px;
+  }
+
+  .dropdown-menu {
+    font-size: 12px;
   }
 
   #setup {
