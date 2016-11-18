@@ -101,6 +101,8 @@ function attach_tappable_drop(id) {
       generate_constraints();
 
       update_selected_skills(0);
+
+      pack_state();
     }
   })
 }
@@ -176,6 +178,8 @@ function attach_drop_functor(_element_id) {
       //$('#graphical').css('overflow', 'auto');
       disable_popover();
       //disable_drag(dragged_object);
+
+      pack_state();
     }
   })
 }

@@ -32,6 +32,7 @@ var generate_strains_select_box = function() {
 
       if (is_builder) {
         replan();
+        pack_state();
       }
     }
   });
@@ -98,6 +99,7 @@ var generate_professions_select_box = function() {
 
       if (is_builder) {
         replan();
+        pack_state();
       }
     }
   })
