@@ -139,13 +139,4 @@ function attach_touch_option_control() {
 $(function() {
   detect_touch_device();
   attach_touch_option_control();
-  $('#graphical').on('scroll', function() {
-    $('.popover').hide();
-  })
-  $('#acquired').on('scroll', function() {
-    $('.popover').hide();
-  })
-  $('#planned').on('scroll', function() {
-    $('.popover').hide();
-  })
 })

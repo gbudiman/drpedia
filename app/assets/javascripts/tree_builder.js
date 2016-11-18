@@ -513,5 +513,15 @@ $(function() {
   }
 
   //$.mobile.loading().hide();
+
+  $('#graphical').on('scroll', function() {
+    $('.popover').hide();
+  })
+  $('#acquired').on('scroll', function() {
+    $('.popover').hide();
+  })
+  $('#planned').on('scroll', function() {
+    $('.popover').hide();
+  })
 });
 
