@@ -27,6 +27,7 @@ function unpack_state() {
     $.each(skill_list, function(i, x) {
       var target_object = $('[skill-name="' + x + '"]');
 
+      console.log('[' + x + '] => ' + target_object);
       if (target_object) {
         append_lexicographically(target_list_id, target_object);
       }
@@ -50,7 +51,7 @@ function unpack_state() {
     $('#profession-selector').val(professions).multiselect('refresh');
     recalculate();
     replan();
-    update_availability();
+    //update_availability();
 
     relocate('#planned-list', planned_skills);
     relocate('#acquired-list', acquired_skills);
