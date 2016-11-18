@@ -89,7 +89,7 @@ function attach_tappable_drop(id) {
 }
 
 function resize_graphical() {
-  var target_max_height = $(window).height() - $('#setup').height() - 32;
+  var target_max_height = $(window).height() - $('#setup').height();
   $('#graphical').css('max-height', target_max_height);
   $('#builder').css('max-height', target_max_height);
 }
