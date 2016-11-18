@@ -27,7 +27,6 @@ function unpack_state() {
     $.each(skill_list, function(i, x) {
       var target_object = $('[skill-name="' + x + '"]');
 
-      console.log('[' + x + '] => ' + target_object);
       if (target_object) {
         append_lexicographically(target_list_id, target_object);
       }
@@ -35,7 +34,6 @@ function unpack_state() {
   }
 
   var unpack = Cookies.get('drpedia');
-  console.log(unpack);
 
   if (unpack != undefined) {
     var p0 = unpack.split('|');
