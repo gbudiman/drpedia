@@ -7,6 +7,10 @@ var selected_professions;
 
 var last_popover_skill = '';
 
+var strains_loaded = false;
+var professions_loaded = false;
+var skill_cat_loaded = false;
+
 var generate_strains_select_box = function() {
   var s = $('<select></select>')
             .attr('id', 'strain-selector');
@@ -406,23 +410,38 @@ function disable_popover() {
   $('.popover').popover('hide');
 }
 
+function get_json_strain() {
+  return $.getJSON('/strains.json', function(strains_json_data) { 
+    strains = strains_json_data; 
+    generate_strains_select_box();
+    strains_loaded = true;
+  });
+}
+
+function get_json_profession() {
+  return $.getJSON('/professions.json', function(professions_json_data) { 
+    professions = professions_json_data; 
+    generate_professions_select_box(); 
+    professions_loaded = true;
+  });
+}
+
+function get_json_skill_cat() {
+  return  $.getJSON('/skill_cat.json', function(skill_cat_json_data) { 
+    skill_cat = skill_cat_json_data; 
+    generate_skill_cat(); 
+    skill_cat_loaded = true;
+  });
+}
+
 $(function() {
   $.ajaxSetup({cache: false});
 
-  $.getJSON('/strains.json', function(strains_json_data) { 
-    strains = strains_json_data; 
-    generate_strains_select_box();
-  });
-  
-  $.getJSON('/professions.json', function(professions_json_data) { 
-    professions = professions_json_data; 
-    generate_professions_select_box(); 
-  });
-
-  $.getJSON('/skill_cat.json', function(skill_cat_json_data) { 
-    skill_cat = skill_cat_json_data; 
-    generate_skill_cat(); 
-  });
+  if (!is_builder) {
+    get_json_strain();
+    get_json_profession();
+    get_json_skill_cat();
+  }
 
   $('#search-input').on('keyup', function(e) {
     var query = $(this).val().trim().toLowerCase();

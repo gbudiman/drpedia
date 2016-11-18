@@ -92,11 +92,13 @@ function generate_inverted_skills() {
 }
 
 $(function() {
-  $.getJSON('/skill_list.json', function(skill_list_json_data) { 
-    skill_list = skill_list_json_data;
-    generate_inverted_skills();
-    unpack_state();
-  });
 
+  $.when(get_json_strain(), get_json_profession(), get_json_skill_cat()).done(function() {
+    $.getJSON('/skill_list.json', function(skill_list_json_data) { 
+      skill_list = skill_list_json_data;
+      generate_inverted_skills();
+      unpack_state();
+    });
+  })
 
 });
