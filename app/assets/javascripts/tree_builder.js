@@ -114,7 +114,7 @@ var generate_skill_cat = function() {
 
   var col_classes = 'col-xs-12 col-sm-6 col-md-4 col-lg-3';
   if (is_builder) {
-    col_classes = 'col-xs-12 col-lg-6';
+    col_classes = 'col-xs-12 col-md-6 col-lg-4';
   }
 
   $.each(skills, function(index, skill_name) {
@@ -131,8 +131,8 @@ var generate_skill_cat = function() {
   $('div#graphical-list').append(s);
   $('.graphical-container')
     //.css('max-height', '90vh')
-    .css('margin-left', '-4px')
-    .css('margin-right', '0px');
+    // .css('margin-left', '-4px')
+    // .css('margin-right', '0px');
   recalculate();
   attach_anchor();
 
@@ -437,7 +437,7 @@ $(function() {
   update_availability();
 
   if (!is_builder) {
-    var target_max_height = $(window).height() - $('#setup').height() - 32;
+    var target_max_height = $(window).height() - $('#setup').height();
     $('#graphical').css('max-height', target_max_height);
   }
 

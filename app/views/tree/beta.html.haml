@@ -1,19 +1,19 @@
-%div{id: 'setup', class: 'col-xs-12 row'}
+%div{id: 'setup', class: 'row'}
   %div{id: 'setup-strain', class: 'col-xs-6 svcenter'}
   %div{id: 'setup-profession', class: 'col-xs-6 svcenter'}
   %div{id: 'setup-search', class: 'col-xs-12 svcenter'}
-    %div{class: 'col-xs-6 svcenter'}
+    %div{class: 'col-xs-6 svcenter svhalf'}
       %input{type: 'text', class: 'form-control col-xs-6', id: 'search-input', placeholder: 'Search skills...'}
-    %div{class: 'col-xs-6 svcenter'}
+    %div{class: 'col-xs-6 svcenter svhalf'}
       %label
         %input{type: 'checkbox', id: 'only-available-checkbox'} Available Only &nbsp;
         
       %input{type: 'checkbox', id: 'is-touch-device'} Enable Touch Input
 
 %div{class: 'row body-container'}
-  %div{id: 'graphical', class: 'graphical-container col-xs-6' }
+  %div{id: 'graphical', class: 'graphical-container col-xs-6 col-md-8 col-lg-9' }
     %div{id: 'graphical-list', class: 'list-group'}
-  %div{id: 'builder', class: 'builder-container col-xs-6'}
+  %div{id: 'builder', class: 'builder-container col-xs-6 col-md-4 col-lg-3'}
     %div{class: 'alert alert-success alert-dismissible', id: 'alert-desktop', hidden: true}
       %button{type: 'button', class: 'close'}
         %span &times;
@@ -94,7 +94,14 @@
     z-index: 1000;
     background-color: white;
     padding-right: 0px;
-    margin-left: -15px;
+    margin: 0px;
+  }
+
+  #search-input {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 8px;
+    padding-right: 8px;
   }
 
   #acquired, #planned {
@@ -113,15 +120,18 @@
 
     //overflow: visible;
     //padding-left: 16px;
-    padding-right: 6px;
+    padding-right: 0px;
     position: relative;
+    margin-left: 0px;
+    padding-right: 2px;
+    padding-left: 18px;
   }
 
   #builder {
     overflow-y: auto;
     position: relative;
-    padding-left: 0px;
-    padding-right: 16px;
+    padding-left: 2px;
+    padding-right: 18px;
   }
 
   .ui-draggable-dragging {
@@ -162,6 +172,9 @@
 
   .svcenter {
     padding: 0.2em;
+  }
+
+  .svhalf {
   }
 
   .svupdown {
