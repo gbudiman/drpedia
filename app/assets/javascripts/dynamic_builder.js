@@ -73,6 +73,8 @@ function attach_tappable_drop(id) {
     if ($(this).hasClass('drop-simulable')) {
       $('.drag-simulable').each(function() {
         append_lexicographically(list_id, $(this));
+        reset_popover($(this));
+        rebuild_popover($(this));
       })
 
       highlight_droppable_regions(false);
@@ -80,6 +82,8 @@ function attach_tappable_drop(id) {
       update_xp_count('#planned');
       update_xp_count('#acquired');
       generate_constraints();
+
+
     }
   })
 }

@@ -23,7 +23,7 @@ function attach_drag_functor(selement) {
 
   if (!is_desktop_site) {
     var sim_class = 'drag-simulable';
-    disable_drag('all');
+    //disable_drag('all');
 
     if (get_parent_object_of_clicked_object(selement).hasClass('drop-simulable')) {
       return;
@@ -136,13 +136,13 @@ function attach_drop_functor(_element_id) {
       reset_popover(dragged_object);
       rebuild_popover(dragged_object);
 
-      $('.skill-droppable')
-        .css('overflow-y', 'auto')
+      // $('.skill-droppable')
+      //   .css('overflow-y', 'auto')
         //.css('z-index', '');
 
       //$('#graphical').css('overflow', 'auto');
       disable_popover();
-      disable_drag(dragged_object);
+      //disable_drag(dragged_object);
     }
   })
 }
@@ -174,10 +174,11 @@ function append_lexicographically(list_id, dragged_object) {
 
 function disable_drag(selement) {
   if (selement == 'all') {
-    $('.draggable-visual').each(function() {
-      $(this).parent().draggable('disable');
-      $(this).remove();
-    })
+    $('.skill-draggable').draggable('disable');
+    // $('.draggable-visual').each(function() {
+    //   $(this).parent().draggable('disable');
+    //   $(this).remove();
+    // })
   } else {
     if (is_desktop_site) { return; }
     selement.draggable('disable');
