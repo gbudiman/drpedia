@@ -64,30 +64,6 @@ function is_valid_skill(skill_name) {
   return !$('[skill-name="' + skill_name + '"]').hasClass('faded');
 }
 
-function attach_tappable_drop(id) {
-  $('#' + id).on('click', function() {
-    var list_id = '#' + id + '-list';
-
-    if (is_desktop_site) { return; }
-
-    if ($(this).hasClass('drop-simulable')) {
-      $('.drag-simulable').each(function() {
-        append_lexicographically(list_id, $(this));
-        reset_popover($(this));
-        rebuild_popover($(this));
-      })
-
-      highlight_droppable_regions(false);
-      $('.drag-simulable').removeClass('drag-simulable');
-      update_xp_count('#planned');
-      update_xp_count('#acquired');
-      generate_constraints();
-
-
-    }
-  })
-}
-
 function resize_graphical() {
   var target_max_height = $(window).height() - $('#setup').height();
   $('#graphical').css('max-height', target_max_height);

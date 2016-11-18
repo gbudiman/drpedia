@@ -37,6 +37,7 @@ function attach_drag_functor(selement) {
       }
     }
 
+    update_selected_skills($('.drag-simulable').length);
     if ($('.drag-simulable').length > 0) {
       highlight_droppable_regions(true, get_parent_id_of_clicked_object(selement));
     } else {
@@ -67,6 +68,40 @@ function attach_drag_functor(selement) {
   selement.on('dragstop', function(event, ui) {
     $('.ui-draggable-dragging').css('width', $(this).css('width'));
     highlight_droppable_regions(false);
+  })
+}
+
+function update_selected_skills(x) {
+  $('#alert-mobile-selected').find('#alert-text').text(x + ' skills selected');
+
+  if (x > 0) {
+    $('#alert-mobile-selected').show();
+  } else {
+    $('#alert-mobile-selected').hide();
+  }
+}
+
+function attach_tappable_drop(id) {
+  $('#' + id).on('click', function() {
+    var list_id = '#' + id + '-list';
+
+    if (is_desktop_site) { return; }
+
+    if ($(this).hasClass('drop-simulable')) {
+      $('.drag-simulable').each(function() {
+        append_lexicographically(list_id, $(this));
+        reset_popover($(this));
+        rebuild_popover($(this));
+      })
+
+      highlight_droppable_regions(false);
+      $('.drag-simulable').removeClass('drag-simulable');
+      update_xp_count('#planned');
+      update_xp_count('#acquired');
+      generate_constraints();
+
+      update_selected_skills(0);
+    }
   })
 }
 
@@ -209,8 +244,15 @@ function attach_touch_option_control() {
       attach_drag_functor('all');
       $('.drag-simulable').removeClass('drag-simulable');
       highlight_droppable_regions(false);
+      update_selected_skills(0);
     }
   });
+}
+
+function clear_tapped_selections() {
+  $('.drag-simulable').removeClass('drag-simulable');
+  highlight_droppable_regions(false);
+  update_selected_skills(0);
 }
 
 function toggle_input_control_alert() {
@@ -230,5 +272,9 @@ $(function() {
 
   $('.alert-dismissible .close').on('click', function() {
     $(this).parent().hide();
+  })
+
+  $('#alert-mobile-selection-clear').on('click', function() {
+    clear_tapped_selections();
   })
 })
