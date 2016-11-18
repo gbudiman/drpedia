@@ -141,6 +141,36 @@ var generate_skill_cat = function() {
   }
 };
 
+function rebuild_popover(obj) {
+  var target_element = obj;
+  var skill_name = obj.find('span.skill-label').text();
+  var min_cost = parseInt(obj.find('span.badge').text());
+  var top_id = target_element.parent().parent().attr('id');
+
+  // target_element
+  //   .attr('data-placement', 'auto')
+  //   .attr('data-trigger', 'manual')
+  //   .attr('data-html', true)
+  //   .attr('data-container', 'body')
+  //   .attr('data-viewport', '#' + top_id)
+  //   .attr('data-content', pull_skill_cat_data(skill_name, min_cost));
+
+  target_element.popover('destroy');
+
+  target_element.popover({
+    placement: 'auto',
+    trigger: 'manual',
+    html: 'true',
+    container: 'body',
+    viewport: '#' + top_id,
+    content: pull_skill_cat_data(skill_name, min_cost)
+  });
+}
+
+function reset_popover(obj) {
+  obj.removeAttr('popover-applied');
+}
+
 function attach_anchor() {
   var target_element;
   $('li.clickable-skill').on('click', function() {
@@ -152,85 +182,97 @@ function attach_anchor() {
       return;
     }
 
-    var is_popped_over = $('.popover').hasClass('in');
+    // var is_popped_over = $('.popover').hasClass('in');
     disable_popover();
+    
+    var has_been_configured = $(this).attr('popover-applied') != undefined;
+    var is_open = $(this).attr('aria-describedby') != undefined;
 
-    target_element = $(this).find('span.skill-label');
+    console.log('is_open: ' + is_open + ' | hbc: ' + has_been_configured);
+    if (!is_open) {
+      if (!has_been_configured) {
+        rebuild_popover($(this));
+        $(this).attr('popover-applied', true);
+      }
+      $(this).popover('show');
+    }
+
+
+    target_element = $(this);//.find('span.skill-label');
     //target_element = $(this).find('span.pseudo-point');
     var skill_name = $(this).find('span.skill-label').text();
     var min_cost = parseInt($(this).find('span.badge').text());
-    //var containing_element = target_element.parent().parent().parent();
-
-    var y_position = $(this).position().top;
-    var window_height = $(window).height();
-    var data_placement = 'right';
-
-    if (y_position < 100) {
-      data_placement = 'bottom';
-    } else if (y_position > window_height - 200) {
-      data_placement = 'top';
-    }
-
-    var text_content = target_element.html();
-    if (data_placement != 'right') {
-      if (target_element.width() < 100) {
-        var diff = (100 - target_element.width()) / 2;
-
-        for (i = 0; i < diff; i++) {
-          text_content += '&nbsp;'
-        }
-
-        target_element.html(text_content);
-      }
-    } else {
-      text_content = text_content.replace(/\&nbsp\;/g, '');
-      target_element.html(text_content);
-    }
+    var top_id = target_element.parent().parent().attr('id');
     //console.log(top_id);
-    if (target_element.attr('popover-applied') != 'true') {
-      target_element
-        .attr('popover-applied', true)
-        .attr('data-trigger', 'click')
-        .attr('data-html', true)
-        //.attr('data-container', 'body')
-        //.attr('data-viewport', '#' + top_id)
-    }
+
+
+    // var y_position = $(this).position().top;
+    // var window_height = $(window).height();
+    // var data_placement = 'right';
+
+    // if (y_position < 100) {
+    //   data_placement = 'bottom';
+    // } else if (y_position > window_height - 200) {
+    //   data_placement = 'top';
+    // }
+
+    //var text_content = target_element.html();
+    // if (data_placement != 'right') {
+    //   if (target_element.width() < 100) {
+    //     var diff = (100 - target_element.width()) / 2;
+
+    //     for (i = 0; i < diff; i++) {
+    //       text_content += '&nbsp;'
+    //     }
+
+    //     target_element.html(text_content);
+    //   }
+    // } else {
+    //   text_content = text_content.replace(/\&nbsp\;/g, '');
+    //   target_element.html(text_content);
+    // }
+    //console.log(top_id);
+    
     
     //target_element.attr('data-placement', data_placement)
-    target_element.attr('data-content', pull_skill_cat_data(skill_name, min_cost));
-  
-
-    skill_name = skill_name.trim();
-    var is_reclick = last_popover_skill.localeCompare(skill_name) == 0;
     
-    if (is_popped_over && is_reclick) {
-      target_element.popover('hide');
-      //target_element.popover('destroy');
-      last_popover_skill = '';
-    } else {
-      // target_element.popover('destroy');
+  
+    // skill_name = skill_name.trim();
+    // // var is_reclick = last_popover_skill.localeCompare(skill_name) == 0;
+    // $('.popover').off('click').on('click', function() {
+    //   console.log('clicked');
+    //   $('.popover').hide();
+    // })
+    // target_element.popover('show');
+    
+    // if (is_popped_over && is_reclick) {
+    //   target_element.popover('hide');
+    //   //target_element.popover('destroy');
+    //   last_popover_skill = '';
+    // } else {
+    //   // target_element.popover('destroy');
 
-      // console.log('recreating');
+    //   // console.log('recreating');
       
 
-      // console.log(target_element);
-      // // target_element
-      // //   .attr('popover-applied', true)
-      // //   .attr('data-trigger', 'click')
-      // //   .attr('data-html', true)
-      // //   .attr('data-content', pull_skill_cat_data(skill_name, min_cost));
-      // target_element.popover({
-      //   placement: data_placement
-      // });
-      // try {
+    //   // console.log(target_element);
+    //   // // target_element
+    //   // //   .attr('popover-applied', true)
+    //   // //   .attr('data-trigger', 'click')
+    //   // //   .attr('data-html', true)
+    //   // //   .attr('data-content', pull_skill_cat_data(skill_name, min_cost));
+    //   // target_element.popover({
+    //   //   placement: data_placement
+    //   // });
+    //   // try {
         
-      // } catch(err) {
-      //   console.log(err);
-      // }
+    //   // } catch(err) {
+    //   //   console.log(err);
+    //   // }
 
-      target_element.popover('show');
-      last_popover_skill = skill_name;
-    }
+    //   target_element.popover('show');
+    //   last_popover_skill = skill_name;
+    // }
 
     // $('.popover').off('click').on('click', function() {
     //   $(this).hide();

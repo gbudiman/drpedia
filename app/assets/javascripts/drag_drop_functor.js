@@ -84,6 +84,9 @@ function attach_drop_functor(_element_id) {
       dragged_object
         .css('width', '');
 
+      reset_popover(dragged_object);
+      rebuild_popover(dragged_object);
+
       $('.skill-droppable')
         .css('overflow-y', 'auto')
         //.css('z-index', '');
@@ -96,8 +99,6 @@ function attach_drop_functor(_element_id) {
 }
 
 function disable_drag(selement) {
-  
-  
   if (selement == 'all') {
     $('.draggable-visual').each(function() {
       $(this).parent().draggable('disable');
@@ -138,4 +139,13 @@ function attach_touch_option_control() {
 $(function() {
   detect_touch_device();
   attach_touch_option_control();
+  $('#graphical').on('scroll', function() {
+    $('.popover').hide();
+  })
+  $('#acquired').on('scroll', function() {
+    $('.popover').hide();
+  })
+  $('#planned').on('scroll', function() {
+    $('.popover').hide();
+  })
 })
