@@ -33,7 +33,7 @@ function check_psion_constraints(target_id) {
   var l1 = $(target_id).find('[psion-index="I"]').length;
   var l2 = $(target_id).find('[psion-index="II"]').length;
   var l3 = $(target_id).find('[psion-index="III"]').length;
-  console.log(l1 + ', ' + l2 + ', ' + l3);
+  //console.log(l1 + ', ' + l2 + ', ' + l3);
   switch(target_id) {
     case "#acquired": friendly_name = "Acquired Skills"; break;
     case "#planned": friendly_name = "Planned Skills"; break;
@@ -47,7 +47,7 @@ function check_psion_constraints(target_id) {
     errors.push('In ' + friendly_name + ' there are more Advanced Psionic skills than twice the number of Intermediate Psionic skills');
   }
 
-  console.log(errors);
+  //console.log(errors);
   return errors;
 }
 

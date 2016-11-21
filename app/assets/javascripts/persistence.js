@@ -10,11 +10,27 @@ function pack_state() {
   var es = extract_skills();
 
   pack += es.acquired.join(',') + '|' + es.planned.join(',');
-  console.log(pack);
   Cookies.set('drpedia', pack);
 }
 
 function unpack_state() {
+  var decrypt_psionic_skills = function(a) {
+    var prefix = '';
+    $.each(skill_groups, function(group_name, skills) {
+      if (skills[a] != undefined) {
+        switch (group_name) {
+          case 'Psionic Skill - Basic': prefix = 'Psi I - '; break;
+          case 'Psionic Skill - Intermediate': prefix = 'Psi II - '; break;
+          case 'Psionic Skill - Advanced': prefix = 'Psi III - '; break;
+        }
+
+        return false;
+      }
+    });
+
+    return prefix + a;
+  }
+
   var decrypt_skills = function(a) {
     var output = new Array();
     $.each(a, function(i, x) {
@@ -23,13 +39,15 @@ function unpack_state() {
         output.push(lookup);
       }
     })
-
     return output;
   }
 
   var relocate = function(target_list_id, skill_list) {
     $.each(skill_list, function(i, x) {
       var target_object = $('[skill-name="' + x + '"]');
+      if (target_object.length == 0) {
+        target_object = $('[skill-name="' + decrypt_psionic_skills(x) + '"]');
+      }
 
       if (target_object) {
         append_lexicographically(target_list_id, target_object);
@@ -60,6 +78,7 @@ function unpack_state() {
 
     relocate('#planned-list', planned_skills);
     relocate('#acquired-list', acquired_skills);
+    pack_state();
     update_xp_count('#planned');
     update_xp_count('#acquired');
     generate_constraints();
@@ -70,11 +89,18 @@ function unpack_state() {
 }
 
 function extract_skills() {
+  var psion_regex = /^Psi [I]+ - /;
+
   var extract_skills_from_region = function(id) {
     var s = new Array();
     $(id + ' .skill-draggable').each(function() {
       if ($(this).hasClass('faded')) { return true; }
-      s.push(skill_list[$(this).attr('skill-name')]);
+      var skill_name = $(this).attr('skill-name');
+
+      if (skill_name.match(psion_regex)) {
+        skill_name = skill_name.replace(psion_regex, '');
+      }
+      s.push(skill_list[skill_name]);
     })
 
     return s;

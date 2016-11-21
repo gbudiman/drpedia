@@ -188,7 +188,7 @@ var generate_skill_cat = function() {
 
   $('div#graphical-list').append(s);
   $.each(group_header_to_remove, function(i, x) {
-    console.log('removing ' + x);
+    //console.log('removing ' + x);
     $('[skill-name="' + x + '"]').remove();
   })
 
@@ -218,7 +218,8 @@ function generate_skill_group() {
   return skills;
 }
 
-function rebuild_popover(obj, rebuild = true) {
+function rebuild_popover(obj, _rebuild) {
+  var rebuild = _rebuild == undefined ? true : false;
   var target_element = obj;
   var skill_name = obj.find('span.skill-label').text();
   var min_cost = parseInt(obj.find('span.badge').text());
