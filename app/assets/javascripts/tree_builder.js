@@ -1,15 +1,12 @@
 var strains;
 var professions;
 var skill_cat;
+var strain_restrictions;
 
 var selected_strain;
 var selected_professions;
 
 var last_popover_skill = '';
-
-var strains_loaded = false;
-var professions_loaded = false;
-var skill_cat_loaded = false;
 
 var generate_strains_select_box = function() {
   var s = $('<select></select>')
@@ -32,6 +29,7 @@ var generate_strains_select_box = function() {
     maxHeight: 512,
     onChange: function(option, checked) {
       selected_strain = option.text();
+      apply_strain_restrictions();
       recalculate();
 
       if (is_builder) {
@@ -41,6 +39,26 @@ var generate_strains_select_box = function() {
     }
   });
 };
+
+function apply_strain_restrictions() {
+  var constraints = strain_restrictions[selected_strain];
+  if (constraints != undefined) {
+    $.each(constraints, function(x, _junk) {
+      $('#profession-selector')
+        .find('[profession="' + x + '"]')
+          .prop('disabled', true)
+          .attr('disabled-by-constraint', true);
+      $('#profession-selector').multiselect('deselect', x, true);
+    })
+    $('#profession-selector').multiselect('refresh');
+  } else {
+    $('#profession-selector').find('[disabled-by-constraint]').each(function() {
+      $(this).prop('disabled', false);
+    });
+
+    $('#profession-selector').multiselect('refresh');
+  }
+}
 
 var generate_professions_select_box = function() {
   var s = $('<select><select>')
@@ -414,7 +432,6 @@ function get_json_strain() {
   return $.getJSON('/strains.json', function(strains_json_data) { 
     strains = strains_json_data; 
     generate_strains_select_box();
-    strains_loaded = true;
   });
 }
 
@@ -422,15 +439,19 @@ function get_json_profession() {
   return $.getJSON('/professions.json', function(professions_json_data) { 
     professions = professions_json_data; 
     generate_professions_select_box(); 
-    professions_loaded = true;
   });
 }
 
 function get_json_skill_cat() {
-  return  $.getJSON('/skill_cat.json', function(skill_cat_json_data) { 
+  return $.getJSON('/skill_cat.json', function(skill_cat_json_data) { 
     skill_cat = skill_cat_json_data; 
     generate_skill_cat(); 
-    skill_cat_loaded = true;
+  });
+}
+
+function get_json_strain_restriction() {
+  return $.getJSON('/strain_restriction.json', function(strain_restriction_json_data) {
+    strain_restrictions = strain_restriction_json_data;
   });
 }
 
@@ -441,6 +462,7 @@ $(function() {
     get_json_strain();
     get_json_profession();
     get_json_skill_cat();
+    get_json_strain_restriction();
   }
 
   $('#search-input').on('keyup', function(e) {
