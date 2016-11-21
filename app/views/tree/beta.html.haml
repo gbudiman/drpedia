@@ -27,9 +27,34 @@
 
     %div{id: 'error-log', class: 'col-xs-12 svupdown text-danger'}
 
-    %div
-      Profession Cost
-      %span{class: 'badge', id: 'profession-xp'} 0
+    %div{class: 'row sstats'}
+      %div{class: 'col-xs-4'} HP
+      %div{class: 'col-xs-8'} 
+        %span{id: 'hp-base'} 2 
+        +
+        %button{type: 'button', class: 'btn btn-default btn-xs', id: 'hp-sub', 'data-target' => 'hp-addition', 'data-pair' => 'hp-add', 'data-total' => 'hp-total' } <
+        %span{class: 'badge', id: 'hp-addition'} 0 
+        %button{type: 'button', class: 'btn btn-default btn-xs', id: 'hp-add', 'data-target' => 'hp-addition', 'data-pair' => 'hp-sub', 'data-total' => 'hp-total' } >
+        \=
+        %span{id: 'hp-total', 'data-base' => 'hp-base', 'data-addition' => 'hp-addition'} 2
+    %div{class: 'row sstats'}
+      %div{class: 'col-xs-4'} MP
+      %div{class: 'col-xs-8'} 
+        %span{id: 'mp-base'} 2 
+        +
+        %button{type: 'button', class: 'btn btn-default btn-xs', id: 'mp-sub', 'data-target' => 'mp-addition', 'data-pair' => 'mp-add', 'data-total' => 'mp-total' } <
+        %span{class: 'badge', id: 'mp-addition'} 0 
+        %button{type: 'button', class: 'btn btn-default btn-xs', id: 'mp-add', 'data-target' => 'mp-addition', 'data-pair' => 'mp-sub', 'data-total' => 'mp-total' } >
+        \=
+        %span{id: 'mp-total', 'data-base' => 'mp-base', 'data-addition' => 'mp-addition'} 2
+    %div{class: 'row sstats'}
+      %div{class: 'col-xs-4'} Infection
+      %div{class: 'col-xs-8'} 
+        10
+    %div{class: 'row sstats'}
+      %div{class: 'col-xs-4'} Profession Cost
+      %div{class: 'col-xs-8'} 
+        %span{class: 'badge', id: 'profession-xp'} 0
     %hr{class: 'tight'}
     %div{class: 'builder-header'}
       Acquired skills
@@ -49,6 +74,7 @@
 :javascript
   var is_builder = true;
 
+= javascript_include_tag 'stats'
 = javascript_include_tag 'drag_drop_functor'
 = javascript_include_tag 'tree_builder'
 = javascript_include_tag 'persistence'
@@ -159,6 +185,10 @@
   .skill-droppable {
     padding-left: 0px;
     padding-right: 0px;
+  }
+
+  .sstats {
+    padding-bottom: 0.25em;
   }
 
   .affix {

@@ -6,11 +6,15 @@ function clear_cookies() {
 }
 
 function pack_state() {
-  var pack = (selected_strain || '') + '|' + (selected_professions || new Array()).join(',') + '|';
+  var pack = $('#hp-addition').text() + '|'
+           + $('#mp-addition').text() + '|' 
+           + (selected_strain || '') + '|' 
+           + (selected_professions || new Array()).join(',') + '|';
   var es = extract_skills();
 
   pack += es.acquired.join(',') + '|' + es.planned.join(',');
   Cookies.set('drpedia', pack);
+  console.log(pack);
 }
 
 function unpack_state() {
@@ -56,14 +60,21 @@ function unpack_state() {
   }
 
   var unpack = Cookies.get('drpedia');
+  console.log('Unpack: ' + unpack);
 
   if (unpack != undefined) {
     var p0 = unpack.split('|');
-    var strain = p0[0];
+    var hp = parseInt(p0[0]);
+    var mp = parseInt(p0[1]);
+    var strain = p0[2];
 
-    var professions = p0[1].split(',');
-    var acquired_skills = decrypt_skills(p0[2].split(','));
-    var planned_skills = decrypt_skills(p0[3].split(','));
+    set_stat_build($('#hp-addition'), 'hp-total', hp);
+    set_stat_build($('#mp-addition'), 'mp-total', mp);
+    initialize_stats_controller('#hp-sub');
+    initialize_stats_controller('#mp-sub');
+    var professions = p0[3].split(',');
+    var acquired_skills = decrypt_skills(p0[4].split(','));
+    var planned_skills = decrypt_skills(p0[5].split(','));
 
     selected_strain = strain;
     selected_professions = professions;
