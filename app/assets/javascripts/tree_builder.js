@@ -113,6 +113,7 @@ var generate_professions_select_box = function() {
         });
       }
 
+      $('#profession-xp').text((selected_options.length - 1) * 10);
       selected_professions = new Array();
       selected_options.each(function() {
         selected_professions.push($(this).text());

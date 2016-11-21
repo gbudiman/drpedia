@@ -27,6 +27,10 @@
 
     %div{id: 'error-log', class: 'col-xs-12 svupdown text-danger'}
 
+    %div
+      Profession Cost
+      %span{class: 'badge', id: 'profession-xp'} 0
+    %hr{class: 'tight'}
     %div{class: 'builder-header'}
       Acquired skills
       %span{class: 'badge', id: 'acquired-xp'} 0
@@ -62,6 +66,10 @@
     margin-bottom: 0px;
   }
 
+  hr.tight {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+  }
   .btn {
     font-size: 12px;
   }

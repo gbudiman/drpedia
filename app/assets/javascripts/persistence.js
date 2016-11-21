@@ -50,7 +50,10 @@ function unpack_state() {
     selected_strain = strain;
     selected_professions = professions;
     $('#strain-selector').val(strain).multiselect('refresh');
-    $('#profession-selector').val(professions).multiselect('refresh');
+    $.each(professions, function(i, x) {
+      $('#profession-selector').multiselect('select', x, true);
+    })
+    //$('#profession-selector').val(professions).multiselect('refresh');
     recalculate();
     replan();
     //update_availability();
