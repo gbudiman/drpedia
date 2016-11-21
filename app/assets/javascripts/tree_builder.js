@@ -165,7 +165,7 @@ var generate_skill_cat = function() {
   }
 };
 
-function rebuild_popover(obj) {
+function rebuild_popover(obj, rebuild = true) {
   var target_element = obj;
   var skill_name = obj.find('span.skill-label').text();
   var min_cost = parseInt(obj.find('span.badge').text());
@@ -179,16 +179,22 @@ function rebuild_popover(obj) {
   //   .attr('data-viewport', '#' + top_id)
   //   .attr('data-content', pull_skill_cat_data(skill_name, min_cost));
 
-  target_element.popover('destroy');
+  if (rebuild) {
+    target_element.popover('destroy');
 
-  target_element.popover({
-    placement: 'auto',
-    trigger: 'manual',
-    html: 'true',
-    container: 'body',
-    viewport: '#' + top_id,
-    content: pull_skill_cat_data(skill_name, min_cost)
-  });
+    target_element.popover({
+      placement: 'auto',
+      trigger: 'manual',
+      html: 'true',
+      container: 'body',
+      viewport: '#' + top_id,
+      content: pull_skill_cat_data(skill_name, min_cost)
+    });
+  } else {
+    return pull_skill_cat_data(skill_name, min_cost);
+  }
+
+  return true;
 }
 
 function reset_popover(obj) {
@@ -211,12 +217,17 @@ function attach_anchor() {
     var has_been_configured = $(this).attr('popover-applied') != undefined;
     var is_open = $(this).attr('aria-describedby') != undefined;
 
+    //console.log('is_open = ' + is_open + ' | hbc = ' + has_been_configured);
     if (!is_open) {
       if (!has_been_configured) {
         rebuild_popover($(this));
         $(this).attr('popover-applied', true);
+        $(this).popover('show');
+      } else {
+        $(this).popover('show');
+        $('.popover-content').html(rebuild_popover($(this), false));
       }
-      $(this).popover('show');
+      
     }
 
 
@@ -229,6 +240,7 @@ function attach_anchor() {
 }
 
 function pull_skill_cat_data(skill, min_cost) {
+  console.log('triggered');
   var data = skill_cat[skill];
   var by_strain = new Object();
   var strain_preq = null;

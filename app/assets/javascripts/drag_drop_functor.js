@@ -207,6 +207,44 @@ function append_lexicographically(list_id, dragged_object) {
   if (!appended) {
     $(list_id).append(dragged_object);
   }
+
+  if (list_id == '#graphical-list') {
+    // var class_collection = dragged_object.attr('buffered-class');
+    // dragged_object.className = class_collection;
+    unbuffer_bst_col_descriptor(dragged_object);
+  } else {
+    buffer_bst_col_descriptor(dragged_object);
+    // var class_collection = dragged_object.attr('class').split(' ');
+    // dragged_object.attr('buffered-class', class_collection.join(' '));
+
+    // console.log('to one');
+    // dragged_object.className = 'col-xs-12';
+  }
+}
+
+function buffer_bst_col_descriptor(obj) {
+  if (obj.attr('buffered-class') != undefined) { return; }
+  var class_collection = obj.attr('class').split(' ');
+  var buffered_collection = new Array();
+  var regex_matcher = /col-/;
+  $.each(class_collection, function(i, x) {
+    if (x.match(regex_matcher)) {
+      buffered_collection.push(x);
+      obj.removeClass(x);
+    }
+  });
+
+  obj.attr('buffered-class', buffered_collection.join(' '));
+}
+
+function unbuffer_bst_col_descriptor(obj) {
+  var class_collection = obj.attr('buffered-class').split(' ');
+  console.log(class_collection);
+  $.each(class_collection, function(i, x) {
+    obj.addClass(x);
+  });
+
+  obj.removeAttr('buffered-class');
 }
 
 function disable_drag(selement) {

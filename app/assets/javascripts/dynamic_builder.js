@@ -29,34 +29,42 @@ function replan_list(target_id) {
 
     if (that.hasClass('faded')) {
       append_lexicographically('#graphical-list', that);
+      that.removeAttr('popover-applied');
 
-      var cloned = that.clone(true, true);
+      // var cloned = that.clone();
+      // cloned.removeAttr('popover-applied');
+      // //rebuild_popover(cloned);
+      // cloned.addClass('invalid');
+      // cloned.find('.skill-label')
+      //         .addClass('text-danger')
+      //         .css('text-decoration', 'line-through');
 
-      cloned.addClass('invalid');
-      cloned.find('.skill-label')
-              .addClass('text-danger')
-              .css('text-decoration', 'line-through');
-
-      if (cloned.find('.removable').length == 0) {
-        cloned.append('<span class="removable pull-right">Remove</span>');
-        cloned.find('.removable').on('click', function() {
-          $(this).parent().remove();
-        })
-      }
-      cloned.popover();
-      append_lexicographically(target_id, cloned);
+      // if (cloned.find('.removable').length == 0) {
+      //   cloned.append('<span class="removable pull-right">Remove</span>');
+      //   cloned.find('.removable').on('click', function() {
+      //     $(this).parent().remove();
+      //   })
+      // }
+      // cloned.popover();
+      // append_lexicographically(target_id, cloned);
     }
 
-    if (that.hasClass('invalid')) {
-      if (is_valid_skill(skill_label)) {
-        that.find('.skill-label')
-              .removeClass('text-danger')
-              .css('text-decoration', 'none')
-              .addClass('faded');
-        $('#graphical-list').find('[skill-name="' + skill_label + '"]').remove();
-        that.find('.removable').remove();
-      }
-    }
+    // if (that.hasClass('invalid')) {
+    //   if (is_valid_skill(skill_label)) {
+    //     // that.find('.skill-label')
+    //     //       .removeClass('text-danger')
+    //     //       .css('text-decoration', 'none')
+    //     //       .addClass('faded');
+    //     // $('#graphical-list').find('[skill-name="' + skill_label + '"]').remove();
+    //     // that.find('.removable').remove();
+    //     // that.removeAttr('popover-applied');
+
+    //     that.remove();
+    //     var s = $('#graphical-list').find('[skill-name="' + skill_label + '"]');
+    //     s.removeAttr('popover-applied');
+    //     append_lexicographically(target_id, s);
+    //   }
+    // }
   })
 }
 
