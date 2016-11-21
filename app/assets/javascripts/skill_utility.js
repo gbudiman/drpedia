@@ -1,6 +1,9 @@
 function generate_constraints() {
   var skills = get_skills_in_builder();
-  check_constraints(skills);
+  var errors = new Array();
+  errors = errors.concat(check_psion_constraints('#acquired'));
+  errors = errors.concat(check_psion_constraints('#planned'));
+  check_constraints(skills, errors);
 }
 
 function get_skills_in_builder() {
@@ -24,10 +27,31 @@ function get_skills_in_builder_section(id) {
   return skill_list;
 }
 
-function check_constraints(skills) {
+function check_psion_constraints(target_id) {
+  var friendly_name;
   var errors = new Array();
-  
+  var l1 = $(target_id).find('[psion-index="I"]').length;
+  var l2 = $(target_id).find('[psion-index="II"]').length;
+  var l3 = $(target_id).find('[psion-index="III"]').length;
+  console.log(l1 + ', ' + l2 + ', ' + l3);
+  switch(target_id) {
+    case "#acquired": friendly_name = "Acquired Skills"; break;
+    case "#planned": friendly_name = "Planned Skills"; break;
+  }
 
+  if (l2 > Math.floor(l1 / 2)) {
+    errors.push('In ' + friendly_name + ' there are more Intermediate Psionic skills than twice the number of Basic Psionic skills');
+  }
+
+  if (l3 > Math.floor(l2 / 2)) {
+    errors.push('In ' + friendly_name + ' there are more Advanced Psionic skills than twice the number of Intermediate Psionic skills');
+  }
+
+  console.log(errors);
+  return errors;
+}
+
+function check_constraints(skills, errors) {
   $.each(skills, function(i, skill) {
     var s_error = check_prerequisite(skills, skill);
     errors = errors.concat(s_error);

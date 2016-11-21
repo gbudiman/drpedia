@@ -2,6 +2,7 @@ var strains;
 var professions;
 var skill_cat;
 var strain_restrictions;
+var skill_groups;
 
 var selected_strain;
 var selected_professions;
@@ -127,36 +128,69 @@ var generate_professions_select_box = function() {
   })
 };
 
+function assign_col_descriptor_classes() {
+  if (is_builder) {
+    return 'col-xs-12 col-md-6 col-lg-4';
+  } 
+
+  return 'col-xs-12 col-sm-6 col-md-4 col-lg-3';
+}
+
 var generate_skill_cat = function() {
   var skills = Object.keys(skill_cat);
-  skills.sort();
+  var grouped_skills = generate_skill_group();
+  var group_header_to_remove = Object.keys(skill_groups);
+  
+  var psion_regex = /^Psi ([I]+)/;
+
+  $.each(grouped_skills, function(x, source_group) {
+    if (skill_cat[x] == undefined) {
+      
+      skill_cat[x] = skill_cat[source_group];
+      skills.push(x);
+    }
+  })
+
+  var list_maker = function(col_classes, skill_name) {
+    var psion_index;
+    if (skill_name.match(psion_regex)) {
+      var match = psion_regex.exec(skill_name);
+      psion_index = match[1];
+    }
+    
+    var s = $('<li></li>')
+      .addClass('list-group-item skill-draggable faded clickable-skill ' + col_classes)
+      .attr('skill-name', skill_name)
+      .append('<span class="skill-label">' + skill_name + '</span>')
+      .append('<span class="pull-right badge"></span>');
+
+    if (psion_index != undefined) {
+      s.attr('psion-index', psion_index);
+    }
+
+    return s;
+  }
 
   // var s = $('<ul></ul>')
   //           .addClass('list-group')
   //           .attr('id', 'graphical-list');
   var s = $('#graphical-list');
 
-  var col_classes = 'col-xs-12 col-sm-6 col-md-4 col-lg-3';
-  if (is_builder) {
-    col_classes = 'col-xs-12 col-md-6 col-lg-4';
-  }
+  var col_classes = assign_col_descriptor_classes();
 
-  $.each(skills, function(index, skill_name) {
-    var t = $('<li></li>')
-              .addClass('list-group-item skill-draggable faded clickable-skill ' + col_classes)
-              .attr('skill-name', skill_name)
-              .append('<span class="skill-label">' + skill_name + '</span>')
-              .append('<span class="pull-right badge"></span>');
+  $.each(skills.sort(), function(index, skill_name) {
+    var t = list_maker(col_classes, skill_name);
               //.append('<span class="pull-right pseudo-point">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>');
 
     s.append(t);
   })
 
   $('div#graphical-list').append(s);
-  $('.graphical-container')
-    //.css('max-height', '90vh')
-    // .css('margin-left', '-4px')
-    // .css('margin-right', '0px');
+  $.each(group_header_to_remove, function(i, x) {
+    console.log('removing ' + x);
+    $('[skill-name="' + x + '"]').remove();
+  })
+
   recalculate();
   attach_anchor();
 
@@ -164,6 +198,24 @@ var generate_skill_cat = function() {
     attach_drag_functor('all');
   }
 };
+
+function generate_skill_group() {
+  var skills = new Object();
+  $.each(skill_groups, function(group_name, members) {
+    var prefix = '';
+    switch(group_name) {
+      case 'Psionic Skill - Basic': prefix = 'Psi I - '; break;
+      case 'Psionic Skill - Intermediate': prefix = 'Psi II - '; break;
+      case 'Psionic Skill - Advanced': prefix = 'Psi III - '; break;
+    }
+
+    $.each(members, function(member, _junk) {
+      skills[prefix + member] = group_name;
+    })
+  });
+
+  return skills;
+}
 
 function rebuild_popover(obj, rebuild = true) {
   var target_element = obj;
@@ -240,7 +292,6 @@ function attach_anchor() {
 }
 
 function pull_skill_cat_data(skill, min_cost) {
-  console.log('triggered');
   var data = skill_cat[skill];
   var by_strain = new Object();
   var strain_preq = null;
@@ -457,13 +508,27 @@ function get_json_profession() {
 function get_json_skill_cat() {
   return $.getJSON('/skill_cat.json', function(skill_cat_json_data) { 
     skill_cat = skill_cat_json_data; 
-    generate_skill_cat(); 
+    $.getJSON('/skill_group.json', function(skill_group_json_data) {
+      skill_groups = skill_group_json_data;
+      generate_skill_cat(); 
+    })
+    
+    
   });
 }
 
 function get_json_strain_restriction() {
   return $.getJSON('/strain_restriction.json', function(strain_restriction_json_data) {
     strain_restrictions = strain_restriction_json_data;
+  });
+}
+
+
+function get_json_skill_list() {
+  return $.getJSON('/skill_list.json', function(skill_list_json_data) { 
+    skill_list = skill_list_json_data;
+    generate_inverted_skills();
+    unpack_state();
   });
 }
 

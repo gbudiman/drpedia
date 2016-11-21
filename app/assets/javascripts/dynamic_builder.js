@@ -80,7 +80,7 @@ function resize_graphical() {
 
 $(function() {
   $(window).resize(resize_graphical);
-  resize_graphical();
+  //resize_graphical();
 
   attach_drop_functor('acquired');
   attach_drop_functor('planned');

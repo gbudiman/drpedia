@@ -1,6 +1,10 @@
 var skill_list;
 var skill_list_inverted;
 
+function clear_cookies() {
+  Cookies.remove('drpedia');
+}
+
 function pack_state() {
   var pack = (selected_strain || '') + '|' + (selected_professions || new Array()).join(',') + '|';
   var es = extract_skills();
@@ -90,16 +94,17 @@ function generate_inverted_skills() {
 }
 
 $(function() {
-
-  $.when(get_json_strain(), 
-         get_json_profession(), 
-         get_json_skill_cat(),
-         get_json_strain_restriction()).done(function() {
-    $.getJSON('/skill_list.json', function(skill_list_json_data) { 
-      skill_list = skill_list_json_data;
-      generate_inverted_skills();
-      unpack_state();
-    });
+  $.when(get_json_strain(), get_json_profession(), get_json_skill_cat()).done(function() {
+    $.when(get_json_strain_restriction()).done(function() {
+      get_json_skill_list();
+      resize_graphical();
+    })
   })
+  // $.when(get_json_strain(), 
+  //        get_json_profession(), 
+  //        get_json_skill_cat(),
+  //        get_json_strain_restriction()).done(function() {
+  //   
+  // })
 
 });

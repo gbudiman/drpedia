@@ -209,16 +209,9 @@ function append_lexicographically(list_id, dragged_object) {
   }
 
   if (list_id == '#graphical-list') {
-    // var class_collection = dragged_object.attr('buffered-class');
-    // dragged_object.className = class_collection;
     unbuffer_bst_col_descriptor(dragged_object);
   } else {
     buffer_bst_col_descriptor(dragged_object);
-    // var class_collection = dragged_object.attr('class').split(' ');
-    // dragged_object.attr('buffered-class', class_collection.join(' '));
-
-    // console.log('to one');
-    // dragged_object.className = 'col-xs-12';
   }
 }
 
@@ -239,7 +232,6 @@ function buffer_bst_col_descriptor(obj) {
 
 function unbuffer_bst_col_descriptor(obj) {
   var class_collection = obj.attr('buffered-class').split(' ');
-  console.log(class_collection);
   $.each(class_collection, function(i, x) {
     obj.addClass(x);
   });
