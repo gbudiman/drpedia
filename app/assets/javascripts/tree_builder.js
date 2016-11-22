@@ -325,6 +325,7 @@ function attach_anchor() {
 function pull_skill_cat_data(skill, min_cost) {
   var data = skill_cat[skill];
   var by_strain = new Object();
+  var by_strain_disadvantage = new Object();
   var strain_preq = null;
   var by_open = new Array();
   var by_profession = new Object();
@@ -343,10 +344,57 @@ function pull_skill_cat_data(skill, min_cost) {
       case "innate_preq":
         strain_preq = class_data;
         break;
+      case "innate_disadvantage":
+        $.each(class_data, function(index, innate_disadvantage) {
+          by_strain_disadvantage[innate_disadvantage] = '[x2]';
+        })
+        break;
       default:
         by_profession[class_type] = data[class_type];
     }
   });
+
+  var find_lowest_available = function(method) {
+    var min_cost = 999;
+    var current_min = '';
+    if (method == 'by_profession') {
+      $.each(by_profession, function(profession_name, data) {
+        if (data.cost < min_cost && selected_professions.indexOf(profession_name) != -1) {
+          current_min = profession_name;
+          min_cost = data.cost;
+        }
+      })
+    } else if (method == 'by_strain') {
+      $.each(by_strain, function(strain_name, cost) {
+        if (cost < min_cost && selected_strain == strain_name) {
+          current_min = strain_name;
+          min_cost = cost;
+        }
+      })
+    }
+
+    return [current_min, min_cost];
+  }
+
+  var find_lowest_from_pair = function() {
+    var min_strain_data = find_lowest_available('by_strain');
+    var min_prof_data = find_lowest_available('by_profession');
+
+    var min = Math.min(min_strain_data[1], min_prof_data[1]);
+
+    var min_result = new Array();
+    if (min == min_strain_data[1]) {
+      min_result.push(min_strain_data[0]);
+    }
+
+    if (min == min_prof_data[1]) {
+      min_result.push(min_prof_data[0]);
+    }
+
+    return min_result;
+  }
+
+  var lowest_pair = find_lowest_from_pair();
 
   if (Object.keys(by_strain).length > 0) {
     $.each(by_strain, function(strain_name, cost) {
@@ -355,9 +403,12 @@ function pull_skill_cat_data(skill, min_cost) {
         class_name = 'text-primary';
       }
 
-      if (cost == min_cost && class_name != 'skill-not-accessible') {
+      if (lowest_pair.indexOf(strain_name) != -1) {
         class_name = 'skill-cheapest';
       }
+      // if (cost == min_cost && class_name != 'skill-not-accessible') {
+      //   class_name = 'skill-cheapest';
+      // }
 
       var f = '<span class="' + class_name + '">' + strain_name + ': ' + cost + '</span>';
       s += f + '<br />'
@@ -375,11 +426,25 @@ function pull_skill_cat_data(skill, min_cost) {
     s += '<hr class="thin-divider" />';
   }
 
+  if (Object.keys(by_strain_disadvantage).length > 0) {
+    var f = new Array();
+    $.each(by_strain_disadvantage, function(strain_name, cost) {
+      var class_name = 'skill-not-accessible';
+      if (strain_name == selected_strain) {
+        class_name = 'text-danger';
+      }
+      f.push('<span class="' + class_name + '">' + strain_name + ': ' + cost + '</span>');
+    })
+
+    s += f.join('<br />') + '<hr class="thin-divider" />';
+  }
+
   if (by_open.length > 0) {
     s += by_open.join('<br />') + '<hr class="thin-divider" />';
   }
 
   if (Object.keys(by_profession).length > 0) {
+    var min_profession = find_lowest_available('by_profession');
     $.each(by_profession, function(profession_name, pdata) {
       var class_name = 'skill-not-accessible';
       var preq;
@@ -389,7 +454,10 @@ function pull_skill_cat_data(skill, min_cost) {
         preq = find_preq(profession_name, skill, pdata);
       }
 
-      if (pdata.cost == min_cost && class_name != 'skill-not-accessible') {
+      // if (pdata.cost == min_cost && class_name != 'skill-not-accessible') {
+      //   class_name = 'skill-cheapest';
+      // }
+      if (lowest_pair.indexOf(profession_name) != -1) {
         class_name = 'skill-cheapest';
       }
 
@@ -436,6 +504,11 @@ function recalculate() {
     return strain_index == -1 ? 99 : 3;
   }
 
+  var detect_has_innate_disadvantage = function(data) {
+    var strain_index = data.innate_disadvantage.indexOf(selected_strain);
+    return strain_index == -1 ? false : true;
+  }
+
   var detect_is_open_skill = function(data) {
     return data.open || 99;
   }
@@ -463,6 +536,10 @@ function recalculate() {
     min_cost = Math.min(min_cost, detect_is_profession_skill(data));
     min_cost = Math.min(min_cost, detect_has_innate(data));
     min_cost = Math.min(min_cost, detect_is_open_skill(data));
+
+    if (detect_has_innate_disadvantage(data)) {
+      min_cost = min_cost * 2;
+    }
 
     var o = $('[skill-name="' + skill_name + '"]');
     if (min_cost != 99) {
