@@ -80,21 +80,25 @@ function unpack_state() {
     selected_professions = professions;
     //$('#strain-selector').val(strain).multiselect('refresh');
     
-    $('#strain-selector')
-      .multiselect('deselectAll')
-      .multiselect('select', selected_strain);
+    $('#strain-selector').multiselect('select', selected_strain);
     $('#profession-selector').multiselect('deselectAll');
     $.each(professions, function(i, x) {
       $('#profession-selector').multiselect('select', x);
-    })
+    });
+
     //$('#profession-selector').val(professions).multiselect('refresh');
+    apply_strain_restrictions();
+    restrict_profession_selector();
+    update_profession_cost();
+    update_strain_specs();
+    update_strain_stats();
     recalculate();
     replan();
     //update_availability();
 
     relocate('#planned-list', planned_skills);
     relocate('#acquired-list', acquired_skills);
-    pack_state();
+    //pack_state();
     update_xp_count('#planned');
     update_xp_count('#acquired');
     generate_constraints();

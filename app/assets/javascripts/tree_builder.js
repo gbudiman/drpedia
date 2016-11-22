@@ -33,6 +33,9 @@ var generate_strains_select_box = function() {
     onChange: function(option, checked) {
       selected_strain = option.text();
       apply_strain_restrictions();
+      update_selected_professions();
+      update_profession_cost();
+
       recalculate();
 
       if (is_builder) {
@@ -72,23 +75,44 @@ function update_strain_specs() {
   $('#strain-specs').html(t.join('<br />'));
 }
 
+function update_selected_professions() {
+  selected_professions = new Array();
+
+  $('#profession-selector :selected').each(function() {
+    selected_professions.push($(this).attr('profession'));
+  })
+}
+
 function apply_strain_restrictions() {
+  $('#profession-selector option').each(function() {
+
+    var name = $(this).attr('profession');
+    var input = $('input[value="' + name + '"]');
+    input.prop('disabled', false);
+    input.parent().removeClass('text-muted');
+  })
+
   var constraints = strain_restrictions[selected_strain];
   if (constraints != undefined) {
     $.each(constraints, function(x, _junk) {
       $('#profession-selector')
         .find('[profession="' + x + '"]')
-          .prop('disabled', true)
           .attr('disabled-by-constraint', true);
-      $('#profession-selector').multiselect('deselect', x, true);
+
+      var input = $('input[value="' + x + '"]');
+      input.prop('disabled', true);
+      input.attr('disabled-by-constraint', true);
+      input.parent().addClass('text-muted');
+      $('#profession-selector').multiselect('deselect', x);
     })
-    $('#profession-selector').multiselect('refresh');
+
+    update_selected_professions();
+    //$('#profession-selector').multiselect('refresh');
   } else {
     $('#profession-selector').find('[disabled-by-constraint]').each(function() {
-      $(this).prop('disabled', false);
+      $(this).removeAttr('disabled-by-constraint');
     });
-
-    $('#profession-selector').multiselect('refresh');
+    //$('#profession-selector').multiselect('refresh');
   }
 }
 
@@ -124,27 +148,25 @@ var generate_professions_select_box = function() {
     onDropdownShow: disable_popover,
     onChange: function(option, checked) {
       var selected_options = $('#profession-selector option:selected');
-      if (selected_options.length >= 3) {
-        var non_selected_options = $('#profession-selector option').filter(function() {
-          return !$(this).is(':selected');
-        })
+      // if (selected_options.length >= 3) {
+      //   restrict_profession_selector();
+      //   // var non_selected_options = $('#profession-selector option').filter(function() {
+      //   //   return !$(this).is(':selected');
+      //   // })
 
-        non_selected_options.each(function() {
-          var input = $('input[value="' + $(this).val() + '"]');
-          //input.prop('faded', true);
-          input.prop('disabled', true);
-          input.parent().addClass('text-muted');
-        })
-      } else {
-        $('#profession-selector option').each(function() {
-          var input = $('input[value="' + $(this).val() + '"]');
-          //input.prop('faded', false);
-          input.prop('disabled', false);
-          input.parent().removeClass('text-muted');
-        });
-      }
+      //   // non_selected_options.each(function() {
+      //   //   var input = $('input[value="' + $(this).val() + '"]');
+      //   //   //input.prop('faded', true);
+      //   //   input.prop('disabled', true);
+      //   //   input.parent().addClass('text-muted');
+      //   // })
+      // } else {
+        
+      // }
 
-      $('#profession-xp').text(Math.max(0, (selected_options.length - 1) * 10));
+      restrict_profession_selector();
+      update_profession_cost();
+      //$('#profession-xp').text(Math.max(0, (selected_options.length - 1) * 10));
       selected_professions = new Array();
       selected_options.each(function() {
         selected_professions.push($(this).text());
@@ -159,6 +181,36 @@ var generate_professions_select_box = function() {
     }
   })
 };
+
+function update_profession_cost() {
+  $('#profession-xp').text(Math.max(0, ($('#profession-selector :selected').length - 1) * 10));
+}
+
+function restrict_profession_selector() {
+  var currently_selected = $('#profession-selector :selected').length;
+  if (currently_selected >= 3) {
+    var non_selected_options = $('#profession-selector option').filter(function() {
+      return !$(this).is(':selected');
+    })
+
+    non_selected_options.each(function() {
+      var input = $('input[value="' + $(this).val() + '"]');
+      //input.prop('faded', true);
+      input.prop('disabled', true);
+      input.parent().addClass('text-muted');
+    })
+  } else {
+    $('#profession-selector option').each(function() {
+      var input = $('input[value="' + $(this).val() + '"]');
+      //input.prop('faded', false);
+      if (input.attr('disabled-by-constraint') == undefined) {
+        
+        input.prop('disabled', false);
+        input.parent().removeClass('text-muted');
+      }
+    });
+  }
+}
 
 function assign_col_descriptor_classes() {
   if (is_builder) {
@@ -501,7 +553,6 @@ function find_preq(profession, skill, pdata) {
 }
 
 function recalculate() {
-  console.log('recaculating...');
   var detect_has_innate = function(data) {
     var strain_index = data.innate.indexOf(selected_strain);
     return strain_index == -1 ? 99 : 3;
@@ -546,7 +597,6 @@ function recalculate() {
       if (min_cost < open_skill_cost) {
         obj.find('.badge').addClass('progress-bar-success');
       } else if (min_cost > open_skill_cost) {
-        console.log('here');
         obj.find('.badge').addClass('progress-bar-danger');
       } else {
         obj.find('.badge').addClass('progress-bar-default');
