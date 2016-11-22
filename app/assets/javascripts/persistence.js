@@ -14,7 +14,7 @@ function pack_state() {
 
   pack += es.acquired.join(',') + '|' + es.planned.join(',');
   Cookies.set('drpedia', pack);
-  console.log(pack);
+  console.log('Packing: ' + pack);
 }
 
 function unpack_state() {
@@ -68,8 +68,8 @@ function unpack_state() {
     var mp = parseInt(p0[1]) || 0;
     var strain = p0[2];
 
-    set_stat_build($('#hp-addition'), 'hp-total', hp);
-    set_stat_build($('#mp-addition'), 'mp-total', mp);
+    set_stat_build($('#hp-addition'), 'hp-total', hp, false);
+    set_stat_build($('#mp-addition'), 'mp-total', mp, false);
     initialize_stats_controller('#hp-sub');
     initialize_stats_controller('#mp-sub');
     var professions = p0[3].split(',');
@@ -82,10 +82,10 @@ function unpack_state() {
     
     $('#strain-selector')
       .multiselect('deselectAll')
-      .multiselect('select', selected_strain, true);
+      .multiselect('select', selected_strain);
     $('#profession-selector').multiselect('deselectAll');
     $.each(professions, function(i, x) {
-      $('#profession-selector').multiselect('select', x, true);
+      $('#profession-selector').multiselect('select', x);
     })
     //$('#profession-selector').val(professions).multiselect('refresh');
     recalculate();

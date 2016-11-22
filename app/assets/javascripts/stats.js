@@ -44,9 +44,13 @@ function attach_stats_controller(target_id, operation) {
   })
 }
 
-function set_stat_build(obj, total_id, value) {
+function set_stat_build(obj, total_id, value, _pack) {
+  var pack = _pack == undefined ? true : _pack;
   obj.text(value);
-  pack_state();
+  if (pack) {
+    pack_state();
+  }
+
   compute_stats('#' + total_id);
 }
 

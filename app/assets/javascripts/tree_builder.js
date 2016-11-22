@@ -501,6 +501,7 @@ function find_preq(profession, skill, pdata) {
 }
 
 function recalculate() {
+  console.log('recaculating...');
   var detect_has_innate = function(data) {
     var strain_index = data.innate.indexOf(selected_strain);
     return strain_index == -1 ? 99 : 3;

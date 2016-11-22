@@ -28,10 +28,10 @@
     %div{id: 'error-log', class: 'col-xs-12 svupdown text-danger'}
 
     %div{class: 'row sstats'}
-      %div{class: 'col-xs-4 minipad'} HP
+      %div{class: 'col-xs-2 minipad'} HP
       %div{class: 'col-xs-1 minipad'} 
         %span{id: 'hp-base', class: 'pull-right'} 2 
-      %div{class: 'col-xs-7 stats-controller minipad'}
+      %div{class: 'col-xs-9 stats-controller minipad'}
         +
         %button{type: 'button', class: 'btn btn-default btn-xs', id: 'hp-sub', 'data-target' => 'hp-addition', 'data-pair' => 'hp-add', 'data-total' => 'hp-total' } <
         %span{class: 'badge', id: 'hp-addition'} 0 
@@ -39,10 +39,10 @@
         \=
         %span{id: 'hp-total', 'data-base' => 'hp-base', 'data-addition' => 'hp-addition'} 2
     %div{class: 'row sstats'}
-      %div{class: 'col-xs-4 minipad'} MP
+      %div{class: 'col-xs-2 minipad'} MP
       %div{class: 'col-xs-1 minipad'} 
         %span{id: 'mp-base', class: 'pull-right'} 2 
-      %div{class: 'col-xs-7 stats-controller minipad'}
+      %div{class: 'col-xs-9 stats-controller minipad'}
         +
         %button{type: 'button', class: 'btn btn-default btn-xs', id: 'mp-sub', 'data-target' => 'mp-addition', 'data-pair' => 'mp-add', 'data-total' => 'mp-total' } <
         %span{class: 'badge', id: 'mp-addition'} 0 
@@ -51,8 +51,8 @@
         %span{id: 'mp-total', 'data-base' => 'mp-base', 'data-addition' => 'mp-addition'} 2
     %div{class: 'row sstats'}
       %div{class: 'col-xs-4 minipad'} Infection
-      %div{class: 'col-xs-1 minipad'} 
-        %span{id: 'infection-base', class: 'pull-right'}
+      %div{class: 'col-xs-4 minipad'} 
+        %span{id: 'infection-base'}
     %div{class: 'row sstats'}
       %div{class: 'col-xs-4 minipad'} Profession Cost
       %div{class: 'col-xs-8 minipad'} 
@@ -212,6 +212,7 @@
 
   .sstats {
     padding-bottom: 0.25em;
+    margin-right: 0;
   }
 
   .affix {
