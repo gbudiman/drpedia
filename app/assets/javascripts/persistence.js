@@ -64,8 +64,8 @@ function unpack_state() {
 
   if (unpack != undefined) {
     var p0 = unpack.split('|');
-    var hp = parseInt(p0[0]);
-    var mp = parseInt(p0[1]);
+    var hp = parseInt(p0[0]) || 0;
+    var mp = parseInt(p0[1]) || 0;
     var strain = p0[2];
 
     set_stat_build($('#hp-addition'), 'hp-total', hp);

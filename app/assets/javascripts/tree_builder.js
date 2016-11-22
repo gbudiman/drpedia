@@ -47,7 +47,9 @@ var generate_strains_select_box = function() {
 
 function update_strain_stats() {
   var stats = strain_stats[selected_strain];
-  set_base_stats(stats.hp, stats.mp, stats.infection);
+  if (stats != undefined) {
+    set_base_stats(stats.hp, stats.mp, stats.infection);
+  }
 }
 
 function update_strain_specs() {
