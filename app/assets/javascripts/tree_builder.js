@@ -142,7 +142,7 @@ var generate_professions_select_box = function() {
         });
       }
 
-      $('#profession-xp').text((selected_options.length - 1) * 10);
+      $('#profession-xp').text(Math.max(0, (selected_options.length - 1) * 10));
       selected_professions = new Array();
       selected_options.each(function() {
         selected_professions.push($(this).text());
@@ -532,23 +532,45 @@ function recalculate() {
   var detect_available_skill = function(skill_name, data) {
     var min_cost = 99;
     var is_available = false;
-    
+    var open_skill_cost = detect_is_open_skill(data);
+
+    var colorize_badge = function(obj, min_cost, open_skill_cost) {
+      obj.find('.badge')
+        .removeClass('progress-bar-success')
+        .removeClass('progress-bar-danger')
+        .removeClass('progress-bar-default');
+
+      if (min_cost < open_skill_cost) {
+        obj.find('.badge').addClass('progress-bar-success');
+      } else if (min_cost > open_skill_cost) {
+        console.log('here');
+        obj.find('.badge').addClass('progress-bar-danger');
+      } else {
+        obj.find('.badge').addClass('progress-bar-default');
+      }
+    }
+
     min_cost = Math.min(min_cost, detect_is_profession_skill(data));
     min_cost = Math.min(min_cost, detect_has_innate(data));
-    min_cost = Math.min(min_cost, detect_is_open_skill(data));
+    min_cost = Math.min(min_cost, open_skill_cost);
 
     if (detect_has_innate_disadvantage(data)) {
       min_cost = min_cost * 2;
     }
 
     var o = $('[skill-name="' + skill_name + '"]');
+
     if (min_cost != 99) {
-      o.removeClass('faded')
-      o.find('.badge').text(min_cost)
+      o.removeClass('faded');
+      o.find('.badge').text(min_cost);
       o.find('.clickable-skill').removeClass('link-faded');
+      // if (is_open_skill && min_cost < open_skill_cost) {
+      //   o.find('.badge').addClass('progress-bar-success');
+      // }
+      colorize_badge(o, min_cost, open_skill_cost);
     } else {
-      o.addClass('faded')
-      o.find('.badge').text('')
+      o.addClass('faded');
+      o.find('.badge').text('');
       o.find('.clickable-skill').addClass('link-faded');
     }
   };
