@@ -2,6 +2,7 @@ var strains;
 var professions;
 var skill_cat;
 var strain_restrictions;
+var strain_stats;
 var skill_groups;
 
 var selected_strain;
@@ -36,10 +37,16 @@ var generate_strains_select_box = function() {
       if (is_builder) {
         replan();
         pack_state();
+        update_strain_stats();
       }
     }
   });
 };
+
+function update_strain_stats() {
+  var stats = strain_stats[selected_strain];
+  set_base_stats(stats.hp, stats.mp, stats.infection);
+}
 
 function apply_strain_restrictions() {
   var constraints = strain_restrictions[selected_strain];
@@ -531,6 +538,12 @@ function get_json_skill_list() {
     skill_list = skill_list_json_data;
     generate_inverted_skills();
     unpack_state();
+  });
+}
+
+function get_json_strain_stats() {
+  return $.getJSON('/strain_stats.json', function(strain_stats_json_data) { 
+    strain_stats = strain_stats_json_data;
   });
 }
 

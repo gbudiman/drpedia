@@ -78,7 +78,12 @@ function unpack_state() {
 
     selected_strain = strain;
     selected_professions = professions;
-    $('#strain-selector').val(strain).multiselect('refresh');
+    //$('#strain-selector').val(strain).multiselect('refresh');
+    
+    $('#strain-selector')
+      .multiselect('deselectAll')
+      .multiselect('select', selected_strain, true);
+    $('#profession-selector').multiselect('deselectAll');
     $.each(professions, function(i, x) {
       $('#profession-selector').multiselect('select', x, true);
     })
@@ -134,7 +139,7 @@ function generate_inverted_skills() {
 }
 
 $(function() {
-  $.when(get_json_strain(), get_json_profession(), get_json_skill_cat()).done(function() {
+  $.when(get_json_strain(), get_json_profession(), get_json_skill_cat(), get_json_strain_stats()).done(function() {
     $.when(get_json_strain_restriction()).done(function() {
       get_json_skill_list();
       resize_graphical();
