@@ -139,7 +139,11 @@ function generate_inverted_skills() {
 }
 
 $(function() {
-  $.when(get_json_strain(), get_json_profession(), get_json_skill_cat(), get_json_strain_stats()).done(function() {
+  $.when(get_json_strain(), 
+         get_json_profession(), 
+         get_json_skill_cat(), 
+         get_json_strain_stats(), 
+         get_json_strain_specs()).done(function() {
     $.when(get_json_strain_restriction()).done(function() {
       get_json_skill_list();
       resize_graphical();

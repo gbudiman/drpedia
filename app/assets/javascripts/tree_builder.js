@@ -3,6 +3,7 @@ var professions;
 var skill_cat;
 var strain_restrictions;
 var strain_stats;
+var strain_specs;
 var skill_groups;
 
 var selected_strain;
@@ -38,6 +39,7 @@ var generate_strains_select_box = function() {
         replan();
         pack_state();
         update_strain_stats();
+        update_strain_specs();
       }
     }
   });
@@ -46,6 +48,26 @@ var generate_strains_select_box = function() {
 function update_strain_stats() {
   var stats = strain_stats[selected_strain];
   set_base_stats(stats.hp, stats.mp, stats.infection);
+}
+
+function update_strain_specs() {
+  var s = strain_specs[selected_strain];
+  var t = ['Strain-specific skills:'];
+
+  var append = function(arr, type) {
+    $.each(arr, function(i, x) {
+      var css_class = (type == 'adv') ? 'text-primary' : 'text-danger';
+      //var u = $('<span></span>').addClass(css_class).append(x);
+      var u = '<span class="' + css_class + '">' + x + '</span>';
+      //console.log(u.html());
+      t.push(u);
+    })
+  }
+
+  append(s.advantages, 'adv');
+  append(s.disadvantages, 'dis');
+
+  $('#strain-specs').html(t.join('<br />'));
 }
 
 function apply_strain_restrictions() {
@@ -544,6 +566,12 @@ function get_json_skill_list() {
 function get_json_strain_stats() {
   return $.getJSON('/strain_stats.json', function(strain_stats_json_data) { 
     strain_stats = strain_stats_json_data;
+  });
+}
+
+function get_json_strain_specs() {
+  return $.getJSON('/strain_specs.json', function(strain_specs_json_data) { 
+    strain_specs = strain_specs_json_data;
   });
 }
 
