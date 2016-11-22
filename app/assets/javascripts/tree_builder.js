@@ -58,6 +58,8 @@ function update_strain_stats() {
 
 function update_strain_specs() {
   var s = strain_specs[selected_strain];
+
+  if (s == undefined) { return; }
   var t = ['Strain-specific skills:'];
 
   var append = function(arr, type) {

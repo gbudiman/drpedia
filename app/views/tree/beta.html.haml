@@ -25,7 +25,9 @@
       %span{id: 'alert-text'}
       %a{href: '#', class: 'pull-right', id: 'alert-mobile-selection-clear'} Clear
 
-    %div{id: 'error-log', class: 'col-xs-12 svupdown text-danger'}
+    %div{id: 'error-log', class: 'svupdown row'}
+      %span{id: 'error-placeholder', 'data-placeholder' => 'Constraints not met. Click skills below to add'}
+      %ul{class: 'list-group', id: 'error-list'}
 
     %div{class: 'row sstats'}
       %div{class: 'col-xs-2 minipad'} HP
@@ -91,7 +93,7 @@
 
   .alert {
     padding: 8px 24px 8px 8px;
-    margin-bottom: 0px;
+    margin-bottom: 0.5em;
   }
 
   .badge-success {
@@ -100,6 +102,16 @@
 
   .badge-danger {
     background-color: #d43f3a;
+  }
+  
+  .btn-group-list {
+    padding: 0;
+  }
+
+  #error-log {
+    //padding-top: 1em;
+    margin-right: 0px;
+    margin-left: 0px;
   }
 
   .stats-controller {
@@ -211,8 +223,9 @@
   }
 
   .sstats {
-    padding-bottom: 0.25em;
+    padding-bottom: 0.2em;
     margin-right: 0;
+    padding-top: 0.2em;
   }
 
   .affix {
