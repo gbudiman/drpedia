@@ -28,9 +28,10 @@
     %div{id: 'error-log', class: 'col-xs-12 svupdown text-danger'}
 
     %div{class: 'row sstats'}
-      %div{class: 'col-xs-4'} HP
-      %div{class: 'col-xs-8'} 
-        %span{id: 'hp-base'} 2 
+      %div{class: 'col-xs-4 minipad'} HP
+      %div{class: 'col-xs-1 minipad'} 
+        %span{id: 'hp-base', class: 'pull-right'} 2 
+      %div{class: 'col-xs-7 stats-controller minipad'}
         +
         %button{type: 'button', class: 'btn btn-default btn-xs', id: 'hp-sub', 'data-target' => 'hp-addition', 'data-pair' => 'hp-add', 'data-total' => 'hp-total' } <
         %span{class: 'badge', id: 'hp-addition'} 0 
@@ -38,9 +39,10 @@
         \=
         %span{id: 'hp-total', 'data-base' => 'hp-base', 'data-addition' => 'hp-addition'} 2
     %div{class: 'row sstats'}
-      %div{class: 'col-xs-4'} MP
-      %div{class: 'col-xs-8'} 
-        %span{id: 'mp-base'} 2 
+      %div{class: 'col-xs-4 minipad'} MP
+      %div{class: 'col-xs-1 minipad'} 
+        %span{id: 'mp-base', class: 'pull-right'} 2 
+      %div{class: 'col-xs-7 stats-controller minipad'}
         +
         %button{type: 'button', class: 'btn btn-default btn-xs', id: 'mp-sub', 'data-target' => 'mp-addition', 'data-pair' => 'mp-add', 'data-total' => 'mp-total' } <
         %span{class: 'badge', id: 'mp-addition'} 0 
@@ -48,12 +50,12 @@
         \=
         %span{id: 'mp-total', 'data-base' => 'mp-base', 'data-addition' => 'mp-addition'} 2
     %div{class: 'row sstats'}
-      %div{class: 'col-xs-4'} Infection
-      %div{class: 'col-xs-8'} 
-        %span{id: 'infection-base'}
+      %div{class: 'col-xs-4 minipad'} Infection
+      %div{class: 'col-xs-1 minipad'} 
+        %span{id: 'infection-base', class: 'pull-right'}
     %div{class: 'row sstats'}
-      %div{class: 'col-xs-4'} Profession Cost
-      %div{class: 'col-xs-8'} 
+      %div{class: 'col-xs-4 minipad'} Profession Cost
+      %div{class: 'col-xs-8 minipad'} 
         %span{class: 'badge', id: 'profession-xp'} 0
     %hr{class: 'tight'}
     %div{class: 'builder-header'}
@@ -90,6 +92,15 @@
   .alert {
     padding: 8px 24px 8px 8px;
     margin-bottom: 0px;
+  }
+
+  .stats-controller {
+    margin-top: -0.2em;
+    padding-bottom: 0.25em;
+  }
+
+  .minipad {
+    padding-right: 0px;
   }
 
   hr.tight {
