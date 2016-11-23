@@ -105,6 +105,8 @@ function unpack_state() {
     update_selected_skills(0);
 
     
+  } else {
+    generate_constraints();
   }
 }
 

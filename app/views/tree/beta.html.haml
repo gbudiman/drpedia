@@ -26,7 +26,8 @@
       %a{href: '#', class: 'pull-right', id: 'alert-mobile-selection-clear'} Clear
 
     %div{id: 'error-log', class: 'svupdown row'}
-      %span{id: 'error-placeholder', 'data-placeholder' => 'Constraints not met. Click skills below to add'}
+      %strong
+        %span{id: 'error-placeholder', 'data-placeholder' => 'Constraints not met. Click skills below to add', class: 'text-danger'}
       %ul{class: 'list-group', id: 'error-list'}
 
     %div{class: 'row sstats'}
