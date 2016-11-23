@@ -29,7 +29,9 @@ function replan_list(target_id) {
 
     if (that.hasClass('faded')) {
       append_lexicographically('#graphical-list', that);
-      that.removeAttr('popover-applied');
+      //that.removeAttr('popover-applied');
+      reset_popover(that);
+      rebuild_popover(that);
 
       // var cloned = that.clone();
       // cloned.removeAttr('popover-applied');
