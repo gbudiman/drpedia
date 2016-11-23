@@ -13,7 +13,7 @@ function pack_state() {
   var es = extract_skills();
 
   pack += es.acquired.join(',') + '|' + es.planned.join(',');
-  Cookies.set('drpedia', pack);
+  Cookies.set('drpedia', pack, { expires: 365 });
   console.log('Packing: ' + pack);
 }
 
