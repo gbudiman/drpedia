@@ -656,21 +656,25 @@ function update_search_result(value) {
 }
 
 function update_availability() {
-  disable_popover();
-  var only_available = $('#only-available-checkbox').prop('checked');
-
-  if (only_available) {
-    $('.list-group-item').show();
-    $('#graphical').find('.list-group-item.faded').hide();
+  if (is_builder) {
+    apply_view_filters();
   } else {
-    $('.list-group-item.faded').show();
-  }
+    disable_popover();
+    var only_available = $('#only-available-checkbox').prop('checked');
 
-  $('.drag-simulable').each(function() {
-    if ($(this).hasClass('faded')) {
-      removeClass('drag-simulable');
+    if (only_available) {
+      $('.list-group-item').show();
+      $('#graphical').find('.list-group-item.faded').hide();
+    } else {
+      $('.list-group-item.faded').show();
     }
-  });
+
+    $('.drag-simulable').each(function() {
+      if ($(this).hasClass('faded')) {
+        removeClass('drag-simulable');
+      }
+    });
+  }
 }
 
 function disable_popover() {
