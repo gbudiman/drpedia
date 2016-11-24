@@ -64,6 +64,17 @@ function unpack_state() {
     })
   }
 
+  var reset_all_skills = function(list_id) {
+    var entries = new Array();
+    
+    $('#' + list_id + ' .list-group-item').each(function() {
+      var entry = $(this).attr('skill-name');
+      entries.push(entry);
+    })
+
+    relocate('#graphical-list', entries);
+  }
+
   var unpack = Cookies.get(current_profile);
   console.log('Unpack from ' + current_profile + ': ' + unpack);
 
@@ -73,6 +84,8 @@ function unpack_state() {
     var mp = parseInt(p0[1]) || 0;
     var strain = p0[2];
 
+    reset_all_skills('acquired-list');
+    reset_all_skills('planned-list');
     set_stat_build($('#hp-addition'), 'hp-total', hp, false);
     set_stat_build($('#mp-addition'), 'mp-total', mp, false);
     initialize_stats_controller('#hp-sub');
