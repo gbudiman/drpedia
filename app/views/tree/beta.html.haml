@@ -1,9 +1,53 @@
+%div{class: 'modal fade', id: 'profile-confirm-deletion-modal'}
+  %div{class: 'modal-dialog'}
+    %div{class: 'modal-content'}
+      %div{class: 'modal-header'}
+        %button{type: 'button', class: 'close', 'data-dismiss' => 'modal'}
+          %span &times;
+        %h4{class: 'modal-title'} Confirm Deletion
+      %div{class: 'modal-body'}
+        %div{class: 'form-group'}
+          Are you sure you want to delete profile
+          %span{id: 'confirm-profile-deletion-text'}
+          ?
+      %div{class: 'modal-footer'}
+        %button{type: 'button', class: 'btn btn-default', 'data-dismiss' => 'modal'} Cancel
+        %button{type: 'button', class: 'btn btn-danger', id: 'btn-confirm-profile-deletion'} Delete
+
+%div{class: 'modal fade', id: 'profile-create-new-modal'}
+  %div{class: 'modal-dialog'}
+    %div{class: 'modal-content'}
+      %div{class: 'modal-header'}
+        %button{type: 'button', class: 'close', 'data-dismiss' => 'modal'}
+          %span &times;
+        %h4{class: 'modal-title'} Save As New Profile
+      %div{class: 'modal-body'}
+        %div{class: 'form-group'}
+          %label{for: 'profile-name'} Profile Name
+          %input{type: 'text', class: 'form-control', id: 'profile-name', placeholder: 'super-tank-2'}
+        %span{class: 'text-danger', id: 'new-profile-error'}
+      %div{class: 'modal-footer'}
+        %button{type: 'button', class: 'btn btn-default', 'data-dismiss' => 'modal'} Cancel
+        %button{type: 'button', class: 'btn btn-primary', id: 'btn-profile-save'} Create
+
 %div{id: 'setup', class: 'row'}
-  %div{id: 'setup-strain', class: 'col-xs-6 col-md-4 svcenter'}
-  %div{id: 'setup-profession', class: 'col-xs-6 col-md-4 svcenter'}
-  %div{class: 'col-xs-6 col-md-4 svcenter svhalf'}
+  %div{id: 'setup-strain', class: 'col-xs-6 col-md-3 svcenter'}
+  %div{id: 'setup-profession', class: 'col-xs-6 col-md-3 svcenter'}
+  %div{class: 'col-xs-6 col-md-3 svcenter svhalf'}
     %input{type: 'checkbox', id: 'only-available-checkbox'} Available Only  
-    %input{type: 'checkbox', id: 'is-touch-device'} Touch Input
+    //%input{type: 'checkbox', id: 'is-touch-device'} Touch Input
+  %div{class: 'col-xs-6 col-md-3 svcenter'}
+  
+    %button{type: 'button', class: 'btn btn-default dropdown-toggle btn-block', 'data-toggle' => 'dropdown'}
+      %span{id: 'profile-text'} Select Profile
+      %span{class: 'caret'}
+    %ul{class: 'dropdown-menu', id: 'profile-dropdown'}
+      %li{class: 'divider', id: 'created-profile-divider'}
+      %li
+        %a{href: '#', id: 'profile-create-new'} Save As...
+      %li{class: 'divider', id: 'contextual-divider', hidden: true}
+      %li{hidden: true}
+        %a{href: '#', id: 'profile-delete'} Delete profile
 
 %div{class: 'body-container'}
   %div{id: 'graphical', class: 'graphical-container col-xs-6 col-md-8 col-lg-9' }
@@ -79,6 +123,7 @@
 :javascript
   var is_builder = true;
 
+= javascript_include_tag 'profile'
 = javascript_include_tag 'stats'
 = javascript_include_tag 'drag_drop_functor'
 = javascript_include_tag 'tree_builder'
@@ -256,6 +301,10 @@
 
   .svupdown {
     margin-bottom: 1em;
+  }
+
+  .dropdown-no-link {
+    padding: 3px 20px 0px 20px;
   }
 
   .graphical-container {

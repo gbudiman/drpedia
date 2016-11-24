@@ -416,7 +416,7 @@ function pull_skill_cat_data(skill, min_cost) {
     var current_min = '';
     if (method == 'by_profession') {
       $.each(by_profession, function(profession_name, data) {
-        if (data.cost < min_cost && selected_professions.indexOf(profession_name) != -1) {
+        if (data.cost < min_cost && selected_professions != undefined && selected_professions.indexOf(profession_name) != -1) {
           current_min = profession_name;
           min_cost = data.cost;
         }
@@ -713,8 +713,7 @@ function get_json_strain_restriction() {
 function get_json_skill_list() {
   return $.getJSON('/skill_list.json', function(skill_list_json_data) { 
     skill_list = skill_list_json_data;
-    generate_inverted_skills();
-    unpack_state();
+    //unpack_state();
   });
 }
 

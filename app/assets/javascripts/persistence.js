@@ -6,6 +6,8 @@ function clear_cookies() {
 }
 
 function pack_state() {
+  if (!has_profile) { return; }
+
   var pack = $('#hp-addition').text() + '|'
            + $('#mp-addition').text() + '|' 
            + (selected_strain || '') + '|' 
@@ -13,11 +15,13 @@ function pack_state() {
   var es = extract_skills();
 
   pack += es.acquired.join(',') + '|' + es.planned.join(',');
-  Cookies.set('drpedia', pack, { expires: 365 });
-  console.log('Packing: ' + pack);
+  Cookies.set(current_profile, pack, { expires: 365 });
+  console.log('Packing to ' + current_profile + ': ' + pack);
 }
 
 function unpack_state() {
+  if (!has_profile) { return; }
+
   var decrypt_psionic_skills = function(a) {
     var prefix = '';
     $.each(skill_groups, function(group_name, skills) {
@@ -37,6 +41,7 @@ function unpack_state() {
 
   var decrypt_skills = function(a) {
     var output = new Array();
+
     $.each(a, function(i, x) {
       var lookup = skill_list_inverted[x];
       if (lookup != undefined) {
@@ -59,8 +64,8 @@ function unpack_state() {
     })
   }
 
-  var unpack = Cookies.get('drpedia');
-  console.log('Unpack: ' + unpack);
+  var unpack = Cookies.get(current_profile);
+  console.log('Unpack from ' + current_profile + ': ' + unpack);
 
   if (unpack != undefined) {
     var p0 = unpack.split('|');
@@ -151,8 +156,12 @@ $(function() {
          get_json_strain_stats(), 
          get_json_strain_specs()).done(function() {
     $.when(get_json_strain_restriction()).done(function() {
-      get_json_skill_list();
-      resize_graphical();
+      $.when(get_json_skill_list()).done(function() {
+        generate_inverted_skills();
+        resize_graphical();
+        load_first_available_profile();
+      });
+      
     })
   })
   // $.when(get_json_strain(), 
