@@ -37,6 +37,7 @@
     %select{id: 'filter-group', multiple: 'multiple'}
       %option{value: 'only_available'} Only Available
       %option{value: 'only_discounted'} Only Discounted
+      %option{'data-role' => 'divider'}
       %option{value: 'hide_lore'} Hide Lore
       %option{value: 'hide_psionics'} Hide Psionics
     // %input{type: 'checkbox', id: 'only-available-checkbox'} Available Only  
@@ -220,6 +221,7 @@
     background-color: white;
     padding-right: 0px;
     margin: 0px;
+    padding-bottom: 0.2em;
   }
 
   #search-input {
@@ -303,6 +305,7 @@
 
   .svcenter {
     padding: 0.2em;
+    padding-bottom: 0;
   }
 
   .svhalf {

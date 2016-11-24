@@ -85,7 +85,7 @@ function unpack_state() {
     selected_professions = professions;
     //$('#strain-selector').val(strain).multiselect('refresh');
     
-    $('#strain-selector').multiselect('select', selected_strain);
+    $('#strain-selector').multiselect('select', selected_strain).multiselect('refresh');
     $('#profession-selector')
       .multiselect('deselectAll', false)
       .multiselect('updateButtonText');
