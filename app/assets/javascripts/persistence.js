@@ -75,7 +75,7 @@ function unpack_state() {
     relocate('#graphical-list', entries);
   }
 
-  var unpack = Cookies.get(current_profile);
+  var unpack = current_profile == 'dummy' ? '0|0||||' : Cookies.get(current_profile);
   console.log('Unpack from ' + current_profile + ': ' + unpack);
 
   if (unpack != undefined) {
@@ -94,7 +94,7 @@ function unpack_state() {
     var acquired_skills = decrypt_skills(p0[4].split(','));
     var planned_skills = decrypt_skills(p0[5].split(','));
 
-    selected_strain = strain;
+    selected_strain = strain || 'Select Strain';
     selected_professions = professions;
     //$('#strain-selector').val(strain).multiselect('refresh');
     

@@ -2,6 +2,17 @@ var sys_profiles = new Array();
 var current_profile;
 var has_profile = false;
 
+function attach_create_from_scratch() {
+  $('#profile-create-from-scratch').on('click', function() {
+    // reset_all_skills('acquired-list');
+    // reset_all_skills('planned-list');
+
+    current_profile = 'dummy';
+    unpack_state();
+    load_empty_profile();
+  })
+}
+
 function attach_delete_profile() {
   $('#profile-confirm-deletion-modal').modal({
     show: false
@@ -97,6 +108,7 @@ function load_first_available_profile() {
 
 function load_profile(name) {
   console.log('Loading profile ' + name);
+
   has_profile = true;
   current_profile = name;
 
@@ -138,6 +150,8 @@ function load_existing_profile() {
 
         has_profile = true;
         current_profile = name;
+        $('#contextual-divider').show();
+        $('#profile-delete').parent().show();
         unpack_state();
       });
 
@@ -161,5 +175,6 @@ $(function() {
   attach_new_profile();
   attach_new_profile_save();
   attach_delete_profile();
+  attach_create_from_scratch();
   //load_first_available_profile();
 })

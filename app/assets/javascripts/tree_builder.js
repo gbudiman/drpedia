@@ -53,6 +53,8 @@ function update_strain_stats() {
   var stats = strain_stats[selected_strain];
   if (stats != undefined) {
     set_base_stats(stats.hp, stats.mp, stats.infection);
+  } else {
+    set_base_stats(0, 0, 0);
   }
 }
 
