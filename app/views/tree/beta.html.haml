@@ -58,9 +58,21 @@
 
 %div{class: 'body-container'}
   %div{id: 'graphical', class: 'graphical-container col-xs-6 col-md-8 col-lg-9' }
+    %div{class: 'alert alert-info', id: 'loading'}
+      %ul{class: 'list-unstyled'}
+        %li{'data-dismissible' => true}
+          %strong Initializing data...
+        %li{id: 'init-strain', hidden: true, 'data-dismissible' => true} &raquo; Strains loaded
+        %li{id: 'init-profession', hidden: true, 'data-dismissible' => true} &raquo; Professions loaded
+        %li{id: 'init-skill', hidden: true, 'data-dismissible' => true} &raquo; Skills loaded
+        %li{id: 'init-stat', hidden: true, 'data-dismissible' => true} &raquo; Stats loaded
+        %li{id: 'init-const', hidden: true, 'data-dismissible' => true} &raquo; Constraints loaded
+        %li{id: 'init-completed', hidden: true}
+          %strong All loaded
     %div{id: 'graphical-list', class: 'list-group'}
     %div{class: 'alert alert-warning', hidden: true, id: 'filter-no-match'}
       No Skills match filter criteria.
+
 
   %div{id: 'builder', class: 'builder-container col-xs-6 col-md-4 col-lg-3'}
     %div{class: 'alert alert-success alert-dismissible', id: 'alert-desktop', hidden: true}
@@ -215,6 +227,10 @@
 
   .dropdown-menu {
     font-size: 12px;
+  }
+
+  #loading {
+    margin-top: 2px;
   }
 
   #setup {

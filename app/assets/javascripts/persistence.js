@@ -172,9 +172,17 @@ $(function() {
          get_json_strain_specs()).done(function() {
     $.when(get_json_strain_restriction()).done(function() {
       $.when(get_json_skill_list()).done(function() {
+        $('#init-completed').show();
+
         generate_inverted_skills();
         resize_graphical();
         load_first_available_profile();
+
+        init_completed = true;
+        $('#loading [data-dismissible]').hide(500, function() {
+          $('#loading').hide(1000);
+        });
+        
       });
       
     })

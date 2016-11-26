@@ -687,6 +687,7 @@ function get_json_strain() {
   return $.getJSON('/strains.json', function(strains_json_data) { 
     strains = strains_json_data; 
     generate_strains_select_box();
+    $('#init-strain').show();
   });
 }
 
@@ -694,6 +695,7 @@ function get_json_profession() {
   return $.getJSON('/professions.json', function(professions_json_data) { 
     professions = professions_json_data; 
     generate_professions_select_box(); 
+    $('#init-profession').show();
   });
 }
 
@@ -703,6 +705,8 @@ function get_json_skill_cat() {
     $.getJSON('/skill_group.json', function(skill_group_json_data) {
       skill_groups = skill_group_json_data;
       generate_skill_cat(); 
+
+      $('#init-skill').show();
     })
     
     
@@ -712,6 +716,7 @@ function get_json_skill_cat() {
 function get_json_strain_restriction() {
   return $.getJSON('/strain_restriction.json', function(strain_restriction_json_data) {
     strain_restrictions = strain_restriction_json_data;
+    $('#init-const').show();
   });
 }
 
@@ -726,6 +731,7 @@ function get_json_skill_list() {
 function get_json_strain_stats() {
   return $.getJSON('/strain_stats.json', function(strain_stats_json_data) { 
     strain_stats = strain_stats_json_data;
+    $('#init-stat').show();
   });
 }
 

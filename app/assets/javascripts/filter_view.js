@@ -1,3 +1,5 @@
+var init_completed = false;
+
 function get_active_view_filters() {
   var filters = new Array();
   $('#filter-group :selected').each(function() {
@@ -55,7 +57,7 @@ function apply_view_filters() {
     }
   })
 
-  if ($('#graphical .list-group-item :visible').length == 0) {
+  if ($('#graphical .list-group-item :visible').length == 0 && init_completed) {
     $('#filter-no-match').show();
   } else {
     $('#filter-no-match').hide();
