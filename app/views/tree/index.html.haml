@@ -1,3 +1,23 @@
+%div{class: 'modal fade', id: 'new-version-alert'}
+  %div{class: 'modal-dialog'}
+    %div{class: 'modal-content'}
+      %div{class: 'modal-header'}
+        %button{type: 'button', class: 'close', 'data-dismiss' => 'modal'}
+          %span &times;
+        %h4{class: 'modal-title'} Hey There...
+      %div{class: 'modal-body'}
+        It looks like you're still using old version of DRpedia.
+        %br
+        %strong{class: 'text-danger'}
+          This version of app will be retired soon.
+        %hr
+        We'd like to invite you to test drive the new version. It's much more feature-packed. We're sure you'll like it. 
+        %strong
+          Just click the blue button below...
+      %div{class: 'modal-footer'}
+        %button{type: 'button', class: 'btn btn-default', 'data-dismiss' => 'modal'} No, thanks
+        %button{type: 'button', class: 'btn btn-primary', id: 'go-to-new-version'} Ok, take me there
+
 %div{id: 'setup', class: 'col-xs-12 row'}
   %div{id: 'setup-strain', class: 'col-xs-6 svcenter'}
   %div{id: 'setup-profession', class: 'col-xs-6 svcenter'}

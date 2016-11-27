@@ -749,6 +749,10 @@ $(function() {
     get_json_profession();
     get_json_skill_cat();
     get_json_strain_restriction();
+    $('#new-version-alert').modal();
+    $('#go-to-new-version').on('click', function() {
+      window.location.href = "/beta";
+    })
   }
 
   $('#search-input').on('keyup', function(e) {
