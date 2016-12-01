@@ -35,7 +35,7 @@ var generate_strains_select_box = function() {
       apply_strain_restrictions();
       restrict_profession_selector();
       update_selected_professions();
-      update_profession_cost();
+      //update_profession_cost();
 
       recalculate();
 
@@ -45,6 +45,8 @@ var generate_strains_select_box = function() {
         update_strain_stats();
         update_strain_specs();
       }
+
+      update_profession_cost();
     }
   });
 };
@@ -188,7 +190,16 @@ var generate_professions_select_box = function() {
 };
 
 function update_profession_cost() {
-  $('#profession-xp').text(Math.max(0, ($('#profession-selector :selected').length - 1) * 10));
+  var remnant_cost_reduction = 0;
+
+  // Remnant-specific two-profession start
+  if (strain_specs[selected_strain] != undefined && 
+      strain_specs[selected_strain].advantages != undefined &&
+      strain_specs[selected_strain].advantages.indexOf('Dabbler') != -1) {
+    remnant_cost_reduction = 1;
+  }
+
+  $('#profession-xp').text(Math.max(0, ($('#profession-selector :selected').length - 1 - remnant_cost_reduction) * 10));
 }
 
 function restrict_profession_selector() {
