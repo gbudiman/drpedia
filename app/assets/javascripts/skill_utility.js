@@ -97,7 +97,6 @@ function check_prerequisite(skills, skill) {
 
   augmented_professions = (selected_professions || new Array()).concat(' - ');
 
-  console.log(augmented_professions);
   $.each(augmented_professions, function(i, profession) {
     var strain_skill = skill_cat[skill][profession];
 
@@ -121,8 +120,6 @@ function check_prerequisite(skills, skill) {
           var strain_preq = innates_preq[selected_strain];
 
           if (strain_preq != null) {
-            console.log('checking here for ');
-            console.log(strain_preq);
             var predicate = strain_preq.predicate;
             var lists = strain_preq.list;
 

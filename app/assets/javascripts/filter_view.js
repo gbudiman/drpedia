@@ -26,7 +26,7 @@ function apply_view_filters() {
 
   var filter_hide_lore = function() {
     var regex = new RegExp(/^Lore/);
-    $('#graphical .list-group-item')
+    $('#graphical-list .list-group-item')
       .filter(function () {
         return $(this).attr('skill-name').match(regex);
       }).hide();
@@ -34,7 +34,7 @@ function apply_view_filters() {
 
   var filter_hide_psionics = function() {
     var regex = new RegExp(/^Psi/);
-    $('#graphical .list-group-item')
+    $('#graphical-list .list-group-item')
       .filter(function() {
         return $(this).attr('skill-name').match(regex);
       }).hide();
