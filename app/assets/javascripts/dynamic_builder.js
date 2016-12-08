@@ -78,6 +78,7 @@ function is_valid_skill(skill_name) {
 function resize_graphical() {
   var target_max_height = $(window).height() - $('#setup').height();
   $('#graphical-list').css('max-height', target_max_height - 40);
+  $('#advanced-list').css('max-height', target_max_height - 40);
   $('#builder').css('max-height', target_max_height);
 }
 
