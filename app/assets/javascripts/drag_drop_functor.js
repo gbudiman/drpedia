@@ -14,7 +14,7 @@ function attach_drag_functor(selement) {
   }
 
   var get_parent_id_of_clicked_object = function(obj) {
-    return obj.parent().parent().attr('id');
+    return obj.parent().parent().attr('id') || obj.parent().attr('id');
   }
 
   var get_parent_object_of_clicked_object = function(obj) {
@@ -39,6 +39,7 @@ function attach_drag_functor(selement) {
 
     update_selected_skills($('.drag-simulable').length);
     if ($('.drag-simulable').length > 0) {
+      console.log(get_parent_id_of_clicked_object(selement));
       highlight_droppable_regions(true, get_parent_id_of_clicked_object(selement));
     } else {
       highlight_droppable_regions(false);
@@ -97,8 +98,11 @@ function attach_tappable_drop(id) {
 
     if (is_desktop_site) { return; }
 
-    if ($(this).hasClass('drop-simulable')) {
+    //if ($(this).hasClass('drop-simulable')) {
+    if ($(list_id).hasClass('drop-simulable') || $(this).hasClass('drop-simulable')) {
+      console.log('clicked on drop-simulable');
       $('.drag-simulable').each(function() {
+        console.log($(this));
         append_lexicographically(list_id, $(this));
         reset_popover($(this));
         rebuild_popover($(this));
@@ -119,7 +123,7 @@ function attach_tappable_drop(id) {
 
 function highlight_droppable_regions(enable, clicked_from) {
   if (enable) {
-    var class_const = new Array('graphical', 'planned', 'acquired');
+    var class_const = new Array('graphical-list', 'planned', 'acquired');
     var class_exec = new Array();
 
     $.each(class_const, function(i, x) {
@@ -131,7 +135,7 @@ function highlight_droppable_regions(enable, clicked_from) {
     disable_popover();
 
     $.each(class_exec, function(i, x) {
-      if (x == 'graphical') {
+      if (x == 'graphical-list') {
         $('#' + x)
           .css('background-color', '#ddffdd');
       } else {
@@ -153,7 +157,7 @@ function highlight_droppable_regions(enable, clicked_from) {
       .css('border', '1px solid #ddd')
       .css('background-color', '');
 
-    $('#graphical').css('background-color', '');
+    $('#graphical-list').css('background-color', '');
     $('.skill-draggable').css('opacity', 1);
     $('.drop-simulable').removeClass('drop-simulable');
 

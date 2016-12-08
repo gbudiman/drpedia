@@ -61,7 +61,6 @@ function check_constraints(skills, errors) {
     errors = errors.concat(s_error);
   })
 
-  console.log(errors);
   $('#error-list').empty();
 
   if (errors.length > 0) {

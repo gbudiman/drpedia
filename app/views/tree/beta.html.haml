@@ -84,6 +84,7 @@
 
 
   %div{id: 'builder', class: 'builder-container col-xs-6 col-md-4 col-lg-3'}
+    / %input{type: 'checkbox', id: 'is-touch-device'} Enable touch input
     %div{class: 'alert alert-success alert-dismissible', id: 'alert-desktop', hidden: true}
       %button{type: 'button', class: 'close'}
         %span &times;
@@ -271,6 +272,7 @@
 
   #graphical-list, #advanced-list, #error-list {
     margin-bottom: 4px;
+    padding: 0;
   }
   
   #acquired, #planned {
