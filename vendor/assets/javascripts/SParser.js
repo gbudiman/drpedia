@@ -461,127 +461,127 @@ SParser.prototype.context_comprehension = function(l) {
 function load_defaults() {
   var s = new Object();
 
-  s.apo_templar = new SParser(`
-    (and ((xp_sum 100) 
-          (stat_sum hp_or_mp 50) 
-          (p Priest) 
-          (p (Guard Officer))))`);
-  s.avontuur = new SParser(`
-    (and ((xp_sum 100) 
-          (stat_sum hp_or_mp 50) 
-          (p (Gambler Scavenger Teacher Jones))))`)
-  s.bone_breaker = new SParser(` 
-    (and ((xp_sum 100) 
-          (stat_sum hp_or_mp 50) 
-          (p (Thug Pugilist))))`)
-  s.entrepreneur = new SParser(` 
-    (and ((not (s "The Red Star")) 
-          (xp_sum 100)
-          (stat_sum hp_or_mp 50) 
-          (p ("Caravan Driver" "Hook-Up" Merchant Publican))))`)
-  s.free_radical = new SParser(` 
-    (and ((s Retrograde) 
-          (xp_sum 100) 
-          (stat_sum hp_or_mp 50)))`)
-  s.g_man = new SParser(` 
-    (and ((or ((s "Pure Blood") 
-               (k "Lore - Strain - Pure Blood"))) 
-          (xp_sum 100) 
-          (stat_sum hp_or_mp 50) 
-          (k Literacy) 
-          (k "Lore - Pre-Fall History Modern") 
-          (k (Torture Interrogate))))`)
-  s.gear_head = new SParser(` 
-    (and ((xp_sum 100) 
-          (stat_sum hp_or_mp 50) 
-          ((or (p (Caravan Driver "Hook-Up" Merchant Engineer "Mad Scientist")) 
-               (s ("Diesel Jock" Rover)))) 
-          (k ("Building Tomorrow" Brewing "Forging the Future"))))`)
-  s.grave_robber = new SParser(` 
-    (and ((xp_sum 100)
-          (stat_sum hp_or_mp 50)
-          (p (Doctor Sawbones)) 
-          (p (Scavenger Thief Assassin Jones))))`)
-  s.marksman = new SParser(` 
-    (and ((xp_sum 100) 
-          (stat_sum hp_or_mp 50)
-          (p (Sniper "Gun Slinger"))))`)
-  s.mercenary = new SParser(` 
-    (and ((xp_sum 100) 
-          (stat_sum hp_or_mp 50)
-          (p (Soldier Guard Officer Hunter))))`)
-  s.merican_badass = new SParser(` 
-    (and ((xp_sum 100) 
-          (stat_sum hp 50) 
-          (s Merican)
-          (p Priest) 
-          (p (Guard Officer "Gun Slinger" Hunter Primitive Pugilist Soldier Thug))))`)
-  s.mind_killer = new SParser(` 
-    (and ((xp_sum 200) 
-          (stat_sum hp_or_mp 50) 
-          (k "Mind Resistance")))`)
-  s.monk = new SParser(` 
-    (and ((xp_sum 100)
-          (stat_sum hp_or_mp 50) 
-          (p ("Martial Artist" Priest))))`)
-  s.mountebank = new SParser(` 
-    (and ((xp_sum 100) 
-          (stat_sum mp 100) 
-          (p (Charlatan Gambler Merchant Politician))))`)
-  s.nephilim = new SParser(` 
-    (and ((xp_sum 200) 
-          (stat_sum mp 50) 
-          (s ("Nation of Accensor" Remnant))))`)
-  s.oni = new SParser(` 
-    (and ((xp_sum 100)  
-          (stat_sum hp_or_mp 50)
-          (s "The Red Star") 
-          (p Priest) 
-          (p (Guard Officer "Gun Slinger" Primitive Soldier))))`)
-  s.overlord = new SParser(`
-    (and ((xp_sum 100)
-          (stat_sum hp_or_mp 50) 
-          (p (Assassin Doctor Gambler "Mad Scientist" "Ring Leader" Engineer)) 
-          (p (Charlatan Entertainer Politician Priest Teacher))))`)
-  s.reaper = new SParser(` 
-    (and ((xp_sum 100)
-          (p ("Gun Slinger" Hunter Primitive Soldier))))`)
-  s.sage = new SParser(`
-    (and ((xp_sum 100) 
-          (stat_sum mp 50) 
-          (p (Jones Printer Teacher)) 
-          (lore_type 4)))`);
-  s.saint = new SParser(` 
-    (and ((xp_sum 100)
-          (or ((p (Cook Doctor Priest Teacher))  
-               (s "Nation of Accensor"))) 
-          ((not (s "The Red Star")))))`)
-  s.shadow = new SParser(` 
-    (and ((xp_sum 200) 
-          (stat_sum hp_or_mp 50)
-          (p (Assassin Thief Spy))))`)
-  s.shepherd = new SParser(` 
-    (and ((xp_sum 200) 
-          (stat_sum hp_or_mp 100) 
-          (p (Cook Brewer Teacher Entertainer Farmer Fishmonger))))`)
-  s.survivor = new SParser(` 
-    (and ((xp_sum 200) 
-          (stat_sum hp_and_mp 100)))`)
-  s.techno_savant = new SParser(`
-    (and ((xp_sum 100)
-          (stat_sum hp_or_mp 50) 
-          (p ("Mad Scientist" Tinker Engineer))))`)
-  s.thought_bender = new SParser(` 
-    (and ((xp_sum 100)  
-          (stat_sum mp 50) 
-          (p Psionist) 
-          (psionic_type advanced 2)))`)
-  s.veteran = new SParser(` 
-    (and ((xp_sum 200)
-          (k "Lore - Local Area")))`)
-  s.villon = new SParser(`
-    (and ((xp_sum 100) 
-          (p (Thief Assassin Spy))))`)
+  // s.apo_templar = new SParser('\
+  //   (and ((xp_sum 100) \
+  //         (stat_sum hp_or_mp 50)\ 
+  //         (p Priest) \
+  //         (p (Guard Officer))))');
+  // s.avontuur = new SParser('\
+  //   (and ((xp_sum 100) \
+  //         (stat_sum hp_or_mp 50) \
+  //         (p (Gambler Scavenger Teacher Jones))))')
+  // s.bone_breaker = new SParser('\ 
+  //   (and ((xp_sum 100) \
+  //         (stat_sum hp_or_mp 50) \
+  //         (p (Thug Pugilist))))')
+  // s.entrepreneur = new SParser(' \
+  //   (and ((not (s "The Red Star")) \
+  //         (xp_sum 100)\
+  //         (stat_sum hp_or_mp 50) \
+  //         (p ("Caravan Driver" "Hook-Up" Merchant Publican))))')
+  // s.free_radical = new SParser(' \
+  //   (and ((s Retrograde) \
+  //         (xp_sum 100) \
+  //         (stat_sum hp_or_mp 50)))')
+  // s.g_man = new SParser(' \
+  //   (and ((or ((s "Pure Blood") \
+  //              (k "Lore - Strain - Pure Blood"))) \
+  //         (xp_sum 100) \
+  //         (stat_sum hp_or_mp 50) \
+  //         (k Literacy) \
+  //         (k "Lore - Pre-Fall History Modern") \
+  //         (k (Torture Interrogate))))')
+  // s.gear_head = new SParser(' \
+  //   (and ((xp_sum 100) \
+  //         (stat_sum hp_or_mp 50) \
+  //         ((or (p (Caravan Driver "Hook-Up" Merchant Engineer "Mad Scientist")) \
+  //              (s ("Diesel Jock" Rover)))) \
+  //         (k ("Building Tomorrow" Brewing "Forging the Future"))))')
+  // s.grave_robber = new SParser(' \
+  //   (and ((xp_sum 100)\
+  //         (stat_sum hp_or_mp 50)\
+  //         (p (Doctor Sawbones)) \
+  //         (p (Scavenger Thief Assassin Jones))))')
+  // s.marksman = new SParser(' \
+  //   (and ((xp_sum 100) \
+  //         (stat_sum hp_or_mp 50)\
+  //         (p (Sniper "Gun Slinger"))))')
+  // s.mercenary = new SParser(' \
+  //   (and ((xp_sum 100) \
+  //         (stat_sum hp_or_mp 50)\
+  //         (p (Soldier Guard Officer Hunter))))')
+  // s.merican_badass = new SParser(' \
+  //   (and ((xp_sum 100) \
+  //         (stat_sum hp 50) \
+  //         (s Merican)\
+  //         (p Priest) \
+  //         (p (Guard Officer "Gun Slinger" Hunter Primitive Pugilist Soldier Thug))))')
+  // s.mind_killer = new SParser(' \
+  //   (and ((xp_sum 200) \
+  //         (stat_sum hp_or_mp 50) \
+  //         (k "Mind Resistance")))')
+  // s.monk = new SParser(' \
+  //   (and ((xp_sum 100)\
+  //         (stat_sum hp_or_mp 50) \
+  //         (p ("Martial Artist" Priest))))')
+  // s.mountebank = new SParser(' \
+  //   (and ((xp_sum 100) \
+  //         (stat_sum mp 100) \
+  //         (p (Charlatan Gambler Merchant Politician))))')
+  // s.nephilim = new SParser(' \
+  //   (and ((xp_sum 200) \
+  //         (stat_sum mp 50) \
+  //         (s ("Nation of Accensor" Remnant))))')
+  // s.oni = new SParser(' \
+  //   (and ((xp_sum 100)  \
+  //         (stat_sum hp_or_mp 50)\
+  //         (s "The Red Star") \
+  //         (p Priest) \
+  //         (p (Guard Officer "Gun Slinger" Primitive Soldier))))')
+  // s.overlord = new SParser('\
+  //   (and ((xp_sum 100)\
+  //         (stat_sum hp_or_mp 50) \
+  //         (p (Assassin Doctor Gambler "Mad Scientist" "Ring Leader" Engineer)) \
+  //         (p (Charlatan Entertainer Politician Priest Teacher))))')
+  // s.reaper = new SParser(' \
+  //   (and ((xp_sum 100)\
+  //         (p ("Gun Slinger" Hunter Primitive Soldier))))')
+  // s.sage = new SParser('\
+  //   (and ((xp_sum 100) \
+  //         (stat_sum mp 50) \
+  //         (p (Jones Printer Teacher)) \
+  //         (lore_type 4)))');
+  // s.saint = new SParser(' \
+  //   (and ((xp_sum 100)\
+  //         (or ((p (Cook Doctor Priest Teacher))  \
+  //              (s "Nation of Accensor"))) \
+  //         ((not (s "The Red Star")))))')
+  // s.shadow = new SParser(' \
+  //   (and ((xp_sum 200) \
+  //         (stat_sum hp_or_mp 50)\
+  //         (p (Assassin Thief Spy))))')
+  // s.shepherd = new SParser(' \
+  //   (and ((xp_sum 200) \
+  //         (stat_sum hp_or_mp 100) \
+  //         (p (Cook Brewer Teacher Entertainer Farmer Fishmonger))))')
+  // s.survivor = new SParser(' \
+  //   (and ((xp_sum 200) \
+  //         (stat_sum hp_and_mp 100)))')
+  // s.techno_savant = new SParser('\
+  //   (and ((xp_sum 100)\
+  //         (stat_sum hp_or_mp 50) \
+  //         (p ("Mad Scientist" Tinker Engineer))))')
+  // s.thought_bender = new SParser(' \
+  //   (and ((xp_sum 100)  \
+  //         (stat_sum mp 50) \
+  //         (p Psionist) \
+  //         (psionic_type advanced 2)))')
+  // s.veteran = new SParser(' \
+  //   (and ((xp_sum 200)\
+  //         (k "Lore - Local Area")))')
+  // s.villon = new SParser('\
+  //   (and ((xp_sum 100) \
+  //         (p (Thief Assassin Spy))))')
 
   return s;
 }
