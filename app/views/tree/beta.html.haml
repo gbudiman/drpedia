@@ -58,6 +58,7 @@
 
 %div{class: 'body-container'}
   %div{id: 'graphical', class: 'graphical-container col-xs-6 col-md-8 col-lg-9' }
+
     %div{class: 'alert alert-info', id: 'loading'}
       %ul{class: 'list-unstyled'}
         %li{'data-dismissible' => true}
@@ -69,7 +70,15 @@
         %li{id: 'init-const', hidden: true, 'data-dismissible' => true} &raquo; Constraints loaded
         %li{id: 'init-completed', hidden: true}
           %strong All loaded
-    %ul{id: 'graphical-list', class: 'list-group'}
+    %ul{class: 'nav nav-tabs'}
+      %li
+        %a{'data-toggle' => 'tab', href: '#advanced-list'} Advanced
+      %li{class: 'active'}
+        %a{'data-toggle' => 'tab', href: '#graphical-list'} Basic
+
+    %div{class: 'tab-content'}
+      %ul{id: 'graphical-list', class: 'list-group tab-pane fade in active'}
+      %ul{id: 'advanced-list', class: 'list-group tab-pane fade'}
     %div{class: 'alert alert-warning', hidden: true, id: 'filter-no-match'}
       No Skills match filter criteria.
 
@@ -140,17 +149,10 @@
     %div{id: 'planned', class: 'col-xs-12 svupdown skill-droppable'}
       %ul{class: 'list-group', id: 'planned-list'}
 
-    %ul{class: 'nav nav-tabs'}
-      %li{class: 'active'}
-        %a{'data-toggle' => 'tab', href: '#advanced-profession'} Advanced
-      %li
-        %a{'data-toggle' => 'tab', href: '#strain-specs'} Strain
 
-    %div{class: 'tab-content'}
-      %div{id: 'strain-specs', class: 'col-xs-12 row tab-pane fade'}
+    %div{id: 'strain-specs', class: 'col-xs-12 row'} 
 
-      %div{class: 'col-xs-12 advanced-professions tab-pane fade in active', id: 'advanced-profession'}
-        %ul{id: 'advanced-list', class: 'list-group'}
+      
 
 :javascript
   var is_builder = true;
@@ -264,6 +266,10 @@
     padding-right: 8px;
   }
 
+  #graphical-list {
+    margin-bottom: 0px;
+  }
+  
   #acquired, #planned {
     height: 256px;
     border: 1px solid #ddd;
