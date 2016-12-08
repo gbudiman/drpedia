@@ -57,6 +57,7 @@ function check_constraints(skills, errors) {
     errors = errors.concat(s_error);
   })
 
+  console.log(errors);
   $('#error-list').empty();
 
   if (errors.length > 0) {
@@ -92,9 +93,11 @@ function check_constraints(skills, errors) {
 function check_prerequisite(skills, skill) {
   var global_satisfaction = false;
   var errors = new Array();
+  var innate_preq_analyzed = false;
 
   augmented_professions = (selected_professions || new Array()).concat(' - ');
 
+  console.log(augmented_professions);
   $.each(augmented_professions, function(i, profession) {
     var strain_skill = skill_cat[skill][profession];
 
@@ -108,7 +111,8 @@ function check_prerequisite(skills, skill) {
       } else {
         local_satisfaction = true;
       }
-    } else {
+    } else if (!innate_preq_analyzed) {
+
       var innates = skill_cat[skill].innate;
       var innates_preq = skill_cat[skill].innate_preq;
 
@@ -117,6 +121,8 @@ function check_prerequisite(skills, skill) {
           var strain_preq = innates_preq[selected_strain];
 
           if (strain_preq != null) {
+            console.log('checking here for ');
+            console.log(strain_preq);
             var predicate = strain_preq.predicate;
             var lists = strain_preq.list;
 
@@ -128,6 +134,8 @@ function check_prerequisite(skills, skill) {
           local_satisfaction = true;
         }
       }
+
+      innate_preq_analyzed = true;
     }
 
     global_satisfaction = global_satisfaction || local_satisfaction;

@@ -19,6 +19,7 @@ function render_advanced_profession() {
               .addClass('list-group-item')
               .addClass('faded')
               .addClass('clickable-advanced')
+              .addClass('col-xs-12 col-sm-6 col-md-4 col-lg-3')
               .attr('p-adv', name)
               .append(name)
               .append(t)

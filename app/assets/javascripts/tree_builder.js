@@ -329,7 +329,7 @@ function rebuild_popover(obj, _rebuild) {
   var target_element = obj;
   var skill_name = obj.find('span.skill-label').text();
   var min_cost = parseInt(obj.find('span.badge').text());
-  var top_id = target_element.parent().parent().attr('id');
+  var top_id = target_element.parent().attr('id');
 
   // target_element
   //   .attr('data-placement', 'auto')
