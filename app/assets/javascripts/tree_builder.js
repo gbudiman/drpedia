@@ -5,6 +5,8 @@ var strain_restrictions;
 var strain_stats;
 var strain_specs;
 var skill_groups;
+var professions_advanced;
+var professions_concentration;
 
 var selected_strain;
 var selected_professions;
@@ -47,6 +49,10 @@ var generate_strains_select_box = function() {
       }
 
       update_profession_cost();
+
+      if (is_builder) {
+        update_beyond_basic();
+      }
     }
   });
 };
@@ -184,6 +190,7 @@ var generate_professions_select_box = function() {
       if (is_builder) {
         replan();
         pack_state();
+        update_beyond_basic();
       }
     }
   })
@@ -708,6 +715,18 @@ function get_json_profession() {
     generate_professions_select_box(); 
     $('#init-profession').show();
   });
+}
+
+function get_json_profession_advanced() {
+  return $.getJSON('/profession_advanced.json', function(p_adv_json_data) {
+    professions_advanced = p_adv_json_data;
+  })
+}
+
+function get_json_profession_concentration() {
+  return $.getJSON('/profession_concentrations.json', function(p_conc_json_data) {
+    professions_concentration = p_conc_json_data;
+  })
 }
 
 function get_json_skill_cat() {

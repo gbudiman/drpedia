@@ -12,3 +12,5 @@
 //
 //= require jquery
 //= require jquery-ui
+//= require AgentGirl
+//= require SParser

@@ -69,7 +69,7 @@
         %li{id: 'init-const', hidden: true, 'data-dismissible' => true} &raquo; Constraints loaded
         %li{id: 'init-completed', hidden: true}
           %strong All loaded
-    %div{id: 'graphical-list', class: 'list-group'}
+    %ul{id: 'graphical-list', class: 'list-group'}
     %div{class: 'alert alert-warning', hidden: true, id: 'filter-no-match'}
       No Skills match filter criteria.
 
@@ -140,11 +140,22 @@
     %div{id: 'planned', class: 'col-xs-12 svupdown skill-droppable'}
       %ul{class: 'list-group', id: 'planned-list'}
 
-    %div{id: 'strain-specs', class: 'col-xs-12 row'}
+    %ul{class: 'nav nav-tabs'}
+      %li{class: 'active'}
+        %a{'data-toggle' => 'tab', href: '#advanced-profession'} Advanced
+      %li
+        %a{'data-toggle' => 'tab', href: '#strain-specs'} Strain
+
+    %div{class: 'tab-content'}
+      %div{id: 'strain-specs', class: 'col-xs-12 row tab-pane fade'}
+
+      %div{class: 'col-xs-12 advanced-professions tab-pane fade in active', id: 'advanced-profession'}
+        %ul{id: 'advanced-list', class: 'list-group'}
 
 :javascript
   var is_builder = true;
 
+= javascript_include_tag 'beyond_basic'
 = javascript_include_tag 'filter_view'
 = javascript_include_tag 'profile'
 = javascript_include_tag 'stats'
@@ -175,6 +186,11 @@
   
   .btn-group-list {
     padding: 0;
+  }
+
+  .bg-success-alt {
+    background-color: #3c763d;
+    color: #fff;
   }
 
   #error-log {
@@ -291,7 +307,7 @@
     padding: 0;
   }
 
-  .skill-droppable {
+  .skill-droppable, .advanced-professions {
     padding-left: 0px;
     padding-right: 0px;
   }
@@ -345,6 +361,10 @@
   }
 
   .clickable-skill{
+    cursor: pointer
+  }
+
+  .clickable-advanced {
     cursor: pointer
   }
 

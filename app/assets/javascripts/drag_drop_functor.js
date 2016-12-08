@@ -189,12 +189,14 @@ function attach_drop_functor(_element_id) {
       disable_popover();
       //disable_drag(dragged_object);
 
+      update_beyond_basic();
       pack_state();
     }
   })
 }
 
-function append_lexicographically(list_id, dragged_object) {
+function append_lexicographically(list_id, dragged_object, _bypass_beyond_basic) {
+  var bypass_beyond_basic = _bypass_beyond_basic == undefined ? false : _bypass_beyond_basic;
   var seek_skill_name = dragged_object.attr('skill-name');
   var appended = false;
   //console.log(seek_skill_name);

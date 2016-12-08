@@ -1,5 +1,6 @@
 var skill_list;
 var skill_list_inverted;
+var skill_list_special_group;
 
 function clear_cookies() {
   Cookies.remove('drpedia');
@@ -123,7 +124,7 @@ function unpack_state() {
     update_xp_count('#acquired');
     generate_constraints();
     update_selected_skills(0);
-
+    update_beyond_basic();
     
   } else {
     generate_constraints();
@@ -159,9 +160,17 @@ function extract_skills() {
 
 function generate_inverted_skills() {
   skill_list_inverted = new Object();
+  skill_list_special_group = new Object();
+
   $.each(skill_list, function(key, val) {
     skill_list_inverted[val] = key;
   })
+
+  $.each(skill_groups, function(group_name, d) {
+    $.each(d, function(skill_name, _junk) {
+      skill_list_special_group[skill_name] = group_name;
+    });
+  });
 }
 
 $(function() {
@@ -169,19 +178,24 @@ $(function() {
          get_json_profession(), 
          get_json_skill_cat(), 
          get_json_strain_stats(), 
-         get_json_strain_specs()).done(function() {
+         get_json_strain_specs(),
+         get_json_profession_advanced(),
+         get_json_profession_concentration()).done(function() {
     $.when(get_json_strain_restriction()).done(function() {
       $.when(get_json_skill_list()).done(function() {
         $('#init-completed').show();
 
         generate_inverted_skills();
         resize_graphical();
+        build_advanced_profession();
         load_first_available_profile();
 
         init_completed = true;
         $('#loading [data-dismissible]').hide(500, function() {
           $('#loading').hide(1000);
         });
+
+        
         
       });
       
