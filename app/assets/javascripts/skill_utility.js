@@ -40,11 +40,15 @@ function check_psion_constraints(target_id) {
   }
 
   if (l2 > Math.floor(l1 / 2)) {
-    errors.push('In ' + friendly_name + ' there are more Intermediate Psionic skills than twice the number of Basic Psionic skills');
+    errors.push({
+      text: 'In ' + friendly_name + ' there are more Intermediate Psionic skills than twice the number of Basic Psionic skills'
+    });
   }
 
   if (l3 > Math.floor(l2 / 2)) {
-    errors.push('In ' + friendly_name + ' there are more Advanced Psionic skills than twice the number of Intermediate Psionic skills');
+    errors.push({
+      text: 'In ' + friendly_name + ' there are more Advanced Psionic skills than twice the number of Intermediate Psionic skills'
+    });
   }
 
   //console.log(errors);
@@ -71,17 +75,24 @@ function check_constraints(skills, errors) {
   }
 
   $.each(errors, function(i, x) {
-    var li = $('<a></a>')
-      .attr('href', '#')
-      .attr('target-skill', x.data)
-      .addClass('list-group-item list-group-item-warning')
-      .append(x.text);
+    var is_fixable = x.data == undefined ? false : true;
+    var li = $('<a></a>').append(x.text);
 
-    li.on('click', function() {
-      var target_skill = $(this).attr('target-skill');
-      manual_relocate_skills('acquired-list', target_skill);
-      $(this).remove();
-    })
+    if (is_fixable) {
+      li.attr('href', '#')
+        .attr('target-skill', x.data)
+        .addClass('list-group-item list-group-item-warning')
+    } else {
+      li.addClass('list-group-item list-group-item-danger');
+    }
+
+    if (x.data != undefined) {
+      li.on('click', function() {
+        var target_skill = $(this).attr('target-skill');
+        manual_relocate_skills('acquired-list', target_skill);
+        $(this).remove();
+      })
+    }
 
     $('#error-list').append(li);
   })
