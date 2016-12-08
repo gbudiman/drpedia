@@ -10,6 +10,7 @@ function update_xp_count(element_id) {
     }
   })
   xp_element.text(count);
+  update_total_xp();
 }
 
 function replan() {

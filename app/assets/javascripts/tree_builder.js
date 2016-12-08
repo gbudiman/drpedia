@@ -207,6 +207,7 @@ function update_profession_cost() {
   }
 
   $('#profession-xp').text(Math.max(0, ($('#profession-selector :selected').length - 1 - remnant_cost_reduction) * 10));
+  update_total_xp();
 }
 
 function restrict_profession_selector() {

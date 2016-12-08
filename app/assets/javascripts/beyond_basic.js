@@ -199,11 +199,7 @@ function web_display_human_readable_result(s, target) {
 }
 
 function calculate_xp_sum() {
-  return parseInt($('#hp-addition').text())
-       + parseInt($('#mp-addition').text())
-       + parseInt($('#profession-xp').text())
-       + parseInt($('#acquired-xp').text())
-       + parseInt($('#planned-xp').text());
+  return parseInt($('#xp-total').text());
 }
 
 function calculate_hp() {

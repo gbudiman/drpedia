@@ -133,8 +133,11 @@
         %span{id: 'infection-base'}
     %div{class: 'row sstats'}
       %div{class: 'col-xs-4 minipad'} Profession Cost
-      %div{class: 'col-xs-8 minipad'} 
+      %div{class: 'col-xs-2 minipad'} 
         %span{class: 'badge', id: 'profession-xp'} 0
+      %div{class: 'col-xs-4 minipad'} Total XP
+      %div{class: 'col-xs-2-minipad'}
+        %span{class: 'badge', id: 'xp-total'} 0
     %hr{class: 'tight'}
     %div{class: 'builder-header'}
       Acquired skills
@@ -266,8 +269,8 @@
     padding-right: 8px;
   }
 
-  #graphical-list {
-    margin-bottom: 0px;
+  #graphical-list, #advanced-list, #error-list {
+    margin-bottom: 4px;
   }
   
   #acquired, #planned {

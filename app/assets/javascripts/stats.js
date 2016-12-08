@@ -9,6 +9,7 @@ $(function() {
 
   compute_stats('#hp-total');
   compute_stats('#mp-total');
+  update_total_xp();
 })
 
 function initialize_stats_controller(target_id) {
@@ -71,4 +72,16 @@ function compute_stats(target_id) {
   var result = parseInt(base) + parseInt(addition);
 
   obj.text(result);
+
+  update_total_xp();
+}
+
+function update_total_xp() {
+  var s = parseInt($('#hp-addition').text())
+        + parseInt($('#mp-addition').text())
+        + parseInt($('#profession-xp').text())
+        + parseInt($('#acquired-xp').text())
+        + parseInt($('#planned-xp').text());
+
+  $('#xp-total').text(s);
 }
