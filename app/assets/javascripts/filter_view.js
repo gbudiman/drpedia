@@ -57,11 +57,21 @@ function apply_view_filters() {
     }
   })
 
-  if ($('#graphical .list-group-item :visible').length == 0 && init_completed) {
-    $('#filter-no-match').show();
+  if ($('#graphical-list').is(':visible')) {
+    if ($('#graphical-list .list-group-item :visible').length == 0 && init_completed) {
+      $('#filter-no-match').show();
+    } else {
+      $('#filter-no-match').hide();
+    }
   } else {
     $('#filter-no-match').hide();
   }
+
+  // if ($('#graphical .list-group-item :visible').length == 0 && init_completed) {
+  //   $('#filter-no-match').show();
+  // } else {
+  //   $('#filter-no-match').hide();
+  // }
 }
 
 $(function() {

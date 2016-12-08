@@ -673,7 +673,7 @@ function SParser(x) {
         throw new Error('Unknown Psionic skill class: ' + l[0]);
     }
 
-    return this.cond(s_class, -1, s_func);
+    return this.cond(s_class, l[1], s_func);
   }
 
   var func_lore_count = function(l) {
