@@ -807,7 +807,7 @@ $(function() {
 
   //$.mobile.loading().hide();
 
-  $('#graphical').on('scroll', function() {
+  $('#graphical-list').on('scroll', function() {
     $('.popover').hide();
   })
   $('#acquired').on('scroll', function() {
