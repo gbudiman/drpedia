@@ -685,7 +685,8 @@ function update_availability() {
 
     if (only_available) {
       $('.list-group-item').show();
-      $('#graphical').find('.list-group-item.faded').hide();
+      //$('#graphical').find('.list-group-item.faded').hide();
+      $('#graphical-list').find('.list-group-item.faded').hide();
     } else {
       $('.list-group-item.faded').show();
     }
@@ -808,13 +809,17 @@ $(function() {
   //$.mobile.loading().hide();
 
   $('#graphical-list').on('scroll', function() {
-    $('.popover').hide();
+    disable_popover();
   })
   $('#acquired').on('scroll', function() {
-    $('.popover').hide();
+    disable_popover();
   })
   $('#planned').on('scroll', function() {
-    $('.popover').hide();
+    disable_popover();
+  })
+
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function() {
+    disable_popover();
   })
 });
 

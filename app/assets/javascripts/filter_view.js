@@ -11,11 +11,11 @@ function get_active_view_filters() {
 
 function apply_view_filters() {
   var filter_only_available = function() {
-    $('#graphical').find('.list-group-item.faded').hide();
+    $('#graphical-list').find('.list-group-item.faded').hide();
   }
 
   var filter_only_discounted = function() {
-    $('#graphical .list-group-item').each(function() {
+    $('#graphical-list .list-group-item').each(function() {
       var that = $(this);
 
       if (that.find('.progress-bar-success').length == 0) {

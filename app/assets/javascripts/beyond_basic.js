@@ -1,40 +1,52 @@
 var advanced_profession_struct = new Object();
 
 function build_advanced_profession() {
-  $.each(professions_advanced, function(key, raw) {
-    advanced_profession_struct[key] = new SParser(raw);
-  })
+  return new Promise(
+    function(resolve, reject) {
+      $.each(professions_advanced, function(key, raw) {
+        advanced_profession_struct[key] = new SParser(raw);
+      })
 
-  render_advanced_profession();
+      render_advanced_profession().then(function() {
+        resolve();
+      });
+    }
+  )
 }
 
 function render_advanced_profession() {
-  $.each(advanced_profession_struct, function(name, _junk) {
-    var t = $('<div></div>')
-              .addClass('adv-requirement')
-              .hide()
-              .append('Requirement here');
+  return new Promise(
+    function(resolve, reject) {
+      $.each(advanced_profession_struct, function(name, _junk) {
+        var t = $('<div></div>')
+                  .addClass('adv-requirement')
+                  .hide()
+                  .append('Requirement here');
 
-    var s = $('<li></li>')
-              .addClass('list-group-item')
-              .addClass('faded')
-              .addClass('clickable-advanced')
-              .addClass('col-xs-12 col-md-6 col-lg-4')
-              .attr('p-adv', name)
-              .append(name)
-              .append(t)
-              .on('click', function() {
-                var target = $(this).find('.adv-requirement');
+        var s = $('<li></li>')
+                  .addClass('list-group-item')
+                  .addClass('faded')
+                  .addClass('clickable-advanced')
+                  .addClass('col-xs-12 col-md-6 col-lg-4')
+                  .attr('p-adv', name)
+                  .append(name)
+                  .append(t)
+                  .on('click', function() {
+                    var target = $(this).find('.adv-requirement');
 
-                if (target.is(':hidden')) {
-                  target.show();
-                } else {
-                  target.hide();
-                }
-              });
+                    if (target.is(':hidden')) {
+                      target.show();
+                    } else {
+                      target.hide();
+                    }
+                  });
 
-    $('#advanced-list').append(s);
-  })
+        $('#advanced-list').append(s);
+      })
+
+      resolve();
+    }
+  )
 }
 
 function update_beyond_basic() {

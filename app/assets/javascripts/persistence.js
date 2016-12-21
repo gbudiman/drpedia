@@ -187,16 +187,14 @@ $(function() {
 
         generate_inverted_skills();
         resize_graphical();
-        build_advanced_profession();
-        load_first_available_profile();
+        build_advanced_profession().then(function() {
+          load_first_available_profile();
 
-        init_completed = true;
-        $('#loading [data-dismissible]').hide(500, function() {
-          $('#loading').hide(1000);
+          init_completed = true;
+          $('#loading [data-dismissible]').hide(500, function() {
+            $('#loading').hide(1000);
+          });
         });
-
-        
-        
       });
       
     })
