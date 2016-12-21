@@ -159,18 +159,24 @@ function extract_skills() {
 }
 
 function generate_inverted_skills() {
-  skill_list_inverted = new Object();
-  skill_list_special_group = new Object();
+  return new Promise(
+    function(resolve, reject) {
+      skill_list_inverted = new Object();
+      skill_list_special_group = new Object();
 
-  $.each(skill_list, function(key, val) {
-    skill_list_inverted[val] = key;
-  })
+      $.each(skill_list, function(key, val) {
+        skill_list_inverted[val] = key;
+      })
 
-  $.each(skill_groups, function(group_name, d) {
-    $.each(d, function(skill_name, _junk) {
-      skill_list_special_group[skill_name] = group_name;
-    });
-  });
+      $.each(skill_groups, function(group_name, d) {
+        $.each(d, function(skill_name, _junk) {
+          skill_list_special_group[skill_name] = group_name;
+        });
+      });
+
+      resolve();
+    }
+  )
 }
 
 $(function() {
@@ -185,16 +191,18 @@ $(function() {
       $.when(get_json_skill_list()).done(function() {
         $('#init-completed').show();
 
-        generate_inverted_skills();
+        
         resize_graphical();
-        build_advanced_profession().then(function() {
-          load_first_available_profile();
+        generate_inverted_skills().then(function() {
+          build_advanced_profession().then(function() {
+            load_first_available_profile();
 
-          init_completed = true;
-          $('#loading [data-dismissible]').hide(500, function() {
-            $('#loading').hide(1000);
+            init_completed = true;
+            $('#loading [data-dismissible]').hide(500, function() {
+              $('#loading').hide(1000);
+            });
           });
-        });
+        })
       });
       
     })
