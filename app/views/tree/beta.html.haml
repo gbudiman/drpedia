@@ -79,6 +79,10 @@
     %div{class: 'tab-content'}
       %ul{id: 'graphical-list', class: 'list-group tab-pane fade in active'}
       %ul{id: 'advanced-list', class: 'list-group tab-pane fade'}
+        %div{class: 'col-xs-12 row top-down-padded'}
+          %button{type: 'button', class: 'btn btn-primary btn-xs', id: 'advanced-expand-all'} Expand All
+          %button{type: 'button', class: 'btn btn-primary btn-xs', id: 'advanced-expand-accessible'} OK Only
+          %button{type: 'button', class: 'btn btn-primary btn-xs', id: 'advanced-collapse-all'} Collapse All
     %div{class: 'alert alert-warning', hidden: true, id: 'filter-no-match'}
       No Skills match filter criteria.
 
@@ -236,6 +240,10 @@
 
   .popover {
     font-size: 12px;
+  }
+
+  .top-down-padded {
+    padding-bottom: 2px;
   }
 
   .popover-content {

@@ -242,3 +242,39 @@ function compute_skills() {
     psionic_advanced: count_psi_advanced
   };
 }
+
+$(function() {
+  $('#advanced-expand-all').on('click', function() {
+    return new Promise(
+      function(resolve, reject) {
+        $('div.adv-requirement').show();
+        resolve();
+      }
+    );
+  })
+
+  $('#advanced-collapse-all').on('click', function() {
+    return new Promise(
+      function(resolve, reject) {
+        $('div.adv-requirement').hide();
+        resolve();
+      }
+    )
+  })
+
+  $('#advanced-expand-accessible').on('click', function() {
+    return new Promise(
+      function(resolve, reject) {
+        $('li.clickable-advanced').each(function() {
+          var adv = $(this).find('.adv-requirement');
+
+          if (!$(this).hasClass('faded')) {
+            adv.show();
+          } else {
+            adv.hide();
+          }
+        })
+      }
+    )
+  })
+})
