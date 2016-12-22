@@ -193,6 +193,7 @@ $(function() {
 
         
         resize_graphical();
+        generate_professions_select_box();
         generate_inverted_skills().then(function() {
           build_advanced_profession().then(function() {
             load_first_available_profile();
