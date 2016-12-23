@@ -69,7 +69,6 @@ function update_beyond_basic() {
 }
 
 function compute_advanced_profession_constraints(ag) {
-  console.log('agent update');
   var enable_advanced_profession_selector = function(name, value) {
     var o = $('#setup-profession input[value="' + name + '"]');
 
@@ -97,11 +96,11 @@ function compute_advanced_profession_constraints(ag) {
       enable_advanced_profession_selector(name, false);
     }
     
-    web_display_human_readable_result(s, target.find('.adv-requirement'));
+    web_display_human_readable_result(s, target.find('.adv-requirement'), name);
   });
 }
 
-function web_display_human_readable_result(s, target) {
+function web_display_human_readable_result(s, target, name) {
   var display = new Array();
   var highlight_in_list = function(list, _highlight) {
     if (_highlight == undefined) {
@@ -225,7 +224,17 @@ function web_display_human_readable_result(s, target) {
     unroll(x, 0, s);
   });
 
-  target.html(display.join('<br />'));
+  target
+    .html(display.join('<br />'))
+    .append('<br />')
+    .append($('<button></button>')
+              .attr('type', 'button')
+              .addClass('btn btn-primary btn-advanced-add')
+              .append('Select This Profession')
+              .on('click', function(evt) {
+                evt.preventDefault();
+                $('#profession-selector').multiselect('select', name, true);
+              }));
 }
 
 function calculate_xp_sum() {

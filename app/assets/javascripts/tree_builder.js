@@ -91,8 +91,8 @@ function update_strain_specs() {
 function update_selected_professions() {
   selected_professions = new Array();
 
-  $('#profession-selector :selected').each(function() {
-    selected_professions.push($(this).attr('profession'));
+  $('#setup-profession :selected').each(function() {
+    selected_professions.push($(this).val());
   })
 }
 
@@ -193,11 +193,8 @@ var generate_professions_select_box = function() {
       restrict_profession_selector();
       check_advanced_profession_constraints(option, checked);
       update_profession_cost();
+      update_selected_professions();
       //$('#profession-xp').text(Math.max(0, (selected_options.length - 1) * 10));
-      selected_professions = new Array();
-      selected_options.each(function() {
-        selected_professions.push($(this).text());
-      })
 
       recalculate();
 
