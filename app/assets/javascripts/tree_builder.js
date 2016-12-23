@@ -191,6 +191,7 @@ var generate_professions_select_box = function() {
       // }
 
       restrict_profession_selector();
+      check_advanced_profession_constraints(option, checked);
       update_profession_cost();
       //$('#profession-xp').text(Math.max(0, (selected_options.length - 1) * 10));
       selected_professions = new Array();
@@ -223,6 +224,34 @@ function update_profession_cost() {
   update_total_xp();
 }
 
+function check_advanced_profession_constraints(option, checked) {
+  if (checked) {
+    if (option.attr('profession-advanced') != undefined) {
+      var ap_name = option.attr('profession-advanced');
+
+      $('[profession-advanced]').each(function() {
+        var this_ap_name = $(this).attr('profession-advanced');
+
+        if (this_ap_name != ap_name) {
+          $('#profession-selector').multiselect('deselect', this_ap_name);
+        }
+      })
+    }
+  }
+
+  $('#profession-selector [profession-advanced]:selected').each(function() {
+    var ap_name = $(this).val();
+    var ap_obj = $('li[p-adv="' + ap_name + '"]');
+
+    //console.log(ap_obj);
+    if (ap_obj.hasClass('faded')) {
+      console.log('not satisfied');
+    } else {
+      console.log('ok');
+    }
+  })
+}
+
 function restrict_profession_selector() {
   var currently_selected = $('#profession-selector [profession]:selected').length;
   if (currently_selected >= 3) {
@@ -238,30 +267,6 @@ function restrict_profession_selector() {
     })
   } else {
     $('#profession-selector [profession]option').each(function() {
-      var input = $('input[value="' + $(this).val() + '"]');
-      //input.prop('faded', false);
-      if (input.attr('disabled-by-constraint') == undefined) {
-        
-        input.prop('disabled', false);
-        input.parent().removeClass('text-muted');
-      }
-    });
-  }
-
-  var advanced_selected = $('#profession-selector [profession-advanced]:selected').length;
-  if (advanced_selected == 1) {
-    var non_selected_options = $('#profession-selector [profession-advanced]option').filter(function() {
-      return !$(this).is(':selected');
-    })
-
-    non_selected_options.each(function() {
-      var input = $('input[value="' + $(this).val() + '"]');
-      //input.prop('faded', true);
-      input.prop('disabled', true);
-      input.parent().addClass('text-muted');
-    })
-  } else {
-    $('#profession-selector [profession-advanced]option').each(function() {
       var input = $('input[value="' + $(this).val() + '"]');
       //input.prop('faded', false);
       if (input.attr('disabled-by-constraint') == undefined) {
