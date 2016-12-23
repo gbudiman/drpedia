@@ -31,6 +31,20 @@ function render_advanced_profession() {
                   .attr('p-adv', name)
                   .append(name)
                   .append(t)
+                  .append($('<button></button>')
+                            .append('Select')
+                            .attr('ap-name', name)
+                            .addClass('btn btn-primary btn-xs pull-right btn-advanced-profession')
+                            .on('click', function() {
+                              $('.btn-advanced-profession').prop('disabled', false).text('Select');
+                              $(this)
+                                .prop('disabled', true)
+                                .text('Selected')
+
+                              $('#profession-selector').multiselect('select', name, true);
+
+                              return false;
+                            }))
                   .on('click', function() {
                     var target = $(this).find('.adv-requirement');
 
@@ -50,6 +64,14 @@ function render_advanced_profession() {
 }
 
 function update_beyond_basic() {
+  var disable_selected_advanced_profession = function() {
+    $.each(selected_professions, function(i, x) {
+      $('.btn-advanced-profession[ap-name="' + x + '"]')
+        .text('Selected')
+        .prop('disabled', true);
+    })
+  }
+
   var skills = compute_skills();
   var ag = new AgentGirl({
     'xp_sum':               calculate_xp_sum(),
@@ -66,6 +88,7 @@ function update_beyond_basic() {
 
   console.log('beyond-basic triggered');
   compute_advanced_profession_constraints(ag);
+  disable_selected_advanced_profession();
 }
 
 function compute_advanced_profession_constraints(ag) {
@@ -89,10 +112,16 @@ function compute_advanced_profession_constraints(ag) {
     var target = $('#advanced-list [p-adv="' + name + '"]');
 
     if (s.result) {
-      target.removeClass('faded');
+      target
+        .removeClass('faded')
+        .find('.btn-advanced-profession').show();
+
       enable_advanced_profession_selector(name, true);
     } else {
-      target.addClass('faded');
+      target
+        .addClass('faded')
+        .find('.btn-advanced-profession').hide();
+
       enable_advanced_profession_selector(name, false);
     }
     
@@ -224,17 +253,7 @@ function web_display_human_readable_result(s, target, name) {
     unroll(x, 0, s);
   });
 
-  target
-    .html(display.join('<br />'))
-    .append('<br />')
-    .append($('<button></button>')
-              .attr('type', 'button')
-              .addClass('btn btn-primary btn-advanced-add')
-              .append('Select This Profession')
-              .on('click', function(evt) {
-                evt.preventDefault();
-                $('#profession-selector').multiselect('select', name, true);
-              }));
+  target.html(display.join('<br />'))
 }
 
 function calculate_xp_sum() {
