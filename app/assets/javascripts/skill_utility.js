@@ -88,7 +88,7 @@ function check_constraints(skills, errors) {
     if (x.data != undefined) {
       li.on('click', function() {
         var target_skill = $(this).attr('target-skill');
-        manual_relocate_skills('acquired-list', target_skill);
+        manual_relocate_skills('acquired', target_skill);
         $(this).remove();
       })
     }

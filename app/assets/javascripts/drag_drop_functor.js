@@ -82,12 +82,14 @@ function update_selected_skills(x) {
   }
 }
 
-function manual_relocate_skills(target_list_id, skill_name) {
+function manual_relocate_skills(target_list, skill_name) {
+  var target_list_id = target_list + '-list';
   var source = $('[skill-name="' + skill_name + '"]');
+  
   append_lexicographically('#' + target_list_id, source);
   reset_popover(source);
   rebuild_popover(source);
-  update_xp_count('#' + target_list_id);
+  update_xp_count('#' + target_list);
   generate_constraints();
   pack_state();
 }

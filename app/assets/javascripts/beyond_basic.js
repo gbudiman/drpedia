@@ -69,14 +69,32 @@ function update_beyond_basic() {
 }
 
 function compute_advanced_profession_constraints(ag) {
+  console.log('agent update');
+  var enable_advanced_profession_selector = function(name, value) {
+    var o = $('#setup-profession input[value="' + name + '"]');
+
+    if (value == false) {
+      // disable
+      o.prop('disabled', true);
+      if (!o.parent().hasClass('text-muted')) {
+        o.parent().addClass('text-muted');
+      }
+    } else {
+      o.prop('disabled', false)
+       .parent().removeClass('text-muted');
+    }
+  }
+
   $.each(advanced_profession_struct, function(name, obj) {
     var s = obj.test(ag);
     var target = $('#advanced-list [p-adv="' + name + '"]');
 
     if (s.result) {
       target.removeClass('faded');
+      enable_advanced_profession_selector(name, true);
     } else {
       target.addClass('faded');
+      enable_advanced_profession_selector(name, false);
     }
     
     web_display_human_readable_result(s, target.find('.adv-requirement'));
