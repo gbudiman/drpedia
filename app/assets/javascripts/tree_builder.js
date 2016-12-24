@@ -617,11 +617,19 @@ function find_preq(profession, skill, pdata) {
 
 function recalculate() {
   var detect_has_innate = function(data) {
+    if (data.innate == undefined) {
+      return 99;
+    }
+
     var strain_index = data.innate.indexOf(selected_strain);
     return strain_index == -1 ? 99 : 3;
   }
 
   var detect_has_innate_disadvantage = function(data) {
+    if (data.innate_disadvantage == undefined) {
+      return false;
+    }
+    
     var strain_index = data.innate_disadvantage.indexOf(selected_strain);
     return strain_index == -1 ? false : true;
   }
@@ -772,13 +780,20 @@ function get_json_profession_concentration() {
 
 function get_json_skill_cat() {
   return $.getJSON('/skill_cat.json', function(skill_cat_json_data) { 
-    skill_cat = skill_cat_json_data; 
-    $.getJSON('/skill_group.json', function(skill_group_json_data) {
-      skill_groups = skill_group_json_data;
-      generate_skill_cat(); 
+    //skill_cat = skill_cat_json_data; 
+    $.getJSON('/advanced_cat.json', function(advanced_cat_json_data) {
+      // console.log(skill_cat_json_data);
+      // console.log(advanced_cat_json_data);
+      skill_cat = $.extend({}, skill_cat_json_data, advanced_cat_json_data);
 
-      $('#init-skill').show();
+      $.getJSON('/skill_group.json', function(skill_group_json_data) {
+        skill_groups = skill_group_json_data;
+        generate_skill_cat(); 
+
+        $('#init-skill').show();
+      })
     })
+    
     
     
   });
