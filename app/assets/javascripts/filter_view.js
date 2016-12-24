@@ -40,20 +40,28 @@ function apply_view_filters() {
       }).hide();
   }
 
+  var filter_hide_advanced = function() {
+    $('#graphical-list .list-group-item')
+      .filter(function() {
+        return $(this).attr('advanced-skill') == 'true';
+      }).hide();
+  }
+
   $('.list-group-item').show();
   disable_popover();
 
   $.each(get_active_view_filters().sort(), function(i, x) {
     switch(x) {
-      case 'only_available': filter_only_available(); break;
-      case 'only_discounted': filter_only_discounted(); break;
+      case 'only-available': filter_only_available(); break;
+      case 'only-discounted': filter_only_discounted(); break;
     }
   })
 
   $.each(get_active_view_filters().sort(), function(i, x) {
     switch(x) {
-      case 'hide_lore': filter_hide_lore(); break;
-      case 'hide_psionics': filter_hide_psionics(); break;
+      case 'hide-lore': filter_hide_lore(); break;
+      case 'hide-psionics': filter_hide_psionics(); break;
+      case 'hide-advanced': filter_hide_advanced(); break;
     }
   })
 

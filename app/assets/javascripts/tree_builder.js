@@ -1,6 +1,7 @@
 var strains;
 var professions;
 var skill_cat;
+var advanced_cat;
 var strain_restrictions;
 var strain_stats;
 var strain_specs;
@@ -310,6 +311,14 @@ var generate_skill_cat = function() {
   
   var psion_regex = /^Psi ([I]+)/;
 
+  var mark_advanced = function(x) {
+    if (advanced_cat[x] != undefined) {
+      return '<sup>ADV</sup>' + x;
+    }
+
+    return x;
+  }
+
   $.each(grouped_skills, function(x, source_group) {
     if (skill_cat[x] == undefined) {
       
@@ -328,7 +337,8 @@ var generate_skill_cat = function() {
     var s = $('<li></li>')
       .addClass('list-group-item skill-draggable faded clickable-skill ' + col_classes)
       .attr('skill-name', skill_name)
-      .append('<span class="skill-label">' + skill_name + '</span>')
+      .attr('advanced-skill', advanced_cat[skill_name] == undefined ? false : true)
+      .append('<span class="skill-label">' + mark_advanced(skill_name) + '</span>')
       .append('<span class="pull-right badge"></span>');
 
     if (psion_index != undefined) {
@@ -804,6 +814,7 @@ function get_json_skill_cat() {
     $.getJSON('/advanced_cat.json', function(advanced_cat_json_data) {
       // console.log(skill_cat_json_data);
       // console.log(advanced_cat_json_data);
+      advanced_cat = advanced_cat_json_data;
       skill_cat = $.extend({}, skill_cat_json_data, advanced_cat_json_data);
 
       $.getJSON('/skill_group.json', function(skill_group_json_data) {
