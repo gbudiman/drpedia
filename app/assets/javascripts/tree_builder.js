@@ -397,7 +397,7 @@ function generate_skill_group() {
 function rebuild_popover(obj, _rebuild) {
   var rebuild = _rebuild == undefined ? true : false;
   var target_element = obj;
-  var skill_name = obj.find('span.skill-label').text();
+  var skill_name = obj.attr('skill-name');
   var min_cost = parseInt(obj.find('span.badge').text());
   var top_id = target_element.parent().attr('id');
 
