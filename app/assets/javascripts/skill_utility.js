@@ -17,6 +17,7 @@ function check_advanced_profession_constraints() {
 
     if (is_invalid) {
       console.log('unsatisfied advanced profession constraint');
+      $('#profession-selector').multiselect('deselect', ap, true);
     }
   }
 }

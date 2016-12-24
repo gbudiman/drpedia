@@ -119,7 +119,7 @@ function compute_advanced_profession_constraints(ag) {
       // disable
       o.prop('disabled', true);
       if (o.prop('checked')) {
-        $('#profession-selector').multiselect('deselect', name);
+        $('#profession-selector').multiselect('deselect', name, true);
       }
 
       if (!o.parent().hasClass('text-muted')) {
@@ -142,6 +142,7 @@ function compute_advanced_profession_constraints(ag) {
 
       enable_advanced_profession_selector(name, true);
     } else {
+      enable_ap_select_button(name, true);
       target
         .addClass('faded')
         .find('.btn-advanced-profession').hide();

@@ -190,6 +190,7 @@ var generate_professions_select_box = function() {
         
       // }
 
+      console.log('onChange triggered ' + checked);
       restrict_profession_selector();
       //check_advanced_profession_constraints(option, checked);
       ensure_only_one_selected_advanced_profession(option, checked);
@@ -239,6 +240,7 @@ function ensure_only_one_selected_advanced_profession(option, checked) {
       })
     }
   } else {
+    console.log('unchecked');
     enable_all_ap_select_buttons(true);
   }
 }
