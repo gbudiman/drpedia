@@ -134,7 +134,6 @@ var generate_professions_select_box = function() {
             .attr('id', 'profession-selector')
             .attr('multiple', true);
 
-  //console.log(professions_advanced);
   $.each(professions, function(index, value) {
     var t = $('<option></option>')
               .attr('profession', value)
@@ -191,7 +190,8 @@ var generate_professions_select_box = function() {
       // }
 
       restrict_profession_selector();
-      check_advanced_profession_constraints(option, checked);
+      //check_advanced_profession_constraints(option, checked);
+      ensure_only_one_selected_advanced_profession(option, checked);
       update_profession_cost();
       update_selected_professions();
       //$('#profession-xp').text(Math.max(0, (selected_options.length - 1) * 10));
@@ -221,7 +221,7 @@ function update_profession_cost() {
   update_total_xp();
 }
 
-function check_advanced_profession_constraints(option, checked) {
+function ensure_only_one_selected_advanced_profession(option, checked) {
   if (checked) {
     if (option.attr('profession-advanced') != undefined) {
       var ap_name = option.attr('profession-advanced');
@@ -231,23 +231,43 @@ function check_advanced_profession_constraints(option, checked) {
 
         if (this_ap_name != ap_name) {
           $('#profession-selector').multiselect('deselect', this_ap_name);
+          enable_ap_select_button(this_ap_name, true);
+        } else {
+          enable_ap_select_button(this_ap_name, false);
         }
       })
     }
+  } else {
+    enable_all_ap_select_buttons(true);
   }
-
-  $('#profession-selector [profession-advanced]:selected').each(function() {
-    var ap_name = $(this).val();
-    var ap_obj = $('li[p-adv="' + ap_name + '"]');
-
-    //console.log(ap_obj);
-    if (ap_obj.hasClass('faded')) {
-      console.log('not satisfied');
-    } else {
-      console.log('ok');
-    }
-  })
 }
+// function check_advanced_profession_constraints(option, checked) {
+//   if (checked) {
+//     if (option.attr('profession-advanced') != undefined) {
+//       var ap_name = option.attr('profession-advanced');
+
+//       $('[profession-advanced]').each(function() {
+//         var this_ap_name = $(this).attr('profession-advanced');
+
+//         if (this_ap_name != ap_name) {
+//           $('#profession-selector').multiselect('deselect', this_ap_name);
+//         }
+//       })
+//     }
+//   }
+
+//   $('#profession-selector [profession-advanced]:selected').each(function() {
+//     var ap_name = $(this).val();
+//     var ap_obj = $('li[p-adv="' + ap_name + '"]');
+
+//     //console.log(ap_obj);
+//     if (ap_obj.hasClass('faded')) {
+//       console.log('not satisfied');
+//     } else {
+//       console.log('ok');
+//     }
+//   })
+// }
 
 function restrict_profession_selector() {
   var currently_selected = $('#profession-selector [profession]:selected').length;
@@ -629,7 +649,7 @@ function recalculate() {
     if (data.innate_disadvantage == undefined) {
       return false;
     }
-    
+
     var strain_index = data.innate_disadvantage.indexOf(selected_strain);
     return strain_index == -1 ? false : true;
   }

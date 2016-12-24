@@ -4,6 +4,21 @@ function generate_constraints() {
   errors = errors.concat(check_psion_constraints('#acquired'));
   errors = errors.concat(check_psion_constraints('#planned'));
   check_constraints(skills, errors);
+  check_advanced_profession_constraints();
+}
+
+function check_advanced_profession_constraints() {
+  var ap = $('[profession-advanced]:selected').val();
+
+  if (ap == undefined) {
+
+  } else {
+    var is_invalid = $('#advanced-list [p-adv="' + ap + '"]').hasClass('faded');
+
+    if (is_invalid) {
+      console.log('unsatisfied advanced profession constraint');
+    }
+  }
 }
 
 function get_skills_in_builder() {
@@ -125,6 +140,7 @@ function check_prerequisite(skills, skill) {
       var innates = skill_cat[skill].innate;
       var innates_preq = skill_cat[skill].innate_preq;
 
+      if (innates == undefined) { return; }
       if (innates.indexOf(selected_strain) != -1) {
         if (innates_preq != null) {
           var strain_preq = innates_preq[selected_strain];

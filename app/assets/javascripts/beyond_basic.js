@@ -91,6 +91,26 @@ function update_beyond_basic() {
   disable_selected_advanced_profession();
 }
 
+function enable_ap_select_button(name, value) {
+  var o = $('button[ap-name="' + name + '"]');
+
+  if (value) {
+    o.prop('disabled', false).text('Select');
+  } else {
+    o.prop('disabled', true).text('Selected');
+  }
+}
+
+function enable_all_ap_select_buttons(value) {
+  var o = $('button[ap-name]');
+
+  if (value) {
+    o.prop('disabled', false).text('Select');
+  } else {
+    o.prop('disabled', true).text('Selected');
+  }
+}
+
 function compute_advanced_profession_constraints(ag) {
   var enable_advanced_profession_selector = function(name, value) {
     var o = $('#setup-profession input[value="' + name + '"]');
@@ -98,6 +118,10 @@ function compute_advanced_profession_constraints(ag) {
     if (value == false) {
       // disable
       o.prop('disabled', true);
+      if (o.prop('checked')) {
+        $('#profession-selector').multiselect('deselect', name);
+      }
+
       if (!o.parent().hasClass('text-muted')) {
         o.parent().addClass('text-muted');
       }

@@ -43,6 +43,7 @@ function attach_stats_controller(target_id, operation) {
 
     set_stat_build(target, total_id, current_value);
     update_beyond_basic();
+    check_advanced_profession_constraints();
   })
 }
 

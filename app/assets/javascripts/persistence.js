@@ -190,7 +190,6 @@ $(function() {
     $.when(get_json_strain_restriction()).done(function() {
       $.when(get_json_skill_list()).done(function() {
         $('#init-completed').show();
-
         
         resize_graphical();
         generate_professions_select_box();
