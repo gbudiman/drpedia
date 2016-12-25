@@ -102,6 +102,7 @@ function unpack_state() {
     selected_strain = strain || 'Select Strain';
 
     selected_professions = new Array();
+    selected_advanced_profession = undefined;
     $.each(professions, function(i, x) {
       if (advanced_profession_struct[x] == undefined) {
         selected_professions.push(x);
