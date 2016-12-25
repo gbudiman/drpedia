@@ -86,8 +86,6 @@
           %button{type: 'button', class: 'btn btn-primary btn-xs', id: 'advanced-collapse-all'} Collapse All
     %div{class: 'alert alert-warning', hidden: true, id: 'filter-no-match'}
       No Skills match filter criteria.
-
-
   %div{id: 'builder', class: 'builder-container col-xs-6 col-md-4 col-lg-3'}
     / %input{type: 'checkbox', id: 'is-touch-device'} Enable touch input
     %div{class: 'alert alert-success alert-dismissible', id: 'alert-desktop', hidden: true}
@@ -172,8 +170,21 @@
 
 
     %div{id: 'strain-specs', class: 'col-xs-12 row'} 
+  %div{class: 'col-xs-12 mix-footer footer-separator'}
+    %span{class: 'pull-right text-muted'} Dystopia Rising Character Builder - drpaedia 0.2
+  %div{id: 'disqus_thread', class: 'col-xs-12'}
+  :javascript
+    var disqus_config = function() {
+      //this.page.url = 'drpaedia.org';
+      //this.page.identifier = 'builder';
+    };
 
-      
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = '//drpaedia.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
 
 :javascript
   var is_builder = true;
@@ -233,6 +244,17 @@
 
   .skill-disadvantage {
     color: #a94442;
+  }
+
+  .mix-footer {
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer-separator {
+    margin-top: 2em;
+    font-style: italic;
+    border-top: 1px solid #aaa;
   }
 
   .nav li a {
