@@ -60,7 +60,10 @@ function unpack_state() {
       }
 
       if (target_object) {
-        append_lexicographically(target_list_id, target_object);
+        //console.log(target_object.hasClass('faded') + ' ' + target_object.text());
+        if (!target_object.hasClass('faded')) {
+          append_lexicographically(target_list_id, target_object);
+        }
       }
     })
   }
@@ -96,7 +99,17 @@ function unpack_state() {
     var planned_skills = decrypt_skills(p0[5].split(','));
 
     selected_strain = strain || 'Select Strain';
-    selected_professions = professions;
+
+    selected_professions = new Array();
+    $.each(professions, function(i, x) {
+      if (advanced_profession_struct[x] == undefined) {
+        selected_professions.push(x);
+      } else {
+        selected_advanced_profession = x;
+      }
+    })
+
+    //selected_professions = professions;
     //$('#strain-selector').val(strain).multiselect('refresh');
     
     $('#strain-selector').multiselect('select', selected_strain).multiselect('refresh');
@@ -108,6 +121,7 @@ function unpack_state() {
     });
 
     //$('#profession-selector').val(professions).multiselect('refresh');
+
     apply_strain_restrictions();
     restrict_profession_selector();
     update_profession_cost();
@@ -125,7 +139,7 @@ function unpack_state() {
     generate_constraints();
     update_selected_skills(0);
     update_beyond_basic();
-    
+    check_advanced_profession_constraints();
   } else {
     generate_constraints();
   }

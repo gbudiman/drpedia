@@ -102,6 +102,11 @@
       %br
       To move skills between boxes, tap one or more skills then tap green regions to move selected skills.
 
+    %div{class: 'alert alert-danger alert-dismissible init-hidden', id: 'alert-deselection'}
+      %button{type: 'button', class: 'close'}
+        %span &times;
+      %span{id: 'alert-deselection-text'}
+
     %div{class: 'alert alert-warning', id: 'alert-mobile-selected', hidden: true}
       %span{id: 'alert-text'}
       %a{href: '#', class: 'pull-right', id: 'alert-mobile-selection-clear'} Clear

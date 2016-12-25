@@ -4,7 +4,7 @@ function generate_constraints() {
   errors = errors.concat(check_psion_constraints('#acquired'));
   errors = errors.concat(check_psion_constraints('#planned'));
   check_constraints(skills, errors);
-  check_advanced_profession_constraints();
+  
 }
 
 function check_advanced_profession_constraints() {
@@ -18,6 +18,8 @@ function check_advanced_profession_constraints() {
     if (is_invalid) {
       console.log('unsatisfied advanced profession constraint');
       $('#profession-selector').multiselect('deselect', ap, true);
+    } else {
+      $('#profession-selector').multiselect('select', ap, true);
     }
   }
 }

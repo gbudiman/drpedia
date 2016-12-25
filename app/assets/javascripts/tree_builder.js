@@ -190,6 +190,7 @@ var generate_professions_select_box = function() {
       // } else {
         
       // }
+
       restrict_profession_selector();
       //check_advanced_profession_constraints(option, checked);
       ensure_only_one_selected_advanced_profession(option, checked);
