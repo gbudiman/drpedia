@@ -206,14 +206,14 @@ $(function() {
          get_json_profession_concentration()).done(function() {
     $.when(get_json_strain_restriction()).done(function() {
       $.when(get_json_skill_list()).done(function() {
-        $('#init-completed').show();
+        $('#init-postprocess').show();
         
         resize_graphical();
         generate_professions_select_box();
         generate_inverted_skills().then(function() {
           build_advanced_profession().then(function() {
             load_first_available_profile();
-
+            $('#init-completed').show();
             init_completed = true;
             $('#loading [data-dismissible]').hide(500, function() {
               $('#loading').hide(1000);
