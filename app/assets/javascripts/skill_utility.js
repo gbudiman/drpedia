@@ -4,7 +4,6 @@ function generate_constraints() {
   errors = errors.concat(check_psion_constraints('#acquired'));
   errors = errors.concat(check_psion_constraints('#planned'));
   check_constraints(skills, errors);
-  
 }
 
 function check_advanced_profession_constraints() {
@@ -22,6 +21,21 @@ function check_advanced_profession_constraints() {
       $('#profession-selector').multiselect('select', ap, true);
     }
   }
+}
+
+function get_purchased_advanced_skills_cost() {
+  var get_purchased_advanced_skills_cost_in = function(id) {
+    var cumulative = 0;
+    $(id).find('[advanced-skill="true"]').each(function() {
+      cumulative += parseInt($(this).find('span.badge').text());
+    })
+
+    return cumulative;
+  }
+
+  return get_purchased_advanced_skills_cost_in('#planned')
+       + get_purchased_advanced_skills_cost_in('#acquired')
+       + 10;
 }
 
 function get_skills_in_builder() {

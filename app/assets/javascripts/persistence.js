@@ -54,6 +54,7 @@ function unpack_state() {
 
   var relocate = function(target_list_id, skill_list) {
     $.each(skill_list, function(i, x) {
+      //console.log('relocating ' + x);
       var target_object = $('[skill-name="' + x + '"]');
       if (target_object.length == 0) {
         target_object = $('[skill-name="' + decrypt_psionic_skills(x) + '"]');
@@ -61,9 +62,9 @@ function unpack_state() {
 
       if (target_object) {
         //console.log(target_object.hasClass('faded') + ' ' + target_object.text());
-        if (!target_object.hasClass('faded')) {
-          append_lexicographically(target_list_id, target_object);
-        }
+        //if (!target_object.hasClass('faded')) {
+        append_lexicographically(target_list_id, target_object);
+        //}
       }
     })
   }

@@ -282,12 +282,13 @@ function web_display_human_readable_result(s, target, name) {
   target.html(display.join('<br />'))
 }
 
-function alert_xp_dropping(enable, value) {
+function alert_xp_dropping(enable, value, additive) {
   if (enable) {
     $('#advanced-xp-drop').show();
     $('#advanced-xp-drop-name').text(selected_advanced_profession);
     $('#advanced-xp-drop-amount').text(value);
-    $('#advanced-xp-drop-total').text((value + 10));
+    $('#advanced-xp-drop-additive').text('(+' + additive + ') =');
+    $('#advanced-xp-drop-total').text((value + additive));
   } else {
     $('#advanced-xp-drop').hide();
   }
@@ -299,8 +300,10 @@ function calculate_xp_sum() {
     var min_xp = advanced_profession_min_xp[selected_advanced_profession];
 
     if (min_xp != undefined) {
-      if (xp < (min_xp + 10)) {
-        alert_xp_dropping(true, min_xp);
+      var advanced_skills_cost = get_purchased_advanced_skills_cost();
+
+      if (xp < (min_xp + advanced_skills_cost)) {
+        alert_xp_dropping(true, min_xp, advanced_skills_cost);
       } else {
         alert_xp_dropping(false);
       }
