@@ -84,5 +84,6 @@ function update_total_xp() {
         + parseInt($('#acquired-xp').text())
         + parseInt($('#planned-xp').text());
 
+  calculate_xp_sum();
   $('#xp-total').text(s);
 }

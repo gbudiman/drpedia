@@ -297,9 +297,10 @@ function alert_xp_dropping(enable, value, additive) {
 
 function calculate_xp_sum() {
   var xp = parseInt($('#xp-total').text());
+
   if (selected_advanced_profession != undefined) {
     var min_xp = advanced_profession_min_xp[selected_advanced_profession];
-
+    
     if (min_xp != undefined) {
       var advanced_skills_cost = get_purchased_advanced_skills_cost();
 

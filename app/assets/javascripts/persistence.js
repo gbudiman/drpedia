@@ -8,6 +8,7 @@ function clear_cookies() {
 
 function pack_state() {
   if (!has_profile) { return; }
+  calculate_xp_sum();
 
   var pack = $('#hp-addition').text() + '|'
            + $('#mp-addition').text() + '|' 

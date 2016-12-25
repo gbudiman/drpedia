@@ -241,8 +241,10 @@ function ensure_only_one_selected_advanced_profession(option, checked) {
       })
     }
   } else {
-    enable_all_ap_select_buttons(true);
-    selected_advanced_profession = undefined;
+    if (option.attr('profession-advanced') != undefined) {
+      enable_all_ap_select_buttons(true);
+      selected_advanced_profession = undefined;
+    }
   }
 }
 // function check_advanced_profession_constraints(option, checked) {
