@@ -22,7 +22,9 @@ function pack_state() {
 }
 
 function unpack_state() {
-  if (!has_profile) { return; }
+  if (!has_profile) {
+    return;
+  }
 
   var decrypt_psionic_skills = function(a) {
     var prefix = '';
@@ -215,6 +217,8 @@ $(function() {
             load_first_available_profile();
             $('#init-completed').show();
             init_completed = true;
+            
+            update_beyond_basic();
             $('#loading [data-dismissible]').hide(500, function() {
               $('#loading').hide(1000);
             });

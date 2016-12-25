@@ -128,6 +128,8 @@ function load_existing_profile() {
 
     $('#profile-dropdown')
       .prepend(s);
+
+    unpack_state();
   } else {
     $.each(profiles.split(',').sort().reverse(), function(i, x) {
       sys_profiles.push(x.trim());
