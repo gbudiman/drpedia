@@ -106,6 +106,13 @@
       %span{id: 'alert-text'}
       %a{href: '#', class: 'pull-right', id: 'alert-mobile-selection-clear'} Clear
 
+    %div{id: 'advanced-xp-drop', class: 'alert alert-danger init-hidden'}
+      Total XP is dropping below required Advanced Profession
+      %span{id: 'advanced-xp-drop-name'} dummy
+      %span{id: 'advanced-xp-drop-amount'} dummy
+      (+10) =
+      %span{id: 'advanced-xp-drop-total'} dummy
+
     %div{id: 'error-log', class: 'svupdown row'}
       %strong
         %span{id: 'error-placeholder', 'data-placeholder' => 'Constraints not met. Click skills below to add', class: 'text-danger'}
@@ -427,4 +434,8 @@
 
   .drag-simulable {
     background-color: #fcf3cf;
+  }
+
+  .init-hidden {
+    display: none;
   }

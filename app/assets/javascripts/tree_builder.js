@@ -11,6 +11,7 @@ var professions_concentration;
 
 var selected_strain;
 var selected_professions;
+var selected_advanced_profession;
 
 var last_popover_skill = '';
 
@@ -189,8 +190,6 @@ var generate_professions_select_box = function() {
       // } else {
         
       // }
-
-      console.log('onChange triggered ' + checked);
       restrict_profession_selector();
       //check_advanced_profession_constraints(option, checked);
       ensure_only_one_selected_advanced_profession(option, checked);
@@ -227,6 +226,7 @@ function ensure_only_one_selected_advanced_profession(option, checked) {
   if (checked) {
     if (option.attr('profession-advanced') != undefined) {
       var ap_name = option.attr('profession-advanced');
+      selected_advanced_profession = ap_name;
 
       $('[profession-advanced]').each(function() {
         var this_ap_name = $(this).attr('profession-advanced');
@@ -240,8 +240,8 @@ function ensure_only_one_selected_advanced_profession(option, checked) {
       })
     }
   } else {
-    console.log('unchecked');
     enable_all_ap_select_buttons(true);
+    selected_advanced_profession = undefined;
   }
 }
 // function check_advanced_profession_constraints(option, checked) {

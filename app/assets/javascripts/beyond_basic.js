@@ -1,4 +1,5 @@
 var advanced_profession_struct = new Object();
+var advanced_profession_min_xp = new Object();
 
 function build_advanced_profession() {
   return new Promise(
@@ -119,6 +120,7 @@ function compute_advanced_profession_constraints(ag) {
       // disable
       o.prop('disabled', true);
       if (o.prop('checked')) {
+        console.log(name + ' has been deselected due to unmet constraint');
         $('#profession-selector').multiselect('deselect', name, true);
       }
 
@@ -206,9 +208,6 @@ function web_display_human_readable_result(s, target, name) {
       })
       
     } else {
-      //console.log('Depth ' + depth + ': ');
-      //console.log(composite);
-
       var s = '';
       var p = composite.result ? '✓ ' : '✗ ';
       var h = '';
@@ -222,12 +221,12 @@ function web_display_human_readable_result(s, target, name) {
           s += highlight_in_list(composite.condition.slice(1), context.conditions.skills);
           break;
         case 's': 
-          //console.log(composite.condition);
-          //console.log(new Array(context.conditions));
           s += 'Strain: '; 
           s += highlight_in_list(composite.condition.slice(1), context.conditions.strain);
           break;
         case 'xp_sum': 
+          // buffer minimum XP to check when XP drops below minimum requirement
+          advanced_profession_min_xp[name] = parseInt(composite.condition[1])
           s += 'XP >= '; 
           s += composite.condition[1];
           break;
@@ -281,8 +280,33 @@ function web_display_human_readable_result(s, target, name) {
   target.html(display.join('<br />'))
 }
 
+function alert_xp_dropping(enable, value) {
+  if (enable) {
+    $('#advanced-xp-drop').show();
+    $('#advanced-xp-drop-name').text(selected_advanced_profession);
+    $('#advanced-xp-drop-amount').text(value);
+    $('#advanced-xp-drop-total').text((value + 10));
+  } else {
+    $('#advanced-xp-drop').hide();
+  }
+}
+
 function calculate_xp_sum() {
-  return parseInt($('#xp-total').text());
+  var xp = parseInt($('#xp-total').text());
+  if (selected_advanced_profession != undefined) {
+    var min_xp = advanced_profession_min_xp[selected_advanced_profession];
+
+    if (min_xp != undefined) {
+      if (xp < (min_xp + 10)) {
+        alert_xp_dropping(true, min_xp);
+      } else {
+        alert_xp_dropping(false);
+      }
+    } else {
+      alert_xp_dropping(false);
+    }
+  }
+  return xp;
 }
 
 function calculate_hp() {
