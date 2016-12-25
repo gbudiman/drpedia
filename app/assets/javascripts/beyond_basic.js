@@ -306,13 +306,13 @@ function calculate_xp_sum() {
 
       if (xp < (min_xp + advanced_skills_cost)) {
         alert_xp_dropping(true, min_xp, advanced_skills_cost);
-      } else {
-        alert_xp_dropping(false);
-      }
-    } else {
-      alert_xp_dropping(false);
-    }
+        return xp;
+      } 
+    } 
   }
+  
+  alert_xp_dropping(false);
+
   return xp;
 }
 
