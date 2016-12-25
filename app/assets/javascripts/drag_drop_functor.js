@@ -151,8 +151,8 @@ function highlight_droppable_regions(enable, clicked_from) {
     })
     
   } else {
-    $(this).css('left', '')
-           .css('top', '');
+    // $(this).css('left', '')
+    //        .css('top', '');
 
 
     $('.skill-droppable')
