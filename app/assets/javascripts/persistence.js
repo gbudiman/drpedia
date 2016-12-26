@@ -218,7 +218,8 @@ $(function() {
             $('#init-completed').show();
             init_completed = true;
             
-            update_beyond_basic();
+            console.log('all loaded');
+            //update_beyond_basic();
             $('#loading [data-dismissible]').hide(500, function() {
               $('#loading').hide(1000);
             });

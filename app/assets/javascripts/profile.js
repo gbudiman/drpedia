@@ -130,6 +130,7 @@ function load_existing_profile() {
       .prepend(s);
 
     unpack_state();
+    update_beyond_basic();
   } else {
     $.each(profiles.split(',').sort().reverse(), function(i, x) {
       sys_profiles.push(x.trim());
@@ -155,11 +156,13 @@ function load_existing_profile() {
         $('#contextual-divider').show();
         $('#profile-delete').parent().show();
         unpack_state();
+        update_beyond_basic();
       });
 
       $('#profile-dropdown')
         .prepend(s);
     })
+
 
     $('#profile-delete').parent().show();
     $('#contextual-divider').show()
