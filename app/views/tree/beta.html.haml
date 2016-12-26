@@ -30,6 +30,47 @@
         %button{type: 'button', class: 'btn btn-default', 'data-dismiss' => 'modal'} Cancel
         %button{type: 'button', class: 'btn btn-primary', id: 'btn-profile-save'} Create
 
+%div{class: 'modal fade', id: 'advanced-warning'}
+  %div{class: 'modal-dialog'}
+    %div{class: 'modal-content'}
+      %div{class: 'modal-header'}
+        %button{type: 'button', class: 'close', 'data-dismiss' => 'modal'}
+          %span &times;
+        %h4{class: 'modal-title'} Advanced Professions
+      %div{class: 'modal-body'}
+        %strong{class: 'text-danger'} Excerpt from the Rulebook:
+        %br
+        Advanced Professions shouldn’t ever be your character’s end goal. In fact, most characters are unlikely to have even heard of most Advanced Professions. And it’s likely that if you’re seeking an Advanced Profession, you’re just as unlikely to get it. Most characters who achieve one of these Professions end up stumbling into it rather than actively seeking it; remember that it’s about the journey rather than the destination.
+        %hr
+        %strong{class: 'text-danger'} Advanced Profession must be approved by your branch director
+        %br
+        By enabling this feature, you either acknowledge that you have read this warning or you already possess one of the Advanced Professions.
+      %div{class: 'modal-footer'}
+        %button{type: 'button', class: 'btn btn-default', 'data-dismiss' => 'modal'} OK, nvm 
+        %button{type: 'button', class: 'btn btn-danger', id: 'btn-enable-advanced'} Gotcha. Enable it!
+
+%div{class: 'modal fade', id: 'advanced-existance-warning'}
+  %div{class: 'modal-dialog'}
+    %div{class: 'modal-content'}
+      %div{class: 'modal-header'}
+        %button{type: 'button', class: 'close', 'data-dismiss' => 'modal'}
+          %span &times;
+        %h4{class: 'modal-title'} Advanced Professions
+      %div{class: 'modal-body'}
+        %strong{class: 'text-danger'} You have selected Advanced Profession in your profile
+        %hr
+
+        %strong{class: 'text-danger'} Excerpt from the Rulebook:
+        %br
+        Advanced Professions shouldn’t ever be your character’s end goal. In fact, most characters are unlikely to have even heard of most Advanced Professions. And it’s likely that if you’re seeking an Advanced Profession, you’re just as unlikely to get it. Most characters who achieve one of these Professions end up stumbling into it rather than actively seeking it; remember that it’s about the journey rather than the destination.
+        %hr
+        %strong{class: 'text-danger'} Advanced Profession must be approved by your branch director
+        %br
+        By enabling this feature, you either acknowledge that you have read this warning or you already possess one of the Advanced Professions.
+      %div{class: 'modal-footer'}
+        %button{type: 'button', class: 'btn btn-default', 'data-dismiss' => 'modal'} Understood
+        %button{type: 'button', class: 'btn btn-danger', id: 'btn-dismiss-advanced-warning'} I know, don't remind me again!
+
 %div{id: 'setup', class: 'row'}
   %div{id: 'setup-strain', class: 'col-xs-6 col-md-3 svcenter'}
   %div{id: 'setup-profession', class: 'col-xs-6 col-md-3 svcenter'}
@@ -72,7 +113,7 @@
         %li{id: 'init-postprocess', hidden: true, 'data-dismissible' => true} &raquo; Postprocessing...
         %li{id: 'init-completed', hidden: true}
           %strong All loaded
-    %ul{class: 'nav nav-tabs'}
+    %ul{class: 'nav nav-tabs advanced-recoverable', hidden: true}
       %li
         %a{'data-toggle' => 'tab', href: '#advanced-list'} Advanced
       %li{class: 'active'}
@@ -174,7 +215,7 @@
 
     %div{id: 'strain-specs', class: 'col-xs-12 row'} 
   %div{class: 'col-xs-12 mix-footer footer-separator'}
-    %span{class: 'pull-right text-muted slight-footer-pad'} Dystopia Rising Character Builder - drpaedia 0.2.2
+    %span{class: 'pull-right text-muted slight-footer-pad'} Dystopia Rising Character Builder - drpaedia 0.2.3
   %div{id: 'disqus_thread', class: 'col-xs-12'}
   :javascript
     var disqus_config = function() {
@@ -478,4 +519,10 @@
 
   .init-hidden {
     display: none;
+  }
+
+  #unlock-advanced-professions {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-bottom: 0.5em;
   }

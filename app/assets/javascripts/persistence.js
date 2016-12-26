@@ -2,6 +2,20 @@ var skill_list;
 var skill_list_inverted;
 var skill_list_special_group;
 var ok_to_trigger_advanced_profession_removal = false;
+var advanced_acknowledged = false;
+
+function set_advanced_acknowledgement(val) {
+  advanced_acknowledged = val;
+  if (val) {
+    $('.advanced-recoverable').show();
+    $('.advanced-to-hide').hide();
+  } else {
+    $('.advanced-recoverable').hide();
+    $('.advanced-to-hide').show();
+  }
+
+  pack_state();
+}
 
 function clear_cookies() {
   Cookies.remove('drpedia');
@@ -17,7 +31,8 @@ function pack_state() {
            + (selected_professions || new Array()).join(',') + '|';
   var es = extract_skills();
 
-  pack += es.acquired.join(',') + '|' + es.planned.join(',');
+  pack += es.acquired.join(',') + '|' + es.planned.join(',') + '|';
+  pack += advanced_acknowledged ? 1 : 0;
   Cookies.set(current_profile, pack, { expires: 365 });
   console.log('Packing to ' + current_profile + ': ' + pack);
 }
@@ -100,6 +115,12 @@ function unpack_state() {
     var acquired_skills = decrypt_skills(p0[4].split(','));
     var planned_skills = decrypt_skills(p0[5].split(','));
 
+    if (p0[6] != undefined) {
+      advanced_acknowledged = p0[6] == '1' ? true : false;
+    } else {
+      advanced_acknowledged = false;
+    }
+    
     selected_strain = strain || 'Select Strain';
 
     selected_professions = new Array();
@@ -109,6 +130,9 @@ function unpack_state() {
         selected_professions.push(x);
       } else {
         selected_advanced_profession = x;
+        if (!advanced_acknowledged) {
+          $('#advanced-existance-warning').modal('show');
+        }
       }
     })
 
@@ -148,6 +172,8 @@ function unpack_state() {
   } else {
     generate_constraints();
   }
+
+  post_process_advanced_professions();
 }
 
 function extract_skills() {

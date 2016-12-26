@@ -8,6 +8,7 @@ function attach_create_from_scratch() {
     // reset_all_skills('planned-list');
 
     current_profile = 'dummy';
+    set_advanced_acknowledgement(false);
     unpack_state();
     load_empty_profile();
   })

@@ -94,4 +94,6 @@ $(function() {
     },
     onChange: function() { apply_view_filters(); }
   });
+
+  $('#filter-group').multiselect('select', 'hide-advanced');
 })

@@ -209,7 +209,51 @@ var generate_professions_select_box = function() {
       }
     }
   })
+
+  post_process_advanced_professions();
 };
+
+var post_process_advanced_professions = function() {
+  if (advanced_acknowledged) {
+    $('.advanced-recoverable').show();
+    $('#unlock-advanced-professions').hide();
+  } else {
+    $('#setup-profession').find('input').each(function() {
+      var ap_name = $(this).val();
+
+      if (professions_advanced[ap_name] != undefined) {
+        var hide_target = $(this).parent().parent().parent();
+        hide_target
+          .addClass('advanced-recoverable')
+          .hide()
+      }
+      
+
+    })
+
+    if ($('#unlock-advanced-professions').length == 0) {
+      $('#setup-profession').find('.multiselect-container')
+        .append($('<li></li>')
+                  .addClass('advanced-to-hide')
+                  .attr('id', 'unlock-advanced-professions')
+                  .append($('<a></a>')
+                            .attr('href', '#')
+                            .append('Unlock Advanced Professions')));
+
+      $('#unlock-advanced-professions').on('click', function() {
+        //$('.advanced-recoverable').show();
+        $('#advanced-warning').modal('show');
+      })
+
+      $('#btn-enable-advanced').on('click', function() {
+        $('#unlock-advanced-professions').hide();
+        $('#advanced-warning').modal('hide');
+
+        set_advanced_acknowledgement(true);
+      })
+    }
+  }
+}
 
 function update_profession_cost() {
   var remnant_cost_reduction = 0;
@@ -933,6 +977,13 @@ $(function() {
 
   $('a[data-toggle="tab"]').on('shown.bs.tab', function() {
     disable_popover();
+  })
+
+  $('#advanced-warning').modal({show: false});
+  $('#advanced-existance-warning').modal({show: false});
+  $('#btn-dismiss-advanced-warning').on('click', function() {
+    set_advanced_acknowledgement(true);
+    $('#advanced-existance-warning').modal('hide');
   })
 });
 
