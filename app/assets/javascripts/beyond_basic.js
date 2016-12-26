@@ -120,7 +120,7 @@ function compute_advanced_profession_constraints(ag) {
     if (value == false) {
       // disable
       o.prop('disabled', true);
-      if (o.prop('checked')) {
+      if (o.prop('checked') && ok_to_trigger_advanced_profession_removal) {
         console.log(name + ' has been deselected due to unmet constraint');
         $('#alert-deselection').show();
         $('#alert-deselection-text').text('Advanced Profession ' + name + ' has been deselected due to unmet constraints');
