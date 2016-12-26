@@ -130,6 +130,7 @@ function load_existing_profile() {
       .prepend(s);
 
     unpack_state();
+    console.log('UBC called from load_existing_profile::undefined');
     update_beyond_basic();
   } else {
     $.each(profiles.split(',').sort().reverse(), function(i, x) {
@@ -156,6 +157,7 @@ function load_existing_profile() {
         $('#contextual-divider').show();
         $('#profile-delete').parent().show();
         unpack_state();
+        console.log('UBC called from load_existing_profile');
         update_beyond_basic();
       });
 

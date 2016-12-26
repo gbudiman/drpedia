@@ -144,6 +144,8 @@ function unpack_state() {
     update_xp_count('#acquired');
     generate_constraints();
     update_selected_skills(0);
+
+    console.log('UBC called from unpack_state');
     update_beyond_basic();
     check_advanced_profession_constraints();
   } else {

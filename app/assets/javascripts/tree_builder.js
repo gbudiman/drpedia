@@ -53,6 +53,7 @@ var generate_strains_select_box = function() {
       update_profession_cost();
 
       if (is_builder) {
+        console.log('UBC called from Strain Selector OnChange');
         update_beyond_basic();
       }
     }
@@ -203,6 +204,7 @@ var generate_professions_select_box = function() {
       if (is_builder) {
         replan();
         pack_state();
+        console.log('UBC called from Profession Selector onChange');
         update_beyond_basic();
       }
     }
