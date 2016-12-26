@@ -840,31 +840,22 @@ function get_json_skill_cat() {
     
     
   // });
+  return $.getJSON('/skill_cat.json', function(skill_cat_json_data) {
+    skill_cat = skill_cat_json_data;
+  })
+}
 
-  return new Promise(
-    function (resolve, reject) {
-      $.getJSON('/skill_cat.json', function(skill_cat_json_data) {
-        $.getJSON('/advanced_cat.json', function(advanced_cat_json_data) {
-          advanced_cat = advanced_cat_json_data;
-          skill_cat = $.extend({}, skill_cat_json_data, advanced_cat_json_data);
+function get_json_advanced_cat() {
+  return $.getJSON('/advanced_cat.json', function(advanced_cat_json_data) {
+    advanced_cat = advanced_cat_json_data;
+    skill_cat = $.extend({}, skill_cat, advanced_cat_json_data);
+  })
+}
 
-          $.getJSON('/skill_group.json', function(skill_group_json_data) {
-            skill_groups = skill_group_json_data;
-
-            generate_skill_cat();
-
-            $('#init-skill').show();
-            console.log('resolve complete');
-            resolve();
-          })
-
-          console.log('partial resolve advanced_cat');
-        })
-
-        console.log('partial resolve skill_cat');
-      })
-    }
-  );
+function get_json_skill_group() {
+  return $.getJSON('/skill_group.json', function(skill_group_json_data) {
+    skill_groups = skill_group_json_data;
+  })
 }
 
 function get_json_strain_restriction() {

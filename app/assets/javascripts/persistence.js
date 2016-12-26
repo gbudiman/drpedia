@@ -211,31 +211,38 @@ $(function() {
          get_json_strain_stats(), 
          get_json_strain_specs(),
          get_json_profession_advanced(),
-         get_json_profession_concentration()).then(function() {
+         get_json_profession_concentration()).done(function() {
     console.log('when execution complete');
-    $.when(get_json_strain_restriction()).done(function() {
-      $.when(get_json_skill_list()).done(function() {
-        $('#init-postprocess').show();
-        
-        resize_graphical();
-        generate_professions_select_box();
-        generate_inverted_skills().then(function() {
-          build_advanced_profession().then(function() {
-            load_first_available_profile();
-            $('#init-completed').show();
-            init_completed = true;
+    $.when(get_json_advanced_cat()).done(function() {
+      $.when(get_json_skill_group()).done(function() {
+        generate_skill_cat();
+        $('#init-skill').show();
+
+        $.when(get_json_strain_restriction()).done(function() {
+          $.when(get_json_skill_list()).done(function() {
+            $('#init-postprocess').show();
             
-            console.log('all loaded');
-            ok_to_trigger_advanced_profession_removal = true;
-            //update_beyond_basic();
-            $('#loading [data-dismissible]').hide(500, function() {
-              $('#loading').hide(1000);
-            });
+            resize_graphical();
+            generate_professions_select_box();
+            generate_inverted_skills().then(function() {
+              build_advanced_profession().then(function() {
+                load_first_available_profile();
+                $('#init-completed').show();
+                init_completed = true;
+                
+                console.log('all loaded');
+                ok_to_trigger_advanced_profession_removal = true;
+                //update_beyond_basic();
+                $('#loading [data-dismissible]').hide(500, function() {
+                  $('#loading').hide(1000);
+                });
+              });
+            })
           });
         })
-      });
-      
+      })
     })
+    
   })
   // $.when(get_json_strain(), 
   //        get_json_profession(), 
