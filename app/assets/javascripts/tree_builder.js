@@ -329,8 +329,14 @@ var generate_skill_cat = function() {
       
       skill_cat[x] = skill_cat[source_group];
       skills.push(x);
+    } else {
+      if (skill_cat[source_group] != undefined) {
+        $.extend(true, skill_cat[x], skill_cat[source_group]);
+      }
     }
   })
+
+  console.log(skill_cat);
 
   var list_maker = function(col_classes, skill_name) {
     var psion_index;
@@ -368,6 +374,7 @@ var generate_skill_cat = function() {
   })
 
   $('div#graphical-list').append(s);
+  //console.log(skill_cat);
   $.each(group_header_to_remove, function(i, x) {
     //console.log('removing ' + x);
     $('[skill-name="' + x + '"]').remove();
