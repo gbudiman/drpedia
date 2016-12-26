@@ -88,7 +88,7 @@ function update_beyond_basic() {
     'psionic_advanced':     skills.psionic_advanced
   })
 
-  console.log('beyond-basic triggered');
+  debug('beyond-basic triggered');
   compute_advanced_profession_constraints(ag);
   disable_selected_advanced_profession();
 }

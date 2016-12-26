@@ -39,7 +39,7 @@ function attach_drag_functor(selement) {
 
     update_selected_skills($('.drag-simulable').length);
     if ($('.drag-simulable').length > 0) {
-      console.log(get_parent_id_of_clicked_object(selement));
+      debug(get_parent_id_of_clicked_object(selement));
       highlight_droppable_regions(true, get_parent_id_of_clicked_object(selement));
     } else {
       highlight_droppable_regions(false);
@@ -102,9 +102,9 @@ function attach_tappable_drop(id) {
 
     //if ($(this).hasClass('drop-simulable')) {
     if ($(list_id).hasClass('drop-simulable') || $(this).hasClass('drop-simulable')) {
-      console.log('clicked on drop-simulable');
+      debug('clicked on drop-simulable');
       $('.drag-simulable').each(function() {
-        console.log($(this));
+        debug($(this));
         append_lexicographically(list_id, $(this));
         reset_popover($(this));
         rebuild_popover($(this));
@@ -236,6 +236,8 @@ function append_lexicographically(list_id, dragged_object, _bypass_beyond_basic)
 
 function buffer_bst_col_descriptor(obj) {
   if (obj.attr('buffered-class') != undefined) { return; }
+  if (obj.attr('class') == undefined) { return; }
+
   var class_collection = obj.attr('class').split(' ');
   var buffered_collection = new Array();
   var regex_matcher = /col-/;
