@@ -64,14 +64,8 @@ function unpack_state() {
         target_object = $('[skill-name="' + decrypt_psionic_skills(x) + '"]');
       }
 
-      console.log('relocating ' + x);
-      console.log(target_object);
-
       if (target_object) {
-        //console.log(target_object.hasClass('faded') + ' ' + target_object.text());
-        //if (!target_object.hasClass('faded')) {
         append_lexicographically(target_list_id, target_object);
-        //}
       }
     })
   }
@@ -212,7 +206,6 @@ $(function() {
          get_json_strain_specs(),
          get_json_profession_advanced(),
          get_json_profession_concentration()).done(function() {
-    console.log('when execution complete');
     $.when(get_json_advanced_cat()).done(function() {
       $.when(get_json_skill_group()).done(function() {
         generate_skill_cat();
