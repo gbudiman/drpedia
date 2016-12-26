@@ -140,8 +140,6 @@ function compute_advanced_profession_constraints(ag) {
     var s = obj.test(ag);
     var target = $('#advanced-list [p-adv="' + name + '"]');
 
-    console.log(s);
-
     if (s.result) {
       target
         .removeClass('faded')
