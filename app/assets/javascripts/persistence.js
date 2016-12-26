@@ -1,6 +1,7 @@
 var skill_list;
 var skill_list_inverted;
 var skill_list_special_group;
+var ok_to_trigger_advanced_profession_removal = false;
 
 function clear_cookies() {
   Cookies.remove('drpedia');
@@ -219,6 +220,7 @@ $(function() {
             init_completed = true;
             
             console.log('all loaded');
+            ok_to_trigger_advanced_profession_removal = true;
             //update_beyond_basic();
             $('#loading [data-dismissible]').hide(500, function() {
               $('#loading').hide(1000);

@@ -14,7 +14,7 @@ function check_advanced_profession_constraints() {
   } else {
     var is_invalid = $('#advanced-list [p-adv="' + ap + '"]').hasClass('faded');
 
-    if (is_invalid) {
+    if (is_invalid && ok_to_trigger_advanced_profession_removal) {
       console.log('unsatisfied advanced profession constraint');
       $('#profession-selector').multiselect('deselect', ap, true);
     } else {
