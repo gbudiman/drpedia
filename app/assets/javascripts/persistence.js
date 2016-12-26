@@ -211,7 +211,7 @@ $(function() {
          get_json_strain_stats(), 
          get_json_strain_specs(),
          get_json_profession_advanced(),
-         get_json_profession_concentration()).done(function() {
+         get_json_profession_concentration()).then(function() {
     console.log('when execution complete');
     $.when(get_json_strain_restriction()).done(function() {
       $.when(get_json_skill_list()).done(function() {
