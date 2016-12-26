@@ -118,6 +118,7 @@ function attach_tappable_drop(id) {
 
       update_selected_skills(0);
 
+      update_beyond_basic();
       pack_state();
     }
   })
