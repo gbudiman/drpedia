@@ -336,8 +336,6 @@ var generate_skill_cat = function() {
     }
   })
 
-  console.log(skill_cat);
-
   var list_maker = function(col_classes, skill_name) {
     var psion_index;
     if (skill_name.match(psion_regex)) {
