@@ -105,6 +105,8 @@ function load_first_available_profile() {
   } else {
     load_empty_profile();
   }
+
+  set_advanced_acknowledgement(advanced_acknowledged);
 }
 
 function load_profile(name) {

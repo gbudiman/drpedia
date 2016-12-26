@@ -82,6 +82,10 @@ function apply_view_filters() {
   // }
 }
 
+var post_process_filter_view = function() {
+  
+}
+
 $(function() {
   $('#filter-group').multiselect({
     buttonWidth: '100%',
@@ -95,5 +99,6 @@ $(function() {
     onChange: function() { apply_view_filters(); }
   });
 
+  post_process_filter_view();
   $('#filter-group').multiselect('select', 'hide-advanced');
 })

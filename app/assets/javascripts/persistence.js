@@ -10,6 +10,8 @@ function set_advanced_acknowledgement(val) {
     $('.advanced-recoverable').show();
     $('.advanced-to-hide').hide();
   } else {
+    console.log('hiding');
+    console.log($('.advanced-recoverable'));
     $('.advanced-recoverable').hide();
     $('.advanced-to-hide').show();
   }
