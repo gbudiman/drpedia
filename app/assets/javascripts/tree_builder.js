@@ -822,25 +822,46 @@ function get_json_profession_concentration() {
 }
 
 function get_json_skill_cat() {
-  return $.getJSON('/skill_cat.json', function(skill_cat_json_data) { 
-    //skill_cat = skill_cat_json_data; 
-    $.getJSON('/advanced_cat.json', function(advanced_cat_json_data) {
-      // console.log(skill_cat_json_data);
-      // console.log(advanced_cat_json_data);
-      advanced_cat = advanced_cat_json_data;
-      skill_cat = $.extend({}, skill_cat_json_data, advanced_cat_json_data);
+  // return $.getJSON('/skill_cat.json', function(skill_cat_json_data) { 
+  //   //skill_cat = skill_cat_json_data; 
+  //   $.getJSON('/advanced_cat.json', function(advanced_cat_json_data) {
+  //     // console.log(skill_cat_json_data);
+  //     // console.log(advanced_cat_json_data);
+  //     advanced_cat = advanced_cat_json_data;
+  //     skill_cat = $.extend({}, skill_cat_json_data, advanced_cat_json_data);
 
-      $.getJSON('/skill_group.json', function(skill_group_json_data) {
-        skill_groups = skill_group_json_data;
-        generate_skill_cat(); 
+  //     $.getJSON('/skill_group.json', function(skill_group_json_data) {
+  //       skill_groups = skill_group_json_data;
+  //       generate_skill_cat(); 
 
-        $('#init-skill').show();
+  //       $('#init-skill').show();
+  //     })
+  //   })
+    
+    
+    
+  // });
+
+  return new Promise(
+    function (resolve, reject) {
+      $.getJSON('/skill_cat.json', function(skill_cat_json_data) {
+        $.getJSON('/advanced_cat.json', function(advanced_cat_json_data) {
+          advanced_cat = advanced_cat_json_data;
+          skill_cat = $.extend({}, skill_cat_json_data, advanced_cat_json_data);
+
+          $.getJSON('/skill_group.json', function(skill_group_json_data) {
+            skill_groups = skill_group_json_data;
+
+            generate_skill_cat();
+
+            $('#init-skill').show();
+            console.log('resolve complete');
+            resolve();
+          })
+        })
       })
-    })
-    
-    
-    
-  });
+    }
+  );
 }
 
 function get_json_strain_restriction() {
