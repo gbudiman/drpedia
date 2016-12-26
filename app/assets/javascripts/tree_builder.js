@@ -367,7 +367,6 @@ var generate_skill_cat = function() {
   var col_classes = assign_col_descriptor_classes();
 
   $.each(skills.sort(), function(index, skill_name) {
-    console.log('executing list_maker() for ' + skill_name);
     var t = list_maker(col_classes, skill_name);
               //.append('<span class="pull-right pseudo-point">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>');
 
@@ -858,7 +857,11 @@ function get_json_skill_cat() {
             console.log('resolve complete');
             resolve();
           })
+
+          console.log('partial resolve advanced_cat');
         })
+
+        console.log('partial resolve skill_cat');
       })
     }
   );
