@@ -83,7 +83,7 @@ function apply_view_filters() {
 }
 
 var post_process_filter_view = function() {
-  
+
 }
 
 $(function() {
@@ -100,5 +100,5 @@ $(function() {
   });
 
   post_process_filter_view();
-  $('#filter-group').multiselect('select', 'hide-advanced');
+  $('#filter-group').multiselect('select', 'hide-advanced', true);
 })

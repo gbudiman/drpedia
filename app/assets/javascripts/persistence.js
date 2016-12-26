@@ -9,11 +9,11 @@ function set_advanced_acknowledgement(val) {
   if (val) {
     $('.advanced-recoverable').show();
     $('.advanced-to-hide').hide();
+    $('#filter-group').multiselect('deselect', 'hide-advanced', true);
   } else {
-    console.log('hiding');
-    console.log($('.advanced-recoverable'));
     $('.advanced-recoverable').hide();
     $('.advanced-to-hide').show();
+    $('#filter-group').multiselect('select', 'hide-advanced', true);
   }
 
   pack_state();
