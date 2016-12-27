@@ -50,7 +50,7 @@ function attach_alternator(o) {
   if (o.attr('data-alternator') == undefined) {
     var skill_name = o.parent().attr('skill-name');
     var x = pull_skill_cat_data(skill_name, 0, 'array').uniquify_and_sort();
-    console.log(x);
+
     var min = x[0];
     //x.rotate_left_and_peek();
     o.attr('data-alternator', JSON.stringify(x));
@@ -124,6 +124,7 @@ function attach_alternator(o) {
             }
 
             update_beyond_basic();
+            clear_tapped_selections();
           }
 
           return false;
@@ -135,6 +136,8 @@ function attach_alternator(o) {
     })
 
     o.trigger('click');
+
+    return false;
   }
 }
 
