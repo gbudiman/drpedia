@@ -92,7 +92,7 @@ function check_existing_profile(val) {
 }
 
 function load_empty_profile() {
-  $('#profile-text').text('Select Profile');
+  $('#profile-text').text('Save to Profile...');
   $('#contextual-divider').hide();
   $('#profile-delete').parent().hide();
 
