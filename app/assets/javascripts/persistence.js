@@ -59,7 +59,9 @@ function pack_state() {
 
   var sca = new Array();
   $.each(skill_cost_adjusted, function(code, value) {
-    sca.push(code + value);
+    if (!isNaN(value)) {
+      sca.push(code + value);
+    }
   })
 
   pack += '|' + sca.join(',');
