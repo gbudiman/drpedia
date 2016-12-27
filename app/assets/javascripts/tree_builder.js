@@ -396,7 +396,7 @@ var generate_skill_cat = function() {
       .attr('skill-name', skill_name)
       .attr('advanced-skill', advanced_cat[skill_name] == undefined ? false : true)
       .append('<span class="skill-label">' + mark_advanced(skill_name) + '</span>')
-      .append('<span class="pull-right badge"></span>');
+      .append('<span class="pull-right badge skill-cost-badge"></span>');
 
     if (psion_index != undefined) {
       s.attr('psion-index', psion_index);

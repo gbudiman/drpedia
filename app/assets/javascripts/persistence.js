@@ -155,7 +155,7 @@ function unpack_state() {
     if (p0[7] != undefined) {
       $.each(p0[7].split(','), function(i, x) {
         var coded = x[0] + x[1];
-        var value = parseInt(x[2]);
+        var value = parseInt(x[2] + (x[3] || ''));
         skill_cost_adjusted[coded] = value;
       })
     }

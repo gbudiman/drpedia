@@ -10,6 +10,9 @@ $(function() {
   compute_stats('#hp-total');
   compute_stats('#mp-total');
   update_total_xp();
+
+  $('#hp-add').prop('disabled', false);
+  $('#mp-add').prop('disabled', false);
 })
 
 function initialize_stats_controller(target_id) {
@@ -42,7 +45,7 @@ function attach_stats_controller(target_id, operation) {
     }
 
     set_stat_build(target, total_id, current_value);
-    console.log('asdf 4');
+    console.log('UBC called from attach_stats_controller');
     update_beyond_basic();
     check_advanced_profession_constraints();
   })
