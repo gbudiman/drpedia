@@ -3,6 +3,24 @@ var skill_list_inverted;
 var skill_list_special_group;
 var ok_to_trigger_advanced_profession_removal = false;
 var advanced_acknowledged = false;
+var skill_cost_adjusted = {};
+
+function persistence_set_skill_cost_adjustment(name, value) {
+  skill_cost_adjusted[skill_list[name]] = value;
+  pack_state();
+}
+
+function persistence_clear_skill_cost_adjustment(name) {
+  delete skill_cost_adjusted[skill_list[name]];
+  pack_state();
+}
+
+function apply_skill_cost_adjusted() {
+  $.each(skill_cost_adjusted, function(code, value) {
+    var skill_name = skill_list_inverted[code];
+    $('li[skill-name="' + skill_name + '"]').find('.badge').html(value + '<sup>+</sup>');
+  })
+}
 
 function set_advanced_acknowledgement(val) {
   advanced_acknowledged = val;
@@ -35,6 +53,14 @@ function pack_state() {
 
   pack += es.acquired.join(',') + '|' + es.planned.join(',') + '|';
   pack += advanced_acknowledged ? 1 : 0;
+
+  var sca = new Array();
+  $.each(skill_cost_adjusted, function(code, value) {
+    sca.push(code + value);
+  })
+
+  pack += '|' + sca.join(',');
+
   Cookies.set(current_profile, pack, { expires: 365 });
   console.log('Packing to ' + current_profile + ': ' + pack);
 }
@@ -121,6 +147,14 @@ function unpack_state() {
       advanced_acknowledged = p0[6] == '1' ? true : false;
     } else {
       advanced_acknowledged = false;
+    }
+
+    if (p0[7] != undefined) {
+      $.each(p0[7].split(','), function(i, x) {
+        var coded = x[0] + x[1];
+        var value = parseInt(x[2]);
+        skill_cost_adjusted[coded] = value;
+      })
     }
     
     selected_strain = strain || 'Select Strain';

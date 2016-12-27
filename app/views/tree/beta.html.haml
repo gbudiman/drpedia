@@ -129,7 +129,7 @@
     %div{class: 'alert alert-warning', hidden: true, id: 'filter-no-match'}
       No Skills match filter criteria.
   %div{id: 'builder', class: 'builder-container col-xs-6 col-md-4 col-lg-3'}
-    / %input{type: 'checkbox', id: 'is-touch-device'} Enable touch input
+    %input{type: 'checkbox', id: 'is-touch-device'} Enable touch input
     / %div{class: 'alert alert-warning', id: 'debug-log', hidden: true}
 
     %div{class: 'alert alert-success alert-dismissible', id: 'alert-desktop', hidden: true}
@@ -142,7 +142,7 @@
         %span &times;
       You are on mobile device.
       %br
-      To move skills between boxes, tap one or more skills then tap green regions to move selected skills.
+      To move skills between boxes, tap one or more skills then tap green regions to move selected skills. Tap the skill cost to cycle its cost.
 
     %div{class: 'alert alert-danger alert-dismissible init-hidden', id: 'alert-deselection', hidden: true}
       %button{type: 'button', class: 'close'}
@@ -152,6 +152,7 @@
     %div{class: 'alert alert-warning', id: 'alert-mobile-selected', hidden: true}
       %span{id: 'alert-text'}
       %a{href: '#', class: 'pull-right', id: 'alert-mobile-selection-clear'} Clear
+      %div{class: 'alert-skill-cost-adjustment'}
 
     %div{id: 'advanced-xp-drop', class: 'alert alert-danger init-hidden', hidden: true}
       Total XP is dropping below required Advanced Profession
@@ -215,7 +216,7 @@
 
     %div{id: 'strain-specs', class: 'col-xs-12 row'} 
   %div{class: 'col-xs-12 mix-footer footer-separator'}
-    %span{class: 'pull-right text-muted slight-footer-pad'} Dystopia Rising Character Builder - drpaedia 0.2.3
+    %span{class: 'pull-right text-muted slight-footer-pad'} Dystopia Rising Character Builder - drpaedia 0.2.4
   %div{id: 'disqus_thread', class: 'col-xs-12'}
   :javascript
     var disqus_config = function() {

@@ -107,6 +107,7 @@ function load_first_available_profile() {
   }
 
   set_advanced_acknowledgement(advanced_acknowledged);
+  apply_skill_cost_adjusted();
 }
 
 function load_profile(name) {

@@ -196,10 +196,23 @@ function attach_drop_functor(_element_id) {
       disable_popover();
       //disable_drag(dragged_object);
 
+      check_adjusted_cost(dragged_object, _element_id + '-list');
       update_beyond_basic();
       pack_state();
     }
   })
+}
+
+function check_adjusted_cost(o, element_id) {
+  console.log('check ac: ' + element_id);
+  var b = o.find('.badge').text();
+  var skill_name = o.attr('skill-name');
+
+  if (element_id != 'graphical-list' && b.indexOf('+') != -1) {
+    persistence_set_skill_cost_adjustment(skill_name, parseInt(b));
+  } else if (element_id == 'graphical-list') {
+    persistence_clear_skill_cost_adjustment(skill_name);
+  }
 }
 
 function append_lexicographically(list_id, dragged_object, _bypass_beyond_basic) {
@@ -233,6 +246,8 @@ function append_lexicographically(list_id, dragged_object, _bypass_beyond_basic)
   } else {
     buffer_bst_col_descriptor(dragged_object);
   }
+
+  check_adjusted_cost(dragged_object, list_id.split('#')[1]);
 }
 
 function buffer_bst_col_descriptor(obj) {
