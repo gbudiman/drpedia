@@ -51,6 +51,7 @@ var generate_strains_select_box = function() {
       }
 
       update_profession_cost();
+      update_all_alternators();
 
       if (is_builder) {
         console.log('UBC called from Strain Selector OnChange');
@@ -204,6 +205,7 @@ var generate_professions_select_box = function() {
       if (is_builder) {
         replan();
         pack_state();
+        update_all_alternators();
         console.log('UBC called from Profession Selector onChange');
         update_beyond_basic();
       }
@@ -525,7 +527,8 @@ function attach_anchor() {
   })
 }
 
-function pull_skill_cat_data(skill, min_cost) {
+function pull_skill_cat_data(skill, min_cost, _return_type) {
+  var return_type = _return_type == undefined ? 'string' : 'array';
   var data = skill_cat[skill];
   var by_strain = new Object();
   var by_strain_disadvantage = new Object();
@@ -533,6 +536,13 @@ function pull_skill_cat_data(skill, min_cost) {
   var by_open = new Array();
   var by_profession = new Object();
   var s = '';
+  var a = new Array();
+
+  var push_cost = function(class_name, cost) {
+    if (class_name != 'skill-not-accessible') {
+      a.push(cost);
+    }
+  }
 
   $.each(data, function(class_type, class_data) {
     switch (class_type) {
@@ -543,6 +553,7 @@ function pull_skill_cat_data(skill, min_cost) {
         break;
       case "open":
         by_open.push('Open: ' + class_data);
+        push_cost('', class_data);
         break;
       case "innate_preq":
         strain_preq = class_data;
@@ -597,6 +608,7 @@ function pull_skill_cat_data(skill, min_cost) {
     return min_result;
   }
 
+
   var lowest_pair = find_lowest_from_pair();
 
   if (Object.keys(by_strain).length > 0) {
@@ -614,6 +626,7 @@ function pull_skill_cat_data(skill, min_cost) {
       // }
 
       var f = '<span class="' + class_name + '">' + strain_name + ': ' + cost + '</span>';
+      push_cost(class_name, cost);
       s += f + '<br />'
 
       if (strain_preq && strain_preq[strain_name]) {
@@ -637,6 +650,7 @@ function pull_skill_cat_data(skill, min_cost) {
         class_name = 'text-danger';
       }
       f.push('<span class="' + class_name + '">' + strain_name + ': ' + cost + '</span>');
+      push_cost(class_name, cost);
     })
 
     s += f.join('<br />') + '<hr class="thin-divider" />';
@@ -666,13 +680,18 @@ function pull_skill_cat_data(skill, min_cost) {
 
       var f = '<span class="' + class_name + '">' + profession_name + ': ' + pdata.cost + '</span>';
       s += f + '<br />';
+      push_cost(class_name, pdata.cost);
       if (preq && preq.length > 0) {
         s += '<span class="preq">' + preq + '</span><br />';
       }
     })
   }
 
-  return s;
+  if (return_type == 'array') {
+    return a;
+  } else {
+    return s;
+  }
 }
 
 function find_preq(profession, skill, pdata) {

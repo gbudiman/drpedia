@@ -217,6 +217,7 @@ function append_lexicographically(list_id, dragged_object, _bypass_beyond_basic)
 
     if (s_compare == -1) {
       dragged_object.insertBefore($(this));
+
       appended = true;
       return false;
     }

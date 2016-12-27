@@ -135,7 +135,7 @@
     %div{class: 'alert alert-success alert-dismissible', id: 'alert-desktop', hidden: true}
       %button{type: 'button', class: 'close'}
         %span &times;
-      You can drag skills and drop them to green regions.
+      You can drag skills and drop them to green regions. Click the skill cost to cycle their costs.
 
     %div{class: 'alert alert-success alert-dismissible', id: 'alert-mobile', hidden: true}
       %button{type: 'button', class: 'close'}
@@ -233,6 +233,7 @@
 :javascript
   var is_builder = true;
 
+= javascript_include_tag 'alternator'
 = javascript_include_tag 'on_screen_debug'
 = javascript_include_tag 'beyond_basic'
 = javascript_include_tag 'filter_view'

@@ -248,10 +248,10 @@ $(function() {
             generate_inverted_skills().then(function() {
               build_advanced_profession().then(function() {
                 load_first_available_profile();
+                update_all_alternators();
                 $('#init-completed').show();
                 init_completed = true;
                 
-                console.log('all loaded');
                 ok_to_trigger_advanced_profession_removal = true;
                 //update_beyond_basic();
                 $('#loading [data-dismissible]').hide(500, function() {
