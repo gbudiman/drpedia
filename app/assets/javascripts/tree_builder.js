@@ -791,7 +791,12 @@ function recalculate() {
 
     if (min_cost != 99) {
       o.removeClass('faded');
-      o.find('.badge').text(min_cost);
+
+      var badge = o.find('.badge');
+      if (badge.attr('data-alternator') == undefined) {
+        o.find('.badge').text(min_cost);
+      }
+
       o.find('.clickable-skill').removeClass('link-faded');
       // if (is_open_skill && min_cost < open_skill_cost) {
       //   o.find('.badge').addClass('progress-bar-success');
