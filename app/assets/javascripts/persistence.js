@@ -20,6 +20,9 @@ function apply_skill_cost_adjusted() {
     var skill_name = skill_list_inverted[code];
     $('li[skill-name="' + skill_name + '"]').find('.badge').html(value + '<sup>+</sup>');
   })
+
+  update_xp_count('#planned');
+  update_xp_count('#acquired');
 }
 
 function set_advanced_acknowledgement(val) {
