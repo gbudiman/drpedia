@@ -40,8 +40,8 @@ var generate_strains_select_box = function() {
           dynamic_adjust_filter_view(option.text());
           selected_strain = option.text();
           apply_strain_restrictions();
-          restrict_profession_selector();
-          update_selected_professions();
+          //restrict_profession_selector();
+          //update_selected_professions();
           //update_profession_cost();
 
           recalculate();

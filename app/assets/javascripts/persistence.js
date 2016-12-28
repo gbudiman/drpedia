@@ -45,7 +45,6 @@ function clear_cookies() {
 }
 
 function pack_state() {
-  if (!has_profile) { return; }
   calculate_xp_sum();
 
   var pack = $('#hp-addition').text() + '|'
@@ -66,13 +65,17 @@ function pack_state() {
 
   pack += '|' + sca.join(',');
 
-  Cookies.set(current_profile, pack, { expires: 365 });
+  Cookies.set(has_profile ? current_profile : 'dummy', pack, { expires: 365 });
   console.log('Packing to ' + current_profile + ': ' + pack);
 }
 
 function unpack_state() {
   if (!has_profile) {
-    return;
+    if (Cookies.get('dummy') == undefined) {
+      return;
+    }
+
+    current_profile = 'dummy';
   }
 
   var decrypt_psionic_skills = function(a) {
@@ -129,7 +132,8 @@ function unpack_state() {
     relocate('#graphical-list', entries);
   }
 
-  var unpack = current_profile == 'dummy' ? '0|0||||' : Cookies.get(current_profile);
+  //var unpack = current_profile == 'dummy' ? '0|0||||' : Cookies.get(current_profile);
+  var unpack = Cookies.get(current_profile);
   console.log('Unpack from ' + current_profile + ': ' + unpack);
 
   if (unpack != undefined) {
@@ -138,6 +142,7 @@ function unpack_state() {
     var mp = parseInt(p0[1]) || 0;
     var strain = p0[2];
 
+    $('#strain-selector').multiselect('select', 'Select Strain', true).multiselect('refresh');
     reset_all_skills('acquired-list');
     reset_all_skills('planned-list');
     set_stat_build($('#hp-addition'), 'hp-total', hp, false);
@@ -180,12 +185,12 @@ function unpack_state() {
     //selected_professions = professions;
     //$('#strain-selector').val(strain).multiselect('refresh');
     
-    $('#strain-selector').multiselect('select', selected_strain).multiselect('refresh');
+    $('#strain-selector').multiselect('select', selected_strain, true);
     $('#profession-selector')
       .multiselect('deselectAll', false)
       .multiselect('updateButtonText');
     $.each(professions, function(i, x) {
-      $('#profession-selector').multiselect('select', x);
+      $('#profession-selector').multiselect('select', x, true);
     });
 
     //$('#profession-selector').val(professions).multiselect('refresh');

@@ -7,10 +7,14 @@ function attach_create_from_scratch() {
     // reset_all_skills('acquired-list');
     // reset_all_skills('planned-list');
 
-    current_profile = 'dummy';
-    set_advanced_acknowledgement(false);
+    Cookies.set('dummy', '0|0||||');
+    has_profile = false;
+    selected_professions = undefined;
+    selected_strain = undefined;
+
     unpack_state();
     load_empty_profile();
+    set_advanced_acknowledgement(false);
   })
 }
 
@@ -102,6 +106,8 @@ function load_empty_profile() {
   $('#profile-delete').parent().hide();
 
   has_profile = false;
+  console.log('unpack here ' + current_profile);
+  unpack_state();
 }
 
 function load_first_available_profile() {
@@ -124,9 +130,10 @@ function load_profile(name) {
   $('a[qref="' + name + '"]').trigger('click');
 }
 
-function load_existing_profile() {
+function load_existing_profile(_bypass_unpack) {
   sys_profiles = new Array();
   var profiles = Cookies.get('drpedia');
+  var bypass_unpack = _bypass_unpack == undefined ? false : _bypass_unpack;
   $('[is-profile-entry]').remove();
 
   if (profiles == undefined || profiles.length == 0) {
@@ -138,7 +145,9 @@ function load_existing_profile() {
     $('#profile-dropdown')
       .prepend(s);
 
-    unpack_state();
+    if (!bypass_unpack) {
+      unpack_state();
+    }
     console.log('UBC called from load_existing_profile::undefined');
     update_beyond_basic();
   } else {
@@ -187,7 +196,7 @@ function save_profiles() {
 }
 
 $(function() {
-  load_existing_profile();
+  load_existing_profile(true);
   attach_new_profile();
   attach_new_profile_save();
   attach_delete_profile();
