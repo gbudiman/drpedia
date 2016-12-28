@@ -142,7 +142,7 @@ function unpack_state() {
     var mp = parseInt(p0[1]) || 0;
     var strain = p0[2];
 
-    $('#strain-selector').multiselect('select', 'Select Strain', true).multiselect('refresh');
+    $('#strain-selector').multiselect('select', 'Select Strain').multiselect('refresh');
     reset_all_skills('acquired-list');
     reset_all_skills('planned-list');
     set_stat_build($('#hp-addition'), 'hp-total', hp, false);
@@ -185,12 +185,12 @@ function unpack_state() {
     //selected_professions = professions;
     //$('#strain-selector').val(strain).multiselect('refresh');
     
-    $('#strain-selector').multiselect('select', selected_strain, true);
+    $('#strain-selector').multiselect('select', selected_strain);
     $('#profession-selector')
       .multiselect('deselectAll', false)
       .multiselect('updateButtonText');
     $.each(professions, function(i, x) {
-      $('#profession-selector').multiselect('select', x, true);
+      $('#profession-selector').multiselect('select', x);
     });
 
     //$('#profession-selector').val(professions).multiselect('refresh');
