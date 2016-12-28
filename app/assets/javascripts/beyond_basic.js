@@ -155,7 +155,7 @@ function compute_advanced_profession_constraints(ag) {
       enable_advanced_profession_selector(name, false);
     }
     
-    web_display_human_readable_result(s, target.find('.adv-requirement'), name);
+    web_display_human_readable_result(s, target.find('div.adv-requirement'), name);
   });
 }
 

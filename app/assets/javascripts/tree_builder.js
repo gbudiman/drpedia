@@ -759,25 +759,29 @@ function recalculate() {
     return min_cost;
   }
 
+  var uncolorize_all_badges = function() {
+    $('span.badge')
+      .removeClass('progress-bar-success progress-bar-danger progress-bar-default');
+  }
+
+  var colorize_badge = function(obj, min_cost, open_skill_cost) {
+    var badge = obj.find('span.badge');
+
+    if (min_cost < open_skill_cost) {
+      badge.addClass('progress-bar-success');
+    } else if (min_cost > open_skill_cost) {
+      badge.addClass('progress-bar-danger');
+    } else {
+      badge.addClass('progress-bar-default');
+    }
+  }
+
   var detect_available_skill = function(skill_name, data) {
     var min_cost = 99;
     var is_available = false;
     var open_skill_cost = detect_is_open_skill(data);
 
-    var colorize_badge = function(obj, min_cost, open_skill_cost) {
-      obj.find('.badge')
-        .removeClass('progress-bar-success')
-        .removeClass('progress-bar-danger')
-        .removeClass('progress-bar-default');
-
-      if (min_cost < open_skill_cost) {
-        obj.find('.badge').addClass('progress-bar-success');
-      } else if (min_cost > open_skill_cost) {
-        obj.find('.badge').addClass('progress-bar-danger');
-      } else {
-        obj.find('.badge').addClass('progress-bar-default');
-      }
-    }
+    var o = $('li[skill-name="' + skill_name + '"]');
 
     min_cost = Math.min(min_cost, detect_is_profession_skill(data));
     min_cost = Math.min(min_cost, detect_has_innate(data));
@@ -787,28 +791,27 @@ function recalculate() {
       min_cost = min_cost * 2;
     }
 
-    var o = $('[skill-name="' + skill_name + '"]');
-
     if (min_cost != 99) {
       o.removeClass('faded');
 
-      var badge = o.find('.badge');
+      var badge = o.find('span.badge');
       if (badge.attr('data-alternator') == undefined) {
-        o.find('.badge').text(min_cost);
+        o.find('span.badge').text(min_cost);
       }
 
-      o.find('.clickable-skill').removeClass('link-faded');
+      o.removeClass('link-faded');
       // if (is_open_skill && min_cost < open_skill_cost) {
       //   o.find('.badge').addClass('progress-bar-success');
       // }
       colorize_badge(o, min_cost, open_skill_cost);
     } else {
       o.addClass('faded');
-      o.find('.badge').text('');
-      o.find('.clickable-skill').addClass('link-faded');
+      o.find('span.badge').text('');
+      o.addClass('link-faded');
     }
   };
 
+  uncolorize_all_badges();
   $.each(skill_cat, function(skill_name, skill_data) {
     detect_available_skill(skill_name, skill_data);
   });
