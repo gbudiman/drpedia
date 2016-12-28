@@ -82,8 +82,18 @@ function apply_view_filters() {
   // }
 }
 
-var post_process_filter_view = function() {
-
+function dynamic_adjust_filter_view(val) {
+  return new Promise(
+    function(resolve, reject) {
+      switch(val) {
+        case 'Psionist': 
+        case 'Unborn of Texiptla':
+          $('#filter-group').multiselect('deselect', 'hide-psionics', true);
+          break;
+      }
+      resolve();
+    }
+  )
 }
 
 $(function() {
@@ -99,6 +109,5 @@ $(function() {
     onChange: function() { apply_view_filters(); }
   });
 
-  post_process_filter_view();
-  $('#filter-group').multiselect('select', 'hide-advanced', true);
+  $('#filter-group').multiselect('select', ['hide-advanced', 'only-available', 'hide-lore', 'hide-psionics'], true);
 })
