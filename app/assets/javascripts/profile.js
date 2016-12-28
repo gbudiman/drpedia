@@ -32,7 +32,9 @@ function attach_delete_profile() {
     if (index == -1) {
 
     } else {
-      sys_profiles.splice(index, 1);
+      var deleted_element = sys_profiles.splice(index, 1)[0];
+      console.log('removing cookie: ' + deleted_element);
+      Cookies.remove(deleted_element);
       console.log('After deletion: ' + sys_profiles);
       $('#profile-confirm-deletion-modal').modal('hide');
       save_profiles();
@@ -79,7 +81,10 @@ function attach_new_profile_save() {
   $('#btn-profile-save').on('click', function() {
     var name = $('#profile-name').val().trim();
     sys_profiles.push(name);
+    current_profile = name;
+    has_profile = true;
     save_profiles();
+    pack_state();
     $('#profile-create-new-modal').modal('hide');
     load_existing_profile();
     load_profile(name);

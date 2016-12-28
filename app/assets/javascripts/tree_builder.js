@@ -252,6 +252,7 @@ var post_process_advanced_professions = function() {
         $('#advanced-warning').modal('hide');
 
         set_advanced_acknowledgement(true);
+        update_beyond_basic();
       })
     }
   }
