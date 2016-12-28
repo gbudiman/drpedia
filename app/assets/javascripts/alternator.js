@@ -34,6 +34,8 @@ Array.prototype.uniquify_and_sort = function() {
     if (n[min] == undefined) {
       s.push(min);
     }
+
+    s.true_min = min;
   }
 
   return s.sort(function(a, b) { return a - b; });
@@ -51,7 +53,7 @@ function attach_alternator(o) {
     var skill_name = o.parent().attr('skill-name');
     var x = pull_skill_cat_data(skill_name, 0, 'array').uniquify_and_sort();
 
-    var min = x[0];
+    var min = x.true_min || x[0];
     //x.rotate_left_and_peek();
     o.attr('data-alternator', JSON.stringify(x));
     o.attr('data-min', min);
