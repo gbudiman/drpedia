@@ -204,7 +204,6 @@ function attach_drop_functor(_element_id) {
 }
 
 function check_adjusted_cost(o, element_id) {
-  console.log('check ac: ' + element_id);
   var b = o.find('.badge').text();
   var skill_name = o.attr('skill-name');
 

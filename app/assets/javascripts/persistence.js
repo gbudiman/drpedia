@@ -288,6 +288,7 @@ $(function() {
               build_advanced_profession().then(function() {
                 load_first_available_profile();
                 update_all_alternators();
+                calculate_xp_sum();
                 $('#init-completed').show();
                 init_completed = true;
                 
