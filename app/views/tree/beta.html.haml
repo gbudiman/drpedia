@@ -224,7 +224,7 @@
 
     %div{id: 'strain-specs', class: 'col-xs-12 row'} 
   %div{class: 'col-xs-12 mix-footer footer-separator'}
-    %span{class: 'pull-right text-muted slight-footer-pad'} Dystopia Rising Character Builder - drpaedia 0.2.7
+    %span{class: 'pull-right text-muted slight-footer-pad'} Dystopia Rising Character Builder - drpaedia 0.2.8
   %div{id: 'disqus_thread', class: 'col-xs-12'}
   :javascript
     var disqus_config = function() {
@@ -255,11 +255,14 @@
 = javascript_include_tag 'persistence'
 = javascript_include_tag 'dynamic_builder'
 = javascript_include_tag 'skill_utility'
+%link{rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Exo'}
 
 :css
   body {
     overflow-x: hidden;
     font-size: 12px;
+    background: #ffffff;
+    font-family: 'Exo',Helvetica,Arial,sans-serif;
   }
 
   a .text-muted {
@@ -362,6 +365,7 @@
   .badge {
     margin-top: -1px;
     margin-bottom: -1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif
   }
 
   .dropdown-menu {
@@ -374,7 +378,7 @@
 
   #setup {
     z-index: 1000;
-    background-color: white;
+    background-color: #ffffff;
     padding-right: 0px;
     margin: 0px;
     padding-bottom: 0.2em;
