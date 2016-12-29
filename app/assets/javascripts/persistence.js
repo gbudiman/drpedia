@@ -11,8 +11,16 @@ function persistence_set_skill_cost_adjustment(name, value) {
 }
 
 function persistence_clear_skill_cost_adjustment(name) {
+  var exist = skill_cost_adjusted[skill_list[name]];
   delete skill_cost_adjusted[skill_list[name]];
-  pack_state();
+
+  if (exist) {
+    pack_state();
+  }
+}
+
+function persistence_clear_all_skill_cost_adjustment() {
+  skill_cost_adjusted = {};
 }
 
 function apply_skill_cost_adjusted() {
@@ -110,9 +118,9 @@ function unpack_state() {
   var relocate = function(target_list_id, skill_list) {
     $.each(skill_list, function(i, x) {
       
-      var target_object = $('[skill-name="' + x + '"]');
+      var target_object = $('li[skill-name="' + x + '"]');
       if (target_object.length == 0) {
-        target_object = $('[skill-name="' + decrypt_psionic_skills(x) + '"]');
+        target_object = $('li[skill-name="' + decrypt_psionic_skills(x) + '"]');
       }
 
       if (target_object) {

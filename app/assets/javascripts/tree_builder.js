@@ -1021,6 +1021,7 @@ $(function() {
     disable_popover();
   })
 
+  $('#modal-waiting').modal({show: false});
   $('#advanced-warning').modal({show: false});
   $('#advanced-existance-warning').modal({show: false});
   $('#btn-dismiss-advanced-warning').on('click', function() {

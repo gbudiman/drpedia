@@ -14,6 +14,14 @@
         %button{type: 'button', class: 'btn btn-default', 'data-dismiss' => 'modal'} Cancel
         %button{type: 'button', class: 'btn btn-danger', id: 'btn-confirm-profile-deletion'} Delete
 
+%div{class: 'modal fade', id: 'modal-waiting'}
+  %div{class: 'modal-dialog modal-sm'}
+    %div{class: 'modal-content'}
+      %div{class: 'modal-header'}
+        %h4 Processing...
+      %div{class: 'modal-body'}
+        %span{id: 'modal-waiting-content'}
+
 %div{class: 'modal fade', id: 'profile-create-new-modal'}
   %div{class: 'modal-dialog'}
     %div{class: 'modal-content'}
@@ -234,6 +242,7 @@
 :javascript
   var is_builder = true;
 
+= javascript_include_tag 'async_loading'
 = javascript_include_tag 'alternator'
 = javascript_include_tag 'on_screen_debug'
 = javascript_include_tag 'beyond_basic'

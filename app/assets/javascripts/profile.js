@@ -12,9 +12,12 @@ function attach_create_from_scratch() {
     selected_professions = undefined;
     selected_strain = undefined;
 
-    unpack_state();
-    load_empty_profile();
-    set_advanced_acknowledgement(false);
+    //unpack_state();
+    wrap_async(function() {
+      load_empty_profile();
+      set_advanced_acknowledgement(false);
+      persistence_clear_all_skill_cost_adjustment()
+    }, 'Resetting all data...');
   })
 }
 
