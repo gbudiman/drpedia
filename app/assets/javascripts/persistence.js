@@ -174,6 +174,7 @@ function unpack_state() {
       } else {
         advanced_acknowledged = false;
       }
+      set_advanced_acknowledgement(advanced_acknowledged);
 
       skill_cost_adjusted = {};
       if (p0[7] != undefined) {
