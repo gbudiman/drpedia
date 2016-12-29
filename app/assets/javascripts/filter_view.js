@@ -47,7 +47,7 @@ function apply_view_filters() {
       }).hide();
   }
 
-  $('.list-group-item').show();
+  $('li.list-group-item').show();
   disable_popover();
 
   $.each(get_active_view_filters().sort(), function(i, x) {

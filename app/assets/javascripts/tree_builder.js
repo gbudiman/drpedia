@@ -728,6 +728,11 @@ function find_preq(profession, skill, pdata) {
   return ' &laquo; ' + s;
 }
 
+function uncolorize_all_badges() {
+  $('span.badge')
+    .removeClass('progress-bar-success progress-bar-danger progress-bar-default');
+}
+
 function recalculate() {
   var detect_has_innate = function(data) {
     if (data.innate == undefined) {
@@ -767,15 +772,10 @@ function recalculate() {
     return min_cost;
   }
 
-  var uncolorize_all_badges = function() {
-    $('span.badge')
-      .removeClass('progress-bar-success progress-bar-danger progress-bar-default');
-  }
-
   var colorize_badge = function(obj, min_cost, open_skill_cost) {
     var badge = obj.find('span.badge');
 
-    if (min_cost < open_skill_cost) {
+    if (open_skill_cost == undefined || min_cost < open_skill_cost) {
       badge.addClass('progress-bar-success');
     } else if (min_cost > open_skill_cost) {
       badge.addClass('progress-bar-danger');
@@ -789,8 +789,6 @@ function recalculate() {
     var is_available = false;
     var open_skill_cost = detect_is_open_skill(data);
 
-    var o = $('li[skill-name="' + skill_name + '"]');
-
     min_cost = Math.min(min_cost, detect_is_profession_skill(data));
     min_cost = Math.min(min_cost, detect_has_innate(data));
     min_cost = Math.min(min_cost, open_skill_cost);
@@ -799,30 +797,46 @@ function recalculate() {
       min_cost = min_cost * 2;
     }
 
-    if (min_cost != 99) {
-      o.removeClass('faded');
-
-      var badge = o.find('span.badge');
-      if (badge.attr('data-alternator') == undefined) {
-        o.find('span.badge').text(min_cost);
-      }
-
-      o.removeClass('link-faded');
-      // if (is_open_skill && min_cost < open_skill_cost) {
-      //   o.find('.badge').addClass('progress-bar-success');
-      // }
-      colorize_badge(o, min_cost, open_skill_cost);
-    } else {
-      o.addClass('faded');
-      o.find('span.badge').text('');
-      o.addClass('link-faded');
-    }
+    skills_caching.update(skill_name, min_cost, open_skill_cost);    
   };
 
-  uncolorize_all_badges();
+  var update_visual = function(diff) {
+    console.log('visual update count: ' + diff.length);
+
+    //uncolorize_all_badges();
+    $.each(diff, function(i, x) {
+      var min_cost = x.min_cost;
+      var skill_name = x.skill_name;
+      var open_skill_cost = x.open_skill_cost;
+
+      var o = $('li[skill-name="' + skill_name + '"]');
+
+      if (min_cost != 99) {
+        o.removeClass('faded');
+
+        var badge = o.find('span.badge');
+        if (badge.attr('data-alternator') == undefined) {
+          o.find('span.badge').text(min_cost);
+        }
+
+        o.removeClass('link-faded');
+        // if (is_open_skill && min_cost < open_skill_cost) {
+        //   o.find('.badge').addClass('progress-bar-success');
+        // }
+        colorize_badge(o, min_cost, open_skill_cost);
+      } else {
+        o.addClass('faded');
+        o.find('span.badge').text('');
+        o.addClass('link-faded');
+      }
+    })
+  }
+
+  skills_caching.reset();
   $.each(skill_cat, function(skill_name, skill_data) {
     detect_available_skill(skill_name, skill_data);
   });
+  update_visual(skills_caching.get_diff());
 
   update_availability();
   disable_popover();

@@ -14,6 +14,7 @@ function attach_create_from_scratch() {
 
     //unpack_state();
     async_loading.wrap(function() {
+      uncolorize_all_badges();
       load_empty_profile();
       set_advanced_acknowledgement(false);
       persistence_clear_all_skill_cost_adjustment()

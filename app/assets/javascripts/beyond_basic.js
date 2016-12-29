@@ -162,10 +162,15 @@ function compute_advanced_profession_constraints(ag) {
 }
 
 function defer_update_beyond_basic(func) {
+
+  console.log('--- begin defer');
+  async_loading.set_inline_fork(false);
   update_deferred = true;
   func();
   update_deferred = false;
+  async_loading.set_inline_fork(true);
   update_beyond_basic();
+  console.log('--- end defer');
 }
 
 function web_display_human_readable_result(s, target, name) {
