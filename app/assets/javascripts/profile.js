@@ -103,11 +103,13 @@ function attach_new_profile_save() {
     sys_profiles.push(name);
     current_profile = name;
     has_profile = true;
+    unpack_has_been_called = false;
     save_profiles();
-    pack_state();
+    //pack_state();
     $('#profile-create-new-modal').modal('hide');
+    load_profile(name, false);
     load_existing_profile();
-    load_profile(name);
+    
     pack_state();
   })
 }
@@ -134,16 +136,25 @@ function load_first_available_profile() {
   }
 
   set_advanced_acknowledgement(advanced_acknowledged);
-  apply_skill_cost_adjusted();
 }
 
-function load_profile(name) {
+function load_profile(name, _execute_trigger) {
+  var execute_trigger = _execute_trigger == undefined ? true : _execute_trigger;
   console.log('Loading profile ' + name);
 
   has_profile = true;
   current_profile = name;
+  update_profile_visual(name);
 
-  $('a[qref="' + name + '"]').trigger('click');
+  if (execute_trigger) {
+    $('a[qref="' + name + '"]').trigger('click');
+  }
+}
+
+function update_profile_visual(name) {
+  $('#profile-text')
+    .text('Profile: ' + name)
+    .attr('profile', name);
 }
 
 function load_existing_profile(_bypass_unpack) {
@@ -182,9 +193,10 @@ function load_existing_profile(_bypass_unpack) {
 
         var name = $(this).text();
         console.log('click registered to ' + name);
-        $('#profile-text')
-          .text('Profile: ' + name)
-          .attr('profile', name);
+        update_profile_visual(name);
+        // $('#profile-text')
+        //   .text('Profile: ' + name)
+        //   .attr('profile', name);
 
         has_profile = true;
         current_profile = name;
@@ -192,7 +204,6 @@ function load_existing_profile(_bypass_unpack) {
         $('#profile-delete').parent().show();
 
         async_loading.wrap(function() {
-          console.log('unpack called');
           unpack_state();
         }, 'Loading saved profile data...')
         //unpack_state();

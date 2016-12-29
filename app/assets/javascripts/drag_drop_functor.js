@@ -246,8 +246,9 @@ function append_lexicographically(list_id, dragged_object, _hint) {
     buffer_bst_col_descriptor(dragged_object);
   }
 
-
-  check_adjusted_cost(dragged_object, list_id.split('#')[1]);
+  if (_hint != 'bypass_check_adjusted_cost') {
+    check_adjusted_cost(dragged_object, list_id.split('#')[1]);
+  }
 }
 
 function buffer_bst_col_descriptor(obj) {

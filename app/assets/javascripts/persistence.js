@@ -11,7 +11,8 @@ function persistence_set_skill_cost_adjustment(name, value) {
   pack_state();
 }
 
-function persistence_clear_skill_cost_adjustment(name) {
+function persistence_clear_skill_cost_adjustment(name, _bypass_pack) {
+  var bypass_pack = _bypass_pack == undefined ? false : true;
   var exist = skill_cost_adjusted[skill_list[name]];
   delete skill_cost_adjusted[skill_list[name]];
 
@@ -56,6 +57,7 @@ function clear_cookies() {
 }
 
 function pack_state() {
+  //console.log('called from ' + pack_state.caller.toString())
   calculate_xp_sum();
 
   var pack = $('#hp-addition').text() + '|'
@@ -119,7 +121,7 @@ function unpack_state() {
     return output;
   }
 
-  var relocate = function(target_list_id, skill_list) {
+  var relocate = function(target_list_id, skill_list, _hint) {
     $.each(skill_list, function(i, x) {
       
       var target_object = $('li[skill-name="' + x + '"]');
@@ -128,7 +130,7 @@ function unpack_state() {
       }
 
       if (target_object) {
-        append_lexicographically(target_list_id, target_object);
+        append_lexicographically(target_list_id, target_object, _hint);
       }
     })
   }
@@ -141,7 +143,7 @@ function unpack_state() {
       entries.push(entry);
     })
 
-    relocate('#graphical-list', entries);
+    relocate('#graphical-list', entries, 'bypass_check_adjusted_cost');
   }
 
   //var unpack = current_profile == 'dummy' ? '0|0||||' : Cookies.get(current_profile);
@@ -149,85 +151,88 @@ function unpack_state() {
   console.log('Unpack from ' + current_profile + ': ' + unpack);
 
   if (unpack != undefined) {
-    var p0 = unpack.split('|');
-    var hp = parseInt(p0[0]) || 0;
-    var mp = parseInt(p0[1]) || 0;
-    var strain = p0[2];
+    defer_update_beyond_basic(function() {
 
-    $('#strain-selector').multiselect('select', 'Select Strain').multiselect('refresh');
-    reset_all_skills('acquired-list');
-    reset_all_skills('planned-list');
-    set_stat_build($('#hp-addition'), 'hp-total', hp, false);
-    set_stat_build($('#mp-addition'), 'mp-total', mp, false);
-    initialize_stats_controller('#hp-sub');
-    initialize_stats_controller('#mp-sub');
-    var professions = p0[3].split(',');
-    var acquired_skills = decrypt_skills(p0[4].split(','));
-    var planned_skills = decrypt_skills(p0[5].split(','));
+      var p0 = unpack.split('|');
+      var hp = parseInt(p0[0]) || 0;
+      var mp = parseInt(p0[1]) || 0;
+      var strain = p0[2];
 
-    if (p0[6] != undefined) {
-      advanced_acknowledged = p0[6] == '1' ? true : false;
-    } else {
-      advanced_acknowledged = false;
-    }
+      $('#strain-selector').multiselect('select', 'Select Strain').multiselect('refresh');
+      reset_all_skills('acquired-list');
+      reset_all_skills('planned-list');
+      set_stat_build($('#hp-addition'), 'hp-total', hp, false);
+      set_stat_build($('#mp-addition'), 'mp-total', mp, false);
+      initialize_stats_controller('#hp-sub');
+      initialize_stats_controller('#mp-sub');
+      var professions = p0[3].split(',');
+      var acquired_skills = decrypt_skills(p0[4].split(','));
+      var planned_skills = decrypt_skills(p0[5].split(','));
 
-    if (p0[7] != undefined) {
-      $.each(p0[7].split(','), function(i, x) {
-        var coded = x[0] + x[1];
-        var value = parseInt(x[2] + (x[3] || ''));
-        skill_cost_adjusted[coded] = value;
-      })
-    }
-    
-    selected_strain = strain || 'Select Strain';
-
-    selected_professions = new Array();
-    selected_advanced_profession = undefined;
-    $.each(professions, function(i, x) {
-      if (advanced_profession_struct[x] == undefined) {
-        selected_professions.push(x);
+      if (p0[6] != undefined) {
+        advanced_acknowledged = p0[6] == '1' ? true : false;
       } else {
-        selected_advanced_profession = x;
-        if (!advanced_acknowledged) {
-          $('#advanced-existance-warning').modal('show');
-        }
+        advanced_acknowledged = false;
       }
+
+      skill_cost_adjusted = {};
+      if (p0[7] != undefined) {
+        $.each(p0[7].split(','), function(i, x) {
+          var coded = x[0] + x[1];
+          var value = parseInt(x[2] + (x[3] || ''));
+          skill_cost_adjusted[coded] = value;
+        })
+      }
+      
+      selected_strain = strain || 'Select Strain';
+
+      selected_professions = new Array();
+      selected_advanced_profession = undefined;
+      $.each(professions, function(i, x) {
+        if (advanced_profession_struct[x] == undefined) {
+          selected_professions.push(x);
+        } else {
+          selected_advanced_profession = x;
+          if (!advanced_acknowledged) {
+            $('#advanced-existance-warning').modal('show');
+          }
+        }
+      })
+
+      //selected_professions = professions;
+      //$('#strain-selector').val(strain).multiselect('refresh');
+      
+      $('#strain-selector').multiselect('select', selected_strain);
+      $('#profession-selector')
+        .multiselect('deselectAll', false)
+        .multiselect('updateButtonText');
+      $.each(professions, function(i, x) {
+        $('#profession-selector').multiselect('select', x, true);
+      });
+
+      //$('#profession-selector').val(professions).multiselect('refresh');
+
+      apply_strain_restrictions();
+      restrict_profession_selector();
+      update_profession_cost();
+      update_strain_specs();
+      update_strain_stats();
+      recalculate();
+      replan();
+      //update_availability();
+
+      relocate('#planned-list', planned_skills);
+      relocate('#acquired-list', acquired_skills);
+      apply_skill_cost_adjusted();
+      //pack_state();
+      update_xp_count('#planned');
+      update_xp_count('#acquired');
+      generate_constraints();
+      update_selected_skills(0);
     })
 
-    //selected_professions = professions;
-    //$('#strain-selector').val(strain).multiselect('refresh');
-    
-    $('#strain-selector').multiselect('select', selected_strain);
-    $('#profession-selector')
-      .multiselect('deselectAll', false)
-      .multiselect('updateButtonText');
-    $.each(professions, function(i, x) {
-      $('#profession-selector').multiselect('select', x);
-    });
-
-    //$('#profession-selector').val(professions).multiselect('refresh');
-
-    apply_strain_restrictions();
-    restrict_profession_selector();
-    update_profession_cost();
-    update_strain_specs();
-    update_strain_stats();
-    recalculate();
-    replan();
-    //update_availability();
-
-    relocate('#planned-list', planned_skills);
-    relocate('#acquired-list', acquired_skills);
-    apply_skill_cost_adjusted();
-    //pack_state();
-    update_xp_count('#planned');
-    update_xp_count('#acquired');
-    generate_constraints();
-    update_selected_skills(0);
-
-    console.log('UBC called from unpack_state');
-    update_beyond_basic();
     check_advanced_profession_constraints();
+    pack_state();
   } else {
     generate_constraints();
   }

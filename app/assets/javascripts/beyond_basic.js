@@ -1,5 +1,6 @@
 var advanced_profession_struct = new Object();
 var advanced_profession_min_xp = new Object();
+var update_deferred = false;
 
 function build_advanced_profession() {
   return new Promise(
@@ -66,6 +67,7 @@ function render_advanced_profession() {
 }
 
 function update_beyond_basic() {
+  if (update_deferred) { return; }
   var disable_selected_advanced_profession = function() {
     $.each(selected_professions, function(i, x) {
       $('.btn-advanced-profession[ap-name="' + x + '"]')
@@ -159,8 +161,11 @@ function compute_advanced_profession_constraints(ag) {
   });
 }
 
-function defer_update_beyond_basic() {
-  
+function defer_update_beyond_basic(func) {
+  update_deferred = true;
+  func();
+  update_deferred = false;
+  update_beyond_basic();
 }
 
 function web_display_human_readable_result(s, target, name) {
