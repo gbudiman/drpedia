@@ -35,35 +35,31 @@ var generate_strains_select_box = function() {
     dropRight: true,
     maxHeight: 512,
     onChange: function(option, checked) {
-      return new Promise(
-        function(resolve, reject) {
-          dynamic_adjust_filter_view(option.text());
-          selected_strain = option.text();
-          apply_strain_restrictions();
-          //restrict_profession_selector();
-          //update_selected_professions();
-          //update_profession_cost();
+      async_loading.inline(function() {
+        dynamic_adjust_filter_view(option.text());
+        selected_strain = option.text();
+        apply_strain_restrictions();
+        //restrict_profession_selector();
+        //update_selected_professions();
+        //update_profession_cost();
 
-          recalculate();
+        recalculate();
 
-          if (is_builder) {
-            replan();
-            pack_state();
-            update_strain_stats();
-            update_strain_specs();
-          }
-
-          update_profession_cost();
-          update_all_alternators();
-
-          if (is_builder) {
-            console.log('UBC called from Strain Selector OnChange');
-            update_beyond_basic();
-          }
-
-          resolve();
+        if (is_builder) {
+          replan();
+          pack_state();
+          update_strain_stats();
+          update_strain_specs();
         }
-      )
+
+        update_profession_cost();
+        update_all_alternators();
+
+        if (is_builder) {
+          console.log('UBC called from Strain Selector OnChange');
+          update_beyond_basic();
+        }
+      })
     }
   });
 };
@@ -183,46 +179,43 @@ var generate_professions_select_box = function() {
     maxHeight: 512,
     onDropdownShow: disable_popover,
     onChange: function(option, checked) {
-      restrict_profession_selector();
+      async_loading.inline(function() {
+        restrict_profession_selector();
 
-      return new Promise(
-        function(resolve, reject) {
-          var selected_options = $('#profession-selector option:selected');
-          // if (selected_options.length >= 3) {
-          //   restrict_profession_selector();
-          //   // var non_selected_options = $('#profession-selector option').filter(function() {
-          //   //   return !$(this).is(':selected');
-          //   // })
+        var selected_options = $('#profession-selector option:selected');
+        // if (selected_options.length >= 3) {
+        //   restrict_profession_selector();
+        //   // var non_selected_options = $('#profession-selector option').filter(function() {
+        //   //   return !$(this).is(':selected');
+        //   // })
 
-          //   // non_selected_options.each(function() {
-          //   //   var input = $('input[value="' + $(this).val() + '"]');
-          //   //   //input.prop('faded', true);
-          //   //   input.prop('disabled', true);
-          //   //   input.parent().addClass('text-muted');
-          //   // })
-          // } else {
-            
-          // }
-          dynamic_adjust_filter_view(option.text());
-          //check_advanced_profession_constraints(option, checked);
-          ensure_only_one_selected_advanced_profession(option, checked);
-          update_profession_cost();
-          update_selected_professions();
-          //$('#profession-xp').text(Math.max(0, (selected_options.length - 1) * 10));
+        //   // non_selected_options.each(function() {
+        //   //   var input = $('input[value="' + $(this).val() + '"]');
+        //   //   //input.prop('faded', true);
+        //   //   input.prop('disabled', true);
+        //   //   input.parent().addClass('text-muted');
+        //   // })
+        // } else {
+          
+        // }
+        dynamic_adjust_filter_view(option.text());
+        //check_advanced_profession_constraints(option, checked);
+        ensure_only_one_selected_advanced_profession(option, checked);
+        update_profession_cost();
+        update_selected_professions();
+        //$('#profession-xp').text(Math.max(0, (selected_options.length - 1) * 10));
 
-          recalculate();
+        recalculate();
 
-          if (is_builder) {
-            replan();
-            pack_state();
-            update_all_alternators();
-            console.log('UBC called from Profession Selector onChange');
-            update_beyond_basic();
-          }
-
-          resolve();
+        if (is_builder) {
+          replan();
+          pack_state();
+          update_all_alternators();
+          console.log('UBC called from Profession Selector onChange');
+          update_beyond_basic();
         }
-      )
+      }, ' Recalculating...');
+
     }
   })
 
