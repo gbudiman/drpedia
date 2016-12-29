@@ -4,6 +4,7 @@ var skill_list_special_group;
 var ok_to_trigger_advanced_profession_removal = false;
 var advanced_acknowledged = false;
 var skill_cost_adjusted = {};
+var unpack_has_been_called = false;
 
 function persistence_set_skill_cost_adjustment(name, value) {
   skill_cost_adjusted[skill_list[name]] = value;
@@ -45,7 +46,9 @@ function set_advanced_acknowledgement(val) {
     $('#filter-group').multiselect('select', 'hide-advanced', true);
   }
 
-  pack_state();
+  if (unpack_has_been_called) {
+    pack_state();
+  }
 }
 
 function clear_cookies() {
@@ -78,6 +81,7 @@ function pack_state() {
 }
 
 function unpack_state() {
+  unpack_has_been_called = true;
   if (!has_profile) {
     if (Cookies.get('dummy') == undefined) {
       return;
@@ -214,6 +218,7 @@ function unpack_state() {
 
     relocate('#planned-list', planned_skills);
     relocate('#acquired-list', acquired_skills);
+    apply_skill_cost_adjusted();
     //pack_state();
     update_xp_count('#planned');
     update_xp_count('#acquired');

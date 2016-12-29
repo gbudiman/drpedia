@@ -13,7 +13,7 @@ function attach_create_from_scratch() {
     selected_strain = undefined;
 
     //unpack_state();
-    wrap_async(function() {
+    async_loading.wrap(function() {
       load_empty_profile();
       set_advanced_acknowledgement(false);
       persistence_clear_all_skill_cost_adjustment()
@@ -117,7 +117,7 @@ function check_existing_profile(val) {
 }
 
 function load_empty_profile() {
-  $('#profile-text').text('Save to Profile...');
+  $('#profile-text').text('Select Profile...');
   $('#contextual-divider').hide();
   $('#profile-delete').parent().hide();
 
@@ -190,9 +190,14 @@ function load_existing_profile(_bypass_unpack) {
         current_profile = name;
         $('#contextual-divider').show();
         $('#profile-delete').parent().show();
-        unpack_state();
-        console.log('UBC called from load_existing_profile');
-        update_beyond_basic();
+
+        async_loading.wrap(function() {
+          console.log('unpack called');
+          unpack_state();
+        }, 'Loading saved profile data...')
+        //unpack_state();
+        //console.log('UBC called from load_existing_profile');
+        //update_beyond_basic();
       });
 
       $('#profile-dropdown')

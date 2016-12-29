@@ -159,6 +159,10 @@ function compute_advanced_profession_constraints(ag) {
   });
 }
 
+function defer_update_beyond_basic() {
+  
+}
+
 function web_display_human_readable_result(s, target, name) {
   var display = new Array();
   var highlight_in_list = function(list, _highlight) {
