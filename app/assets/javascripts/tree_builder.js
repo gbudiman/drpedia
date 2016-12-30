@@ -868,32 +868,18 @@ function recalculate() {
       var open_skill_cost = x.open_skill_cost;
 
       //var o = $('li[skill-name="' + skill_name + '"]');
-
       var o = $("li#ls-" + skill_name.idealize());
 
-      // if (o != undefined) {
-      //   console.log('update visual for ' + skill_name);
-      // } else {
-      //   console.log('Failed to fetch ' + skill_name);
-      // }
-
       if (min_cost != 99) {
-        //console.log('unfaded: ' + skill_name);
         o.removeClass('faded');
-        //console.log(skill_name + ' is faded: ' + o.hasClass('faded'));
 
         var badge = o.find('span.badge');
         if (badge.attr('data-alternator') == undefined) {
-          o.find('span.badge').text(min_cost);
+          badge.text(min_cost);
         }
 
-        //o.removeClass('link-faded');
-        // if (is_open_skill && min_cost < open_skill_cost) {
-        //   o.find('.badge').addClass('progress-bar-success');
-        // }
         colorize_badge(badge, min_cost, open_skill_cost);
       } else {
-        //console.log('faded: ' + skill_name);
         o.addClass('faded');
         o.find('span.badge').text('');
       }
