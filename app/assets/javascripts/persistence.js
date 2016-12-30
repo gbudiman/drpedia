@@ -154,7 +154,6 @@ function unpack_state() {
 
   if (unpack != undefined) {
     defer_update_beyond_basic(function() {
-
       var p0 = unpack.split('|');
       var hp = parseInt(p0[0]) || 0;
       var mp = parseInt(p0[1]) || 0;
@@ -321,6 +320,7 @@ $(function() {
                 init_completed = true;
                 
                 ok_to_trigger_advanced_profession_removal = true;
+                apply_view_filters();
                 //update_beyond_basic();
                 $('#loading [data-dismissible]').hide(500, function() {
                   $('#loading').hide(1000);

@@ -10,6 +10,9 @@ function get_active_view_filters() {
 }
 
 function apply_view_filters() {
+  if (update_deferred || !init_completed) { return; }
+  console.log('applying view filters');
+
   var filter_only_available = function() {
     $('#graphical-list').find('.list-group-item.faded').hide();
   }

@@ -174,6 +174,7 @@ function defer_update_beyond_basic(func) {
 
   update_beyond_basic();
   check_profession_concentration_constraints(false);
+  apply_view_filters();
 }
 
 function web_display_human_readable_result(s, target, name) {
