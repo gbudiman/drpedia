@@ -13,6 +13,8 @@ $(function() {
 
   $('#hp-add').prop('disabled', false);
   $('#mp-add').prop('disabled', false);
+
+  window.stat_change_timeout_id;
 })
 
 function initialize_stats_controller(target_id) {
@@ -20,6 +22,17 @@ function initialize_stats_controller(target_id) {
   var target = $('#' + obj.attr('data-target'));
 
   obj.prop('disabled', parseInt(target.text()) == 0);
+}
+
+function execute_stats_change_task() {
+  
+
+  //set_stat_build(target, total_id, current_value);
+  set_stat_data();
+  console.log('UBC called from attach_stats_controller');
+  update_beyond_basic();
+  check_advanced_profession_constraints();
+  check_profession_concentration_constraints(false);
 }
 
 function attach_stats_controller(target_id, operation) {
@@ -44,12 +57,18 @@ function attach_stats_controller(target_id, operation) {
       return;
     }
 
-    set_stat_build(target, total_id, current_value);
-    console.log('UBC called from attach_stats_controller');
-    update_beyond_basic();
-    check_advanced_profession_constraints();
-    check_profession_concentration_constraints(false);
+    
+    target.text(current_value);
+    compute_stats('#' + total_id);
+    
+    clearTimeout(window.stat_change_timeout_id);
+    window.stat_change_timeout_id = setTimeout(execute_stats_change_task, 256);
   })
+}
+
+function set_stat_data(_pack) {
+  var pack = _pack == undefined ? true : _pack;
+  if (pack) { pack_state(); }
 }
 
 function set_stat_build(obj, total_id, value, _pack) {
