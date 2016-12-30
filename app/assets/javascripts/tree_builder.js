@@ -456,6 +456,7 @@ var generate_skill_cat = function() {
     //   .append('<span class="pull-right badge skill-cost-badge"></span>');
 
     var s = '<li class="list-group-item skill-draggable faded clickable-skill col-xs-12 col-md-6 col-lg-4"'
+          + ' id="ls-' + skill_name + '"'
           + ' skill-name="' + skill_name + '"'
           + ' advanced-skill="' + (advanced_cat[skill_name] == undefined ? false : true) + '"';
     if (psion_index != undefined) {
@@ -831,9 +832,7 @@ function recalculate() {
     return min_cost;
   }
 
-  var colorize_badge = function(obj, min_cost, open_skill_cost) {
-    var badge = obj.find('span.badge');
-
+  var colorize_badge = function(badge, min_cost, open_skill_cost) {
     if (open_skill_cost == undefined || min_cost < open_skill_cost) {
       badge.addClass('progress-bar-success');
     } else if (min_cost > open_skill_cost) {
@@ -868,25 +867,35 @@ function recalculate() {
       var skill_name = x.skill_name;
       var open_skill_cost = x.open_skill_cost;
 
-      var o = $('li[skill-name="' + skill_name + '"]');
+      //var o = $('li[skill-name="' + skill_name + '"]');
+
+      var o = $("li#ls-" + skill_name.idealize());
+
+      // if (o != undefined) {
+      //   console.log('update visual for ' + skill_name);
+      // } else {
+      //   console.log('Failed to fetch ' + skill_name);
+      // }
 
       if (min_cost != 99) {
+        //console.log('unfaded: ' + skill_name);
         o.removeClass('faded');
+        //console.log(skill_name + ' is faded: ' + o.hasClass('faded'));
 
         var badge = o.find('span.badge');
         if (badge.attr('data-alternator') == undefined) {
           o.find('span.badge').text(min_cost);
         }
 
-        o.removeClass('link-faded');
+        //o.removeClass('link-faded');
         // if (is_open_skill && min_cost < open_skill_cost) {
         //   o.find('.badge').addClass('progress-bar-success');
         // }
-        colorize_badge(o, min_cost, open_skill_cost);
+        colorize_badge(badge, min_cost, open_skill_cost);
       } else {
+        //console.log('faded: ' + skill_name);
         o.addClass('faded');
         o.find('span.badge').text('');
-        o.addClass('link-faded');
       }
     })
   }
