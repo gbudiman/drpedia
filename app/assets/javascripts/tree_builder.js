@@ -290,7 +290,9 @@ function update_profession_cost() {
     remnant_cost_reduction = 1;
   }
 
-  $('#profession-xp').text(Math.max(0, ($('#profession-selector :selected').length - 1 - remnant_cost_reduction) * 10));
+  $('#profession-xp').text(Math.max(0, 
+                                    ($('#profession-selector :selected').length - 1 - remnant_cost_reduction) * 10
+                                     + $('#profession-selector [profession-concentration]:selected').length * 20));
   update_total_xp();
 }
 
