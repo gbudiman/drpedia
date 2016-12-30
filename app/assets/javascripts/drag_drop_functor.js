@@ -91,6 +91,9 @@ function manual_relocate_skills(target_list, skill_name) {
   rebuild_popover(source);
   update_xp_count('#' + target_list);
   generate_constraints();
+
+  update_beyond_basic();
+  check_profession_concentration_constraints(false);
   pack_state();
 }
 
@@ -119,6 +122,7 @@ function attach_tappable_drop(id) {
       update_selected_skills(0);
 
       update_beyond_basic();
+      check_profession_concentration_constraints(false);
       pack_state();
     }
   })
@@ -198,6 +202,7 @@ function attach_drop_functor(_element_id) {
 
       check_adjusted_cost(dragged_object, _element_id + '-list');
       update_beyond_basic();
+      check_profession_concentration_constraints(false);
       pack_state();
     }
   })

@@ -2,6 +2,7 @@ var strains;
 var professions;
 var skill_cat;
 var advanced_cat;
+var concentration_cat;
 var strain_restrictions;
 var strain_stats;
 var strain_specs;
@@ -12,6 +13,7 @@ var professions_concentration;
 var selected_strain;
 var selected_professions;
 var selected_advanced_profession;
+var selected_profession_concentration = new Object();
 
 var last_popover_skill = '';
 
@@ -58,6 +60,7 @@ var generate_strains_select_box = function() {
         if (is_builder) {
           console.log('UBC called from Strain Selector OnChange');
           update_beyond_basic();
+          check_profession_concentration_constraints(false);
         }
       })
     }
@@ -152,6 +155,17 @@ var generate_professions_select_box = function() {
   s.append($('<option></option>')
              .attr('data-role', 'divider'));
 
+  $.each(professions_concentration, function(value, _junk) {
+    var t = $('<option></option>')
+              .attr('profession-concentration', value)
+              .append(value);
+
+    s.append(t);
+  })
+
+  s.append($('<option></option>')
+             .attr('data-role', 'divider'));
+
   $.each(professions_advanced, function(value, _junk) {
     var t = $('<option></option>')
               .attr('profession-advanced', value)
@@ -182,7 +196,6 @@ var generate_professions_select_box = function() {
       async_loading.inline(function() {
         restrict_profession_selector();
 
-        var selected_options = $('#profession-selector option:selected');
         // if (selected_options.length >= 3) {
         //   restrict_profession_selector();
         //   // var non_selected_options = $('#profession-selector option').filter(function() {
@@ -201,6 +214,7 @@ var generate_professions_select_box = function() {
         dynamic_adjust_filter_view(option.text());
         //check_advanced_profession_constraints(option, checked);
         ensure_only_one_selected_advanced_profession(option, checked);
+        update_selected_profession_concentration(option, checked);
         update_profession_cost();
         update_selected_professions();
         //$('#profession-xp').text(Math.max(0, (selected_options.length - 1) * 10));
@@ -213,6 +227,7 @@ var generate_professions_select_box = function() {
           update_all_alternators();
           console.log('UBC called from Profession Selector onChange');
           update_beyond_basic();
+          check_profession_concentration_constraints(false);
         }
       }, ' Recalculating...');
 
@@ -277,6 +292,16 @@ function update_profession_cost() {
 
   $('#profession-xp').text(Math.max(0, ($('#profession-selector :selected').length - 1 - remnant_cost_reduction) * 10));
   update_total_xp();
+}
+
+function update_selected_profession_concentration(option, checked) {
+  var pc_name = option.attr('profession-concentration');
+
+  if (checked) {
+    selected_profession_concentration[pc_name] = true;
+  } else {
+    delete selected_profession_concentration[pc_name];
+  }
 }
 
 function ensure_only_one_selected_advanced_profession(option, checked) {
@@ -372,9 +397,11 @@ var generate_skill_cat = function() {
   
   var psion_regex = /^Psi ([I]+)/;
 
-  var mark_advanced = function(x) {
+  var mark_beyond_basic = function(x) {
     if (advanced_cat[x] != undefined) {
       return '<sup>ADV</sup>' + x;
+    } else if (concentration_cat[x] != undefined) {
+      return '<sup>CONC</sup>' + x;
     }
 
     return x;
@@ -403,7 +430,7 @@ var generate_skill_cat = function() {
       .addClass('list-group-item skill-draggable faded clickable-skill ' + col_classes)
       .attr('skill-name', skill_name)
       .attr('advanced-skill', advanced_cat[skill_name] == undefined ? false : true)
-      .append('<span class="skill-label">' + mark_advanced(skill_name) + '</span>')
+      .append('<span class="skill-label">' + mark_beyond_basic(skill_name) + '</span>')
       .append('<span class="pull-right badge skill-cost-badge"></span>');
 
     if (psion_index != undefined) {
@@ -823,7 +850,6 @@ function recalculate() {
         // if (is_open_skill && min_cost < open_skill_cost) {
         //   o.find('.badge').addClass('progress-bar-success');
         // }
-        console.log('colorizing ' + skill_name + ' <' + min_cost + '|' + open_skill_cost + '>');
         colorize_badge(o, min_cost, open_skill_cost);
       } else {
         o.addClass('faded');
@@ -910,7 +936,22 @@ function get_json_profession_advanced() {
 
 function get_json_profession_concentration() {
   return $.getJSON('/profession_concentrations.json', function(p_conc_json_data) {
-    professions_concentration = p_conc_json_data;
+    
+    professions_concentration_struct = p_conc_json_data;
+    professions_concentration = new Object();
+
+    $.each(p_conc_json_data, function(base, data) {
+      $.each(data, function(_junk, conc) {
+        professions_concentration[conc] = true;
+      })
+    })
+  })
+}
+
+function get_json_profession_concentration_skills() {
+  return $.getJSON('/concentration_cat.json', function(p_conc_skills_json_data) {
+    concentration_cat = p_conc_skills_json_data;
+    skill_cat = $.extend({}, skill_cat, p_conc_skills_json_data);
   })
 }
 

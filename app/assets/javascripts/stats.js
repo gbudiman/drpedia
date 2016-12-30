@@ -48,6 +48,7 @@ function attach_stats_controller(target_id, operation) {
     console.log('UBC called from attach_stats_controller');
     update_beyond_basic();
     check_advanced_profession_constraints();
+    check_profession_concentration_constraints(false);
   })
 }
 

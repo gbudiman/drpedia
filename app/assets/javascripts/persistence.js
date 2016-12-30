@@ -150,6 +150,8 @@ function unpack_state() {
   var unpack = Cookies.get(current_profile);
   console.log('Unpack from ' + current_profile + ': ' + unpack);
 
+  set_all_profession_concentrations(true);
+
   if (unpack != undefined) {
     defer_update_beyond_basic(function() {
 
@@ -208,6 +210,8 @@ function unpack_state() {
         .multiselect('deselectAll', false)
         .multiselect('updateButtonText');
       $.each(professions, function(i, x) {
+        console.log('selecting profession ' + x);
+        console.log($('input[value="' + x + '"]').prop('disabled'));
         $('#profession-selector').multiselect('select', x, true);
       });
 
@@ -296,7 +300,8 @@ $(function() {
          get_json_strain_stats(), 
          get_json_strain_specs(),
          get_json_profession_advanced(),
-         get_json_profession_concentration()).done(function() {
+         get_json_profession_concentration(),
+         get_json_profession_concentration_skills()).done(function() {
     $.when(get_json_advanced_cat()).done(function() {
       $.when(get_json_skill_group()).done(function() {
         generate_skill_cat();

@@ -1,5 +1,6 @@
 var advanced_profession_struct = new Object();
 var advanced_profession_min_xp = new Object();
+var professions_concentration_struct;
 var update_deferred = false;
 
 function build_advanced_profession() {
@@ -170,6 +171,7 @@ function defer_update_beyond_basic(func) {
   update_deferred = false;
   async_loading.set_inline_fork(true);
   update_beyond_basic();
+  check_profession_concentration_constraints(false);
   console.log('--- end defer');
 }
 

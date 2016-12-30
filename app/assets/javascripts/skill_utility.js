@@ -24,6 +24,80 @@ function check_advanced_profession_constraints() {
   }
 }
 
+function check_profession_concentration_constraints(_disable_all) {
+  if (update_deferred) { return; }
+  var disable_all = _disable_all == undefined ? true : _disable_all;
+  var xp_sum = calculate_xp_sum();
+  var hp = calculate_hp();
+  var mp = calculate_mp();
+
+  if (disable_all) {
+    set_all_profession_concentrations(false);
+  }
+
+  console.log('CONC check running...');
+  if (xp_sum >= 200 && hp >= 50 && mp >= 50) {
+    enable_profession_concentrations();
+  } else {
+    set_all_profession_concentrations(false);
+  }
+}
+
+function set_profession_concentration(x, val) {
+  var o = $('input[value="' + x + '"]');
+  
+  o.prop('disabled', val ? false : true);
+
+  if (val) {
+    o.parent()
+      .removeClass('text-muted');
+  } else {
+    o.parent().addClass('text-muted');
+  }
+}
+
+function enable_profession_concentrations() {
+  $.each(professions_concentration, function(pc, _junk) {
+    // if (selected_professions.indexOf(pc) == -1) {
+    //   set_profession_concentration(pc, false);
+    // } else {
+    //   set_profession_concentration(pc, true);
+    // }
+    professions_concentration[pc] = false;
+    $.each(selected_professions, function(_junk, x) {
+      $.each(professions_concentration_struct[x], function(_junk, y) {
+        professions_concentration[y] = true;
+      })
+    })
+  })
+
+  $.each(professions_concentration, function(pc, val) {
+    console.log('set ' + pc + ' to ' + val);
+    set_profession_concentration(pc, val);
+  })
+}
+
+function set_all_profession_concentrations(val) {
+  console.log('set all PC to ' + val);
+  $('[profession-concentration]').each(function() {
+    var pc_name = $(this).attr('profession-concentration');
+
+    if (val) {
+      $('input[value="' + pc_name + '"]')
+        .prop('disabled', false)
+        .parent()
+          .removeClass('text-muted');
+    } else {
+      $('#profession-selector').multiselect('deselect', pc_name);
+
+      $('input[value="' + pc_name + '"]')
+        .prop('disabled', true)
+        .parent()
+          .addClass('text-muted');
+    }
+  })
+}
+
 function get_purchased_advanced_skills_cost() {
   var get_purchased_advanced_skills_cost_in = function(id) {
     var cumulative = 0;
