@@ -299,7 +299,7 @@ function update_profession_cost() {
 function update_selected_profession_concentration(option, checked) {
   var pc_name = option.attr('profession-concentration');
 
-  if (checked) {
+  if (checked && professions_concentration[pc_name] != undefined) {
     selected_profession_concentration[pc_name] = true;
   } else {
     delete selected_profession_concentration[pc_name];
@@ -384,7 +384,6 @@ function restrict_profession_selector() {
   }
 
   var conc_selected = $('#profession-selector [profession-concentration]:selected').length;
-  console.log(conc_selected);
   if (conc_selected >= 2) {
     var non_selected_conc = $('#profession-selector [profession-concentration]option').filter(function() {
       return !$(this).is(':selected');

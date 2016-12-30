@@ -191,6 +191,7 @@ function unpack_state() {
 
       selected_professions = new Array();
       selected_advanced_profession = undefined;
+      selected_profession_concentration = new Object();
       $.each(professions, function(i, x) {
         if (advanced_profession_struct[x] == undefined) {
           selected_professions.push(x);
@@ -210,8 +211,6 @@ function unpack_state() {
         .multiselect('deselectAll', false)
         .multiselect('updateButtonText');
       $.each(professions, function(i, x) {
-        console.log('selecting profession ' + x);
-        console.log($('input[value="' + x + '"]').prop('disabled'));
         $('#profession-selector').multiselect('select', x, true);
       });
 

@@ -15,11 +15,12 @@ function check_advanced_profession_constraints() {
     var is_invalid = $('#advanced-list [p-adv="' + ap + '"]').hasClass('faded');
 
     if (is_invalid && ok_to_trigger_advanced_profession_removal) {
-      console.log(ok_to_trigger_advanced_profession_removal);
       console.log('unsatisfied advanced profession constraint');
       $('#profession-selector').multiselect('deselect', ap, true);
     } else {
-      $('#profession-selector').multiselect('select', ap, true);
+      if (!$('#profession-selector option[profession-advanced="' + ap + '"]').is(':selected')) {
+        $('#profession-selector').multiselect('select', ap, true);
+      }
     }
   }
 }
@@ -40,7 +41,10 @@ function check_profession_concentration_constraints(_disable_all) {
     enable_profession_concentrations();
   } else {
     set_all_profession_concentrations(false);
+    selected_profession_concentration = new Object();
   }
+
+  update_profession_cost();
 }
 
 function set_profession_concentration(x, val) {
@@ -51,12 +55,12 @@ function set_profession_concentration(x, val) {
                        && l.attr('disabled-by-limit') == 'true';
 
   if (val && !disabled_by_limit || o.prop('checked')) {
-    console.log('Enabled: ' + x);
+    //console.log('Enabled: ' + x);
     o.prop('disabled', false)
       .parent()
         .removeClass('text-muted');
   } else {
-    console.log('Disabled: ' + x);
+    //console.log('Disabled: ' + x);
 
     o.prop('disabled', true)
       .parent()
@@ -115,9 +119,14 @@ function get_purchased_advanced_skills_cost() {
     return cumulative;
   }
 
+  var get_profession_concentration_costs = function() {
+    return Object.keys(selected_profession_concentration).length * 30;
+  }
+
   return get_purchased_advanced_skills_cost_in('#planned')
        + get_purchased_advanced_skills_cost_in('#acquired')
-       + 10;
+       + get_profession_concentration_costs()
+       + (selected_advanced_profession == undefined ? 0 : 10);
 }
 
 function get_skills_in_builder() {

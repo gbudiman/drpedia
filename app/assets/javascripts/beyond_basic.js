@@ -170,9 +170,10 @@ function defer_update_beyond_basic(func) {
   func();
   update_deferred = false;
   async_loading.set_inline_fork(true);
+  console.log('--- end defer');
+
   update_beyond_basic();
   check_profession_concentration_constraints(false);
-  console.log('--- end defer');
 }
 
 function web_display_human_readable_result(s, target, name) {
@@ -302,7 +303,7 @@ function web_display_human_readable_result(s, target, name) {
 function alert_xp_dropping(enable, value, additive) {
   if (enable) {
     $('#advanced-xp-drop').show();
-    $('#advanced-xp-drop-name').text(selected_advanced_profession);
+    //$('#advanced-xp-drop-name').text(selected_advanced_profession);
     $('#advanced-xp-drop-amount').text(value);
     $('#advanced-xp-drop-additive').text('(+' + additive + ') =');
     $('#advanced-xp-drop-total').text((value + additive));
@@ -313,18 +314,33 @@ function alert_xp_dropping(enable, value, additive) {
 
 function calculate_xp_sum() {
   var xp = parseInt($('#xp-total').text());
-
   if (selected_advanced_profession != undefined) {
     var min_xp = advanced_profession_min_xp[selected_advanced_profession];
     
     if (min_xp != undefined) {
       var advanced_skills_cost = get_purchased_advanced_skills_cost();
+      //var mix_xp = Math.max(min_xp, 200 + Object.keys(selected_profession_concentration).length * 30);
+      var pc_length = Object.keys(selected_profession_concentration).length;
+      var mix_xp;
 
-      if (xp < (min_xp + advanced_skills_cost)) {
-        alert_xp_dropping(true, min_xp, advanced_skills_cost);
+      if (pc_length == 0) {
+        mix_xp = min_xp;
+      } else {
+        mix_xp = Math.max(min_xp, 200);
+      }
+
+      if (xp < (mix_xp + advanced_skills_cost)) {
+        alert_xp_dropping(true, mix_xp, advanced_skills_cost);
         return xp;
       } 
     } 
+  } else if (Object.keys(selected_profession_concentration).length > 0) {
+    var cost = get_purchased_advanced_skills_cost();
+
+    if (xp < (200 + cost)) {
+      alert_xp_dropping(true, 200, cost);
+      return xp;
+    }
   }
   
   alert_xp_dropping(false);
