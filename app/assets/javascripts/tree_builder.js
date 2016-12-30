@@ -780,7 +780,7 @@ function recalculate() {
     } else if (min_cost > open_skill_cost) {
       badge.addClass('progress-bar-danger');
     } else {
-      badge.addClass('progress-bar-default');
+      badge.removeClass('progress-bar-success progress-bar-danger progress-bar-default');
     }
   }
 
@@ -823,6 +823,7 @@ function recalculate() {
         // if (is_open_skill && min_cost < open_skill_cost) {
         //   o.find('.badge').addClass('progress-bar-success');
         // }
+        console.log('colorizing ' + skill_name + ' <' + min_cost + '|' + open_skill_cost + '>');
         colorize_badge(o, min_cost, open_skill_cost);
       } else {
         o.addClass('faded');
