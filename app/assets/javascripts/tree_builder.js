@@ -17,6 +17,9 @@ var selected_profession_concentration = new Object();
 
 var last_popover_skill = '';
 
+var benchmark_cumulative = 0;
+var benchmark_count = 0;
+
 var generate_strains_select_box = function() {
   var s = $('<select></select>')
             .attr('id', 'strain-selector');
@@ -409,14 +412,6 @@ function restrict_profession_selector() {
   }
 }
 
-function assign_col_descriptor_classes() {
-  if (is_builder) {
-    return 'col-xs-12 col-md-6 col-lg-4';
-  } 
-
-  return 'col-xs-12 col-sm-6 col-md-4 col-lg-3';
-}
-
 var generate_skill_cat = function() {
   var skills = Object.keys(skill_cat);
   var grouped_skills = generate_skill_group();
@@ -446,23 +441,32 @@ var generate_skill_cat = function() {
     }
   })
 
-  var list_maker = function(col_classes, skill_name) {
+  var list_maker = function(skill_name) {
     var psion_index;
     if (skill_name.match(psion_regex)) {
       var match = psion_regex.exec(skill_name);
       psion_index = match[1];
     }
     
-    var s = $('<li></li>')
-      .addClass('list-group-item skill-draggable faded clickable-skill ' + col_classes)
-      .attr('skill-name', skill_name)
-      .attr('advanced-skill', advanced_cat[skill_name] == undefined ? false : true)
-      .append('<span class="skill-label">' + mark_beyond_basic(skill_name) + '</span>')
-      .append('<span class="pull-right badge skill-cost-badge"></span>');
+    // var s = $('<li></li>')
+    //   .addClass('list-group-item skill-draggable faded clickable-skill col-xs-12 col-md-6 col-lg-4')
+    //   .attr('skill-name', skill_name)
+    //   .attr('advanced-skill', advanced_cat[skill_name] == undefined ? false : true)
+    //   .append('<span class="skill-label">' + mark_beyond_basic(skill_name) + '</span>')
+    //   .append('<span class="pull-right badge skill-cost-badge"></span>');
 
+    var s = '<li class="list-group-item skill-draggable faded clickable-skill col-xs-12 col-md-6 col-lg-4"'
+          + ' skill-name="' + skill_name + '"'
+          + ' advanced-skill="' + (advanced_cat[skill_name] == undefined ? false : true) + '"';
     if (psion_index != undefined) {
-      s.attr('psion-index', psion_index);
+      //s.attr('psion-index', psion_index);
+      s += ' psion-index="' + psion_index + '"';
     }
+    s    += '>';
+
+    s    += '  <span class="skill-label">' + mark_beyond_basic(skill_name) + '</span>'
+          + '  <span class="pull-right badge skill-cost-badge"></span>'
+          + '</li>'
 
     return s;
   }
@@ -471,15 +475,16 @@ var generate_skill_cat = function() {
   //           .addClass('list-group')
   //           .attr('id', 'graphical-list');
   var s = $('#graphical-list');
-
-  var col_classes = assign_col_descriptor_classes();
+  var ts = new Array();
 
   $.each(skills.sort(), function(index, skill_name) {
-    var t = list_maker(col_classes, skill_name);
+    var t = list_maker(skill_name);
               //.append('<span class="pull-right pseudo-point">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>');
 
-    s.append(t);
+    ts.push(t);
+    //s.append(t);
   })
+  s.append(ts);
 
   $('div#graphical-list').append(s);
   //console.log(skill_cat);
