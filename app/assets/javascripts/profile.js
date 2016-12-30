@@ -23,16 +23,6 @@ function attach_create_from_scratch() {
 }
 
 function attach_delete_profile() {
-  var update_button_visual = function(o) {
-    return new Promise(
-      function(resolve, reject) {
-        o.prop('disabled', true)
-         .text('Deleting');
-
-        resolve();
-      }
-    )
-  }
   $('#profile-confirm-deletion-modal').modal({
     show: false
   });
@@ -47,7 +37,12 @@ function attach_delete_profile() {
 
   $('#btn-confirm-profile-deletion').on('click', function() {
     var name = $('#profile-text').attr('profile');
-    update_button_visual($(this)).then(function() {
+
+    $('#btn-confirm-profile-deletion')
+      .text('Deleting...')
+      .prop('disabled', true);
+
+    setTimeout(function() {
       var index = sys_profiles.indexOf(name);
 
       if (index == -1) {
@@ -61,7 +56,7 @@ function attach_delete_profile() {
         load_first_available_profile();
         load_existing_profile(true);
       }
-    })
+    }, 25);
   });
 }
 
