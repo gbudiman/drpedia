@@ -44,15 +44,23 @@ function check_profession_concentration_constraints(_disable_all) {
 }
 
 function set_profession_concentration(x, val) {
+  var l = $('#setup-profession').find('option[profession-concentration]');
   var o = $('input[value="' + x + '"]');
-  
-  o.prop('disabled', val ? false : true);
 
-  if (val) {
-    o.parent()
-      .removeClass('text-muted');
+  var disabled_by_limit = l.attr('disabled-by-limit') != undefined 
+                       && l.attr('disabled-by-limit') == 'true';
+
+  if (val && !disabled_by_limit || o.prop('checked')) {
+    console.log('Enabled: ' + x);
+    o.prop('disabled', false)
+      .parent()
+        .removeClass('text-muted');
   } else {
-    o.parent().addClass('text-muted');
+    console.log('Disabled: ' + x);
+
+    o.prop('disabled', true)
+      .parent()
+        .addClass('text-muted');
   }
 }
 
@@ -72,7 +80,6 @@ function enable_profession_concentrations() {
   })
 
   $.each(professions_concentration, function(pc, val) {
-    console.log('set ' + pc + ' to ' + val);
     set_profession_concentration(pc, val);
   })
 }

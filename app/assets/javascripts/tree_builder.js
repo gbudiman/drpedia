@@ -382,6 +382,32 @@ function restrict_profession_selector() {
       }
     });
   }
+
+  var conc_selected = $('#profession-selector [profession-concentration]:selected').length;
+  console.log(conc_selected);
+  if (conc_selected >= 2) {
+    var non_selected_conc = $('#profession-selector [profession-concentration]option').filter(function() {
+      return !$(this).is(':selected');
+    })
+
+    non_selected_conc.each(function() {
+      var input = $('input[value="' + $(this).val() + '"]');
+
+      $('#setup-profession')
+        .find('option[profession-concentration="' + $(this).val() + '"]')
+        .attr('disabled-by-limit', true);
+
+      input
+        .prop('disabled', true)
+        .parent().addClass('text-muted');
+    })
+  } else {
+    $('#profession-selector [profession-concentration]option').each(function() {
+      $(this).removeAttr('disabled-by-limit');
+    })
+
+    enable_profession_concentrations();
+  }
 }
 
 function assign_col_descriptor_classes() {
