@@ -80,8 +80,8 @@ function update_beyond_basic() {
   var skills = compute_skills();
   var ag = new AgentGirl({
     'xp_sum':               calculate_xp_sum(),
-    'hp':                   calculate_hp(),
-    'mp':                   calculate_mp(),
+    'hp':                   calculate_invested_hp(),
+    'mp':                   calculate_invested_mp(),
     'professions':          selected_professions,
     'strain':               selected_strain,
     'skills':               skills.list,
@@ -355,6 +355,14 @@ function calculate_hp() {
 
 function calculate_mp() {
   return parseInt($('#mp-total').text());
+}
+
+function calculate_invested_hp() {
+  return parseInt($('#hp-addition').text());
+}
+
+function calculate_invested_mp() {
+  return parseInt($('#mp-addition').text());
 }
 
 function compute_skills() {

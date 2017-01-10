@@ -692,8 +692,8 @@ function SParser(x) {
     switch(l[0]) {
       case 'hp':       return this.conditions.hp >= l[1];
       case 'mp':       return this.conditions.mp >= l[1];
-      case 'hp_or_mp': return this.conditions.hp >= l[1] || 
-                              this.conditions.mp >= l[1];
+      case 'hp_or_mp': return (this.conditions.hp || 0) 
+                            + (this.conditions.mp || 0) >= l[1];
     }
   }
 
