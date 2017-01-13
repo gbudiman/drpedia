@@ -603,6 +603,7 @@ function pull_skill_cat_data(skill, min_cost, _return_type) {
   var strain_preq = null;
   var by_open = new Array();
   var by_profession = new Object();
+  var has_disadvantage = false;
   var s = '';
   var a = new Array();
 
@@ -629,6 +630,7 @@ function pull_skill_cat_data(skill, min_cost, _return_type) {
       case "innate_disadvantage":
         $.each(class_data, function(index, innate_disadvantage) {
           by_strain_disadvantage[innate_disadvantage] = '[x2]';
+          has_disadvantage = true;
         })
         break;
       default:
@@ -756,6 +758,18 @@ function pull_skill_cat_data(skill, min_cost, _return_type) {
   }
 
   if (return_type == 'array') {
+    if (has_disadvantage) {
+      var doubled = new Array();
+
+      $.each(a, function(i, x) {
+        if (!isNaN(x)) {
+          doubled.push(x * 2);
+        }
+      })
+
+      a = a.concat(doubled);
+    }
+
     return a;
   } else {
     return s;
