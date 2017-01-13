@@ -832,11 +832,11 @@ function recalculate() {
     return min_cost;
   }
 
-  var colorize_badge = function(badge, min_cost, open_skill_cost) {
-    if (open_skill_cost == undefined || min_cost < open_skill_cost) {
+  var colorize_badge = function(badge, min_cost, open_skill_cost, is_disadvantaged) {
+    if (is_disadvantaged) {
+      badge.addClass('progress-bar-danger')
+    } else if (open_skill_cost == undefined || min_cost < open_skill_cost) {
       badge.addClass('progress-bar-success');
-    } else if (min_cost > open_skill_cost) {
-      badge.addClass('progress-bar-danger');
     } else {
       badge.removeClass('progress-bar-success progress-bar-danger progress-bar-default');
     }
@@ -846,16 +846,18 @@ function recalculate() {
     var min_cost = 99;
     var is_available = false;
     var open_skill_cost = detect_is_open_skill(data);
+    var is_disadvantaged = false;
 
     min_cost = Math.min(min_cost, detect_is_profession_skill(data));
     min_cost = Math.min(min_cost, detect_has_innate(data));
     min_cost = Math.min(min_cost, open_skill_cost);
 
-    if (detect_has_innate_disadvantage(data)) {
+    if (min_cost != 99 && detect_has_innate_disadvantage(data)) {
       min_cost = min_cost * 2;
+      is_disadvantaged = true;
     }
 
-    skills_caching.update(skill_name, min_cost, open_skill_cost);    
+    skills_caching.update(skill_name, min_cost, open_skill_cost, is_disadvantaged);    
   };
 
   var update_visual = function(diff) {
@@ -878,7 +880,9 @@ function recalculate() {
           badge.text(min_cost);
         }
 
-        colorize_badge(badge, min_cost, open_skill_cost);
+        // colorize_badge(badge, min_cost, open_skill_cost);
+        // console.log('colorizing ' + skill_name + ' | ' + x.is_disadvantaged);
+        colorize_badge(badge, min_cost, open_skill_cost, x.is_disadvantaged);
       } else {
         o.addClass('faded');
         o.find('span.badge').text('');

@@ -4,7 +4,9 @@ var skills_caching = (function() {
 
   var get_diff = function() { return diff; }
   var reset = function() { diff = new Array(); }
-  var update = function(name, cost, open_skill_cost) {
+  var update = function(name, cost, open_skill_cost, _is_disadvantaged) {
+    var is_disadvantaged = _is_disadvantaged == undefined ? false : _is_disadvantaged;
+
     if (cache[name] == undefined || cache[name].min_cost != cost) {
       cache[name] = {
         min_cost: cost,
@@ -15,7 +17,8 @@ var skills_caching = (function() {
       diff.push({
         min_cost: cost,
         open_skill_cost: open_skill_cost,
-        skill_name: name
+        skill_name: name,
+        is_disadvantaged: is_disadvantaged
       })
     }
   }
