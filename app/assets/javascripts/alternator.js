@@ -63,6 +63,7 @@ function attach_alternator(o) {
       var alternator = JSON.parse($(this).attr('data-alternator'));
       //var new_val = alternator.rotate_left_and_peek();
       var min = parseInt($(this).attr('data-min'));
+      var is_opened = $(this).parent().find('[data-adjust]').length > 0;
 
       // if (is_desktop_site) {
       //   if (alternator.length == 1) { return; }
@@ -86,6 +87,11 @@ function attach_alternator(o) {
       $('.cost-adjustment').remove();
 
       if (alternator.length == 1) { return; }
+
+      if (is_opened) {
+        $('.cost-adjustment').remove();
+        return;
+      }
 
       var ajq = new Array();
       $.each(alternator, function(i, x) {
