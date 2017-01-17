@@ -299,7 +299,9 @@ $(function() {
          get_json_strain_specs(),
          get_json_profession_advanced(),
          get_json_profession_concentration(),
-         get_json_profession_concentration_skills()).done(function() {
+         get_json_profession_concentration_skills(),
+         get_json_skill_counters(),
+         get_json_skill_countered()).done(function() {
     $.when(get_json_advanced_cat()).done(function() {
       $.when(get_json_skill_group()).done(function() {
         generate_skill_cat();

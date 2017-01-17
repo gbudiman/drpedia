@@ -678,6 +678,27 @@ function pull_skill_cat_data(skill, min_cost, _return_type) {
     return min_result;
   }
 
+  var append_skill_interactions = function(type, data) {
+    var s = '';
+
+
+    console.log(data);
+    if (data != null) {
+      s += '<hr class="thin-divider"/>';
+      switch(type) {
+        case 'counters':
+          s += '<span class="label label-success">Counters</span>';
+          break;
+        case 'countered':
+          s += '<span class="label label-warning">Countered by</span>';
+          break;
+      }
+      s += '&nbsp;' + data.join(', ');
+    }
+
+    return s;
+  }
+
 
   var lowest_pair = find_lowest_from_pair();
 
@@ -756,6 +777,12 @@ function pull_skill_cat_data(skill, min_cost, _return_type) {
       }
     })
   }
+
+  var si = skill_interactions.get(skill);
+
+  s += append_skill_interactions('counters', si.counters);
+  s += append_skill_interactions('countered', si.countered);
+
 
   if (return_type == 'array') {
     if (has_disadvantage) {
@@ -1064,6 +1091,18 @@ function get_json_strain_specs() {
   return $.getJSON('/strain_specs.json', function(strain_specs_json_data) { 
     strain_specs = strain_specs_json_data;
   });
+}
+
+function get_json_skill_counters() {
+  return $.getJSON('/skill_counters.json', function(skill_counters_json_data) {
+    skill_interactions.load('counters', skill_counters_json_data)
+  })
+}
+
+function get_json_skill_countered() {
+  return $.getJSON('/skill_countered.json', function(skill_countered_json_data) {
+    skill_interactions.load('countered', skill_countered_json_data)
+  })
 }
 
 $(function() {
