@@ -1,9 +1,10 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{name: 'mobile-web-app-capable', content: 'yes'}
     %title DRpaedia
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0'}
+    %link{rel: 'manifest', href: '/manifest.json'}
     = csrf_meta_tags
     = javascript_include_tag 'application'
     = stylesheet_link_tag 'application'
