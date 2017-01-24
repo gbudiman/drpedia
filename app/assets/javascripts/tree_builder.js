@@ -980,6 +980,30 @@ function update_availability() {
   }
 }
 
+function label_profession_concentration(type) {
+  var s = $('<span/>')
+            .addClass('pull-right badge')
+            .css('margin-top', '-18px');
+
+  switch(type) {
+    case 'Combat': s.addClass('progress-bar-danger').append('C'); break;
+    case 'Production': s.addClass('progress-bar-info').append('P'); break;
+    case 'Society': s.addClass('progress-bar-warning').append('S'); break;
+  }
+
+  return s;
+}
+
+function annotate_profession_concentration(d) {
+  $.each(d, function(prof, pc) {
+    var o = $('#setup-profession').find('input[value="' + prof + '"]');
+
+    o.parent()
+     .append(label_profession_concentration(pc));
+  })
+  
+}
+
 function disable_popover() {
   $('.popover').popover('hide');
 }
@@ -1102,6 +1126,12 @@ function get_json_skill_counters() {
 function get_json_skill_countered() {
   return $.getJSON('/skill_countered.json', function(skill_countered_json_data) {
     skill_interactions.load('countered', skill_countered_json_data)
+  })
+}
+
+function get_json_profession_concentration_hierarchy() {
+  return $.getJSON('/profession_concentration_hierarchy.json', function(pch_json_data) {
+    annotate_profession_concentration(pch_json_data);
   })
 }
 

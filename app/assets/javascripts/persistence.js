@@ -323,6 +323,7 @@ $(function() {
                 
                 ok_to_trigger_advanced_profession_removal = true;
                 apply_view_filters();
+                get_json_profession_concentration_hierarchy();
                 //update_beyond_basic();
                 $('#loading [data-dismissible]').hide(500, function() {
                   $('#loading').hide(1000);
