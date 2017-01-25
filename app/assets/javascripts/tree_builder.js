@@ -1015,7 +1015,7 @@ function label_profession_concentration(type, _opts) {
             .addClass((opts.display == 'right' ? 'pull-right' : '') + ' badge pc-badge')
 
   if (opts.display == 'right') {
-    s.css('margin-top', '-18px');
+    s.css('margin-top', '-1.4em');
   } else {
     s.css('margin-left', '20px')
      .css('margin-right', '-16px');
