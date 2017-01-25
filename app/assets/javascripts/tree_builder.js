@@ -1012,10 +1012,11 @@ function update_availability() {
 function label_profession_concentration(type, _opts) {
   var opts = _opts == undefined ? {} : _opts;
   var s = $('<span/>')
-            .addClass((opts.display == 'right' ? 'pull-right' : '') + ' badge pc-badge')
+            .addClass('badge pc-badge')
 
   if (opts.display == 'right') {
-    s.css('margin-top', '-1.4em');
+    s.css('position', 'absolute');
+    s.css('right', '8px');
   } else {
     s.css('margin-left', '20px')
      .css('margin-right', '-16px');
