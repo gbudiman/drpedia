@@ -10,6 +10,8 @@ var character_sheet = (function() {
     _data.mp_addition = parseInt($('#mp-addition').text());
     _data.mp_total = parseInt($('#mp-total').text());
     _data.infection = parseInt($('#infection-base').text());
+    _data.xp_total = parseInt($('#xp-total').text());
+    _data.profile_name = $('#profile-text').attr('profile');
   }
 
   var generate_skills = function(type) {
@@ -86,12 +88,14 @@ var character_sheet = (function() {
     $('#cs-stat-mp-addition').text(_data.mp_addition);
     $('#cs-stat-mp-total').text(_data.mp_total);
     $('#cs-stat-ip-base').text(_data.infection);
+    $('#cs-stat-xp-total').text(_data.xp_total);
+    $('#cs-profile-title').text(_data.profile_name);
 
     $('#cs-acquired').find('tbody').empty();
     $('#cs-planned').find('tbody').empty();
     $('#cs-graphical').find('tbody').empty();
     $('#cs-profs').find('tbody').empty();
-    
+
     write_skills('innate', 'cs-acquired');
     write_skills('acquired', 'cs-acquired');
     write_skills('planned', 'cs-planned');

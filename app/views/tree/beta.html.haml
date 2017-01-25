@@ -4,7 +4,9 @@
       %div{class: 'modal-header'}
         %button{type: 'button', class: 'close', 'data-dismiss' => 'modal'}
           %span &times;
-        %h4{class: 'modal-title'} Character Sheet
+        %h4{class: 'modal-title'} 
+          Character Sheet 
+          %span{id: 'cs-profile-title'}
       %div{class: 'modal-body'}
         %table{class: 'table table-condensed table-striped', id: 'cs-stats'}
           %thead
@@ -29,6 +31,11 @@
               %td{id: 'cs-stat-ip-base', class: 'align-right'}
               %td{id: 'cs-stat-ip-addition', class: 'align-right'}
               %td{id: 'cs-stat-ip-total', class: 'align-right'}
+            %tr
+              %td XP
+              %td{id: 'cs-stat-xp-base', class: 'align-right'}
+              %td{id: 'cs-stat-xp-addition', class: 'align-right'}
+              %td{id: 'cs-stat-xp-total', class: 'align-right'}
 
         %table{class: 'table table-condensed table-striped', id: 'cs-profs'}
           %tbody
