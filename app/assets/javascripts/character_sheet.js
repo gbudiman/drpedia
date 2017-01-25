@@ -87,6 +87,11 @@ var character_sheet = (function() {
     $('#cs-stat-mp-total').text(_data.mp_total);
     $('#cs-stat-ip-base').text(_data.infection);
 
+    $('#cs-acquired').find('tbody').empty();
+    $('#cs-planned').find('tbody').empty();
+    $('#cs-graphical').find('tbody').empty();
+    $('#cs-profs').find('tbody').empty();
+    
     write_skills('innate', 'cs-acquired');
     write_skills('acquired', 'cs-acquired');
     write_skills('planned', 'cs-planned');
