@@ -7,6 +7,7 @@ var strain_restrictions;
 var strain_stats;
 var strain_specs;
 var skill_groups;
+var skill_mp_cost;
 var professions_advanced;
 var professions_concentration;
 var professions_concentration_group;
@@ -256,9 +257,7 @@ var post_process_profession_concentration = function() {
     $('#setup-profession').find('li.multiselect-group').find('label').each(function() {
       var label = $(this).text().trim();
 
-      console.log(group + ' | ' + label);
       if (label == group) {
-        console.log('found');
         $(this).parent().prepend(label_profession_concentration(group))
       }
     })
@@ -706,8 +705,6 @@ function pull_skill_cat_data(skill, min_cost, _return_type) {
   var append_skill_interactions = function(type, data) {
     var s = '';
 
-
-    console.log(data);
     if (data != null) {
       s += '<hr class="thin-divider"/>';
       switch(type) {
@@ -724,8 +721,15 @@ function pull_skill_cat_data(skill, min_cost, _return_type) {
     return s;
   }
 
+  var append_skill_cost = function(skill) {
+    return '<span class="label label-primary">MP ' + skill_mp_cost.get(skill) + '</span>'
+         + '<hr class="thin-divider"/>';
+  }
+
 
   var lowest_pair = find_lowest_from_pair();
+
+  s += append_skill_cost(skill);
 
   if (Object.keys(by_strain).length > 0) {
     $.each(by_strain, function(strain_name, cost) {
@@ -1161,6 +1165,12 @@ function get_json_skill_counters() {
 function get_json_skill_countered() {
   return $.getJSON('/skill_countered.json', function(skill_countered_json_data) {
     skill_interactions.load('countered', skill_countered_json_data)
+  })
+}
+
+function get_json_skill_mp_cost() {
+  return $.getJSON('/skill_mp_cost.json', function(skill_mp_cost_json_data) {
+    skill_mp_cost.load(skill_mp_cost_json_data);
   })
 }
 
