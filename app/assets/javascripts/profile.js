@@ -2,6 +2,18 @@ var sys_profiles = new Array();
 var current_profile;
 var has_profile = false;
 
+function attach_create_character_sheet() {
+  $('#profile-generate-character-sheet').on('click', function() {
+    character_sheet.generate({
+      selected_strain: selected_strain,
+      selected_professions: selected_professions
+    })
+
+    $('#character-sheet').modal('show');
+    return false;
+  })
+}
+
 function attach_create_from_scratch() {
   $('#profile-create-from-scratch').on('click', function() {
     // reset_all_skills('acquired-list');
@@ -229,5 +241,6 @@ $(function() {
   attach_new_profile_save();
   attach_delete_profile();
   attach_create_from_scratch();
+  attach_create_character_sheet();
   //load_first_available_profile();
 })

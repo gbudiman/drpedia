@@ -1238,6 +1238,7 @@ $(function() {
   $('#modal-waiting').modal({show: false});
   $('#advanced-warning').modal({show: false});
   $('#advanced-existance-warning').modal({show: false});
+  $('#character-sheet').modal({show: false});
   $('#btn-dismiss-advanced-warning').on('click', function() {
     set_advanced_acknowledgement(true);
     $('#advanced-existance-warning').modal('hide');
