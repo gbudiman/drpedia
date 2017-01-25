@@ -9,6 +9,7 @@ var strain_specs;
 var skill_groups;
 var professions_advanced;
 var professions_concentration;
+var professions_concentration_group;
 
 var selected_strain;
 var selected_professions;
@@ -158,10 +159,16 @@ var generate_professions_select_box = function() {
   s.append($('<option></option>')
              .attr('data-role', 'divider'));
 
-  $.each(professions_concentration, function(value, _junk) {
-    var t = $('<option></option>')
-              .attr('profession-concentration', value)
-              .append(value);
+  $.each(professions_concentration_group, function(group, d) {
+    var t = $('<optgroup/>')
+              .attr('data-profession-concentration-group', group)
+              .attr('label', group)
+
+    $.each(d, function(i, pc) {
+      t.append($('<option/>')
+                 .attr('profession-concentration', pc)
+                 .append(pc));
+    })
 
     s.append(t);
   })
@@ -238,7 +245,25 @@ var generate_professions_select_box = function() {
   })
 
   post_process_advanced_professions();
+  post_process_profession_concentration();
 };
+
+var post_process_profession_concentration = function() {
+  $('#setup-profession').find('[data-profession-concentration-group]').each(function() {
+    var that = $(this);
+    var group = that.attr('data-profession-concentration-group');
+
+    $('#setup-profession').find('li.multiselect-group').find('label').each(function() {
+      var label = $(this).text().trim();
+
+      console.log(group + ' | ' + label);
+      if (label == group) {
+        console.log('found');
+        $(this).parent().prepend(label_profession_concentration(group))
+      }
+    })
+  })
+}
 
 var post_process_advanced_professions = function() {
   if (advanced_acknowledged) {
@@ -980,14 +1005,24 @@ function update_availability() {
   }
 }
 
-function label_profession_concentration(type) {
+function label_profession_concentration(type, _opts) {
+  var opts = _opts == undefined ? {} : _opts;
   var s = $('<span/>')
-            .addClass('pull-right badge')
-            .css('margin-top', '-18px');
+            .addClass((opts.display == 'right' ? 'pull-right' : '') + ' badge pc-badge')
+
+  if (opts.display == 'right') {
+    s.css('margin-top', '-18px');
+  } else {
+    s.css('margin-left', '20px')
+     .css('margin-right', '-16px');
+  }
+            
 
   switch(type) {
     case 'Combat': s.addClass('progress-bar-danger').append('C'); break;
+    case 'Crafting and Production':
     case 'Production': s.addClass('progress-bar-info').append('P'); break;
+    case 'Civilized Society':
     case 'Society': s.addClass('progress-bar-warning').append('S'); break;
   }
 
@@ -999,7 +1034,7 @@ function annotate_profession_concentration(d) {
     var o = $('#setup-profession').find('input[value="' + prof + '"]');
 
     o.parent()
-     .append(label_profession_concentration(pc));
+     .append(label_profession_concentration(pc, {display: 'right'}));
   })
   
 }
@@ -1132,6 +1167,12 @@ function get_json_skill_countered() {
 function get_json_profession_concentration_hierarchy() {
   return $.getJSON('/profession_concentration_hierarchy.json', function(pch_json_data) {
     annotate_profession_concentration(pch_json_data);
+  })
+}
+
+function get_json_profession_concentration_group() {
+  return $.getJSON('/profession_concentration_group.json', function(pcg_json_data) {
+    professions_concentration_group = pcg_json_data;
   })
 }
 
