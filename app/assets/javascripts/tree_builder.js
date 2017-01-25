@@ -1016,7 +1016,7 @@ function label_profession_concentration(type, _opts) {
 
   if (opts.display == 'right') {
     s.css('position', 'absolute');
-    s.css('right', '8px');
+    s.css('right', '16px');
   } else {
     s.css('margin-left', '20px')
      .css('margin-right', '-16px');
