@@ -480,12 +480,13 @@ var generate_skill_cat = function() {
     //   .append('<span class="pull-right badge skill-cost-badge"></span>');
 
     var s = '<li class="list-group-item skill-draggable faded clickable-skill col-xs-12 col-md-6 col-lg-4"'
-          + ' id="ls-' + skill_name + '"'
-          + ' skill-name="' + skill_name + '"'
-          + ' advanced-skill="' + (advanced_cat[skill_name] == undefined ? false : true) + '"';
+          + '    id="ls-' + skill_name + '"'
+          + '    skill-name="' + skill_name + '"'
+          + '    style="display: none"'
+          + '    advanced-skill="' + (advanced_cat[skill_name] == undefined ? false : true) + '"';
     if (psion_index != undefined) {
       //s.attr('psion-index', psion_index);
-      s += ' psion-index="' + psion_index + '"';
+      s  += '    psion-index="' + psion_index + '"';
     }
     s    += '>';
 
