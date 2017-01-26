@@ -1016,16 +1016,16 @@ function label_profession_concentration(type, _opts) {
 
   if (opts.display == 'right') {
     s.css('position', 'absolute');
-    s.css('right', '20px');
+    s.css('right', '8px');
   } else {
-    s.css('margin-left', '20px')
+    s.css('margin-left', '8px')
      .css('margin-right', '-16px');
   }
             
 
   switch(type) {
-    case 'Combat': s.addClass('progress-bar-danger').append('C'); break;
-    case 'Crafting and Production':
+    case 'Combatant': s.addClass('progress-bar-danger').append('C'); break;
+    case 'Craft & Production':
     case 'Production': s.addClass('progress-bar-info').append('P'); break;
     case 'Civilized Society':
     case 'Society': s.addClass('progress-bar-warning').append('S'); break;
