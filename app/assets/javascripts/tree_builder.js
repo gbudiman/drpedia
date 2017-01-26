@@ -860,7 +860,7 @@ function find_preq(profession, skill, pdata) {
 }
 
 function uncolorize_all_badges() {
-  $('span.badge')
+  $('span.badge.skill-cost-badge')
     .removeClass('progress-bar-success progress-bar-danger progress-bar-default');
 }
 
