@@ -1025,6 +1025,7 @@ function label_profession_concentration(type, _opts) {
             
 
   switch(type) {
+    case 'Combat':
     case 'Combatant': s.addClass('progress-bar-danger').append('C'); break;
     case 'Craft & Production':
     case 'Production': s.addClass('progress-bar-info').append('P'); break;
