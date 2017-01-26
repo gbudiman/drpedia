@@ -65,6 +65,7 @@ function attach_delete_profile() {
         Cookies.remove(deleted_element);
         $('#profile-confirm-deletion-modal').modal('hide');
         save_profiles();
+        unpack_has_been_called = false;
         load_first_available_profile();
         load_existing_profile(true);
       }
@@ -232,7 +233,7 @@ function load_existing_profile(_bypass_unpack) {
 function save_profiles() {
   var serialized = sys_profiles.join(',');
   Cookies.set('drpedia', serialized, { expires: 365 });
-  console.log('Saved to profile: ' + Cookies.get('drpedia'));
+  console.log('Saved to profile-chain: ' + Cookies.get('drpedia'));
 }
 
 $(function() {
