@@ -10,7 +10,6 @@ var profession_extension = (function() {
     $.each(_data, function(skill_name, _amount) {
       $.each(_list, function(i, x) {
         if ($(x).find('li[id="ls-' + skill_name + '"]').length > 0) {
-          console.log('found');
           amount = _amount;
         }
       })

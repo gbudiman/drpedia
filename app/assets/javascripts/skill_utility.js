@@ -2,6 +2,7 @@ function generate_constraints() {
   var skills = get_skills_in_builder();
   var errors = new Array();
   errors = errors.concat(check_psion_constraints());
+  errors = errors.concat(check_profession_extension_constraint());
   //errors = errors.concat(check_psion_constraints('#planned'));
   check_constraints(skills, errors);
 }
@@ -178,6 +179,21 @@ function check_psion_constraints(target_id) {
   }
 
   //console.log(errors);
+  return errors;
+}
+
+function check_profession_extension_constraint() {
+  var errors = new Array();
+  var profession_limit = 3 + profession_extension.get();
+  var current_profession = $('#profession-selector [profession]:selected').length;
+
+  var diff = current_profession - profession_limit;
+  if (diff > 0) {
+    errors.push({
+      text: 'Please remove ' + diff + ' basic profession'
+    })
+  }
+
   return errors;
 }
 
