@@ -301,6 +301,7 @@ $(function() {
          get_json_profession_concentration(),
          get_json_profession_concentration_group(),
          get_json_profession_concentration_skills(),
+         get_json_profession_extension(),
          get_json_skill_counters(),
          get_json_skill_mp_cost(),
          get_json_skill_countered()).done(function() {

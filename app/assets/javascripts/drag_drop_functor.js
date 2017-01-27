@@ -241,6 +241,17 @@ function append_lexicographically(list_id, dragged_object, _hint) {
     // console.log($(this).attr('skill-name'));
   })
 
+  var profession_extension_addition = profession_extension.is_being_affected_by(seek_skill_name);
+
+  if (profession_extension_addition != undefined) {
+    if (list_id == '#graphical-list') {
+      profession_extension_count = 0;
+    } else {
+      profession_extension_count = profession_extension_addition;
+    }
+    restrict_profession_selector();
+  }
+
   if (!appended) {
     $(list_id).append(dragged_object);
   }

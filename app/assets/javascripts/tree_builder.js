@@ -11,6 +11,7 @@ var skill_mp_cost;
 var professions_advanced;
 var professions_concentration;
 var professions_concentration_group;
+var profession_extension_count = 0;
 
 var selected_strain;
 var selected_professions;
@@ -387,7 +388,7 @@ function ensure_only_one_selected_advanced_profession(option, checked) {
 
 function restrict_profession_selector() {
   var currently_selected = $('#profession-selector [profession]:selected').length;
-  if (currently_selected >= 3) {
+  if (currently_selected >= (3 + profession_extension_count)) {
     var non_selected_options = $('#profession-selector [profession]option').filter(function() {
       return !$(this).is(':selected');
     })
@@ -1186,6 +1187,12 @@ function get_json_profession_concentration_hierarchy() {
 function get_json_profession_concentration_group() {
   return $.getJSON('/profession_concentration_group.json', function(pcg_json_data) {
     professions_concentration_group = pcg_json_data;
+  })
+}
+
+function get_json_profession_extension() {
+  return $.getJSON('/profession_extension.json', function(profession_extension_json_data) {
+    profession_extension.load(profession_extension_json_data);
   })
 }
 
