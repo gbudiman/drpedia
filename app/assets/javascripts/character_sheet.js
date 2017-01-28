@@ -10,6 +10,8 @@ var character_sheet = (function() {
     _data.mp_addition = parseInt($('#mp-addition').text());
     _data.mp_total = parseInt($('#mp-total').text());
     _data.infection = parseInt($('#infection-base').text());
+    _data.infection_reduction = parseInt($('#ip-reduction').text());
+    _data.infection_total = parseInt($('#ip-total').text());
     _data.xp_profession = parseInt($('#profession-xp').text());
     _data.xp_skills = parseInt($('#acquired-xp').text()) + parseInt($('#planned-xp').text());
     _data.xp_total = parseInt($('#xp-total').text());
@@ -133,6 +135,8 @@ var character_sheet = (function() {
     $('#cs-stat-mp-addition').text(_data.mp_addition);
     $('#cs-stat-mp-total').text(_data.mp_total);
     $('#cs-stat-ip-base').text(_data.infection);
+    $('#cs-stat-ip-reduction').text(_data.infection_reduction * -1);
+    $('#cs-stat-ip-total').text(_data.infection_total);
 
     $('#cs-acquired').find('tbody').empty();
     $('#cs-planned').find('tbody').empty();

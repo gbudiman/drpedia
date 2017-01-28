@@ -77,6 +77,7 @@ function pack_state() {
   })
 
   pack += '|' + sca.join(',');
+  pack += '|' + $('#ip-reduction').text();
 
   Cookies.set(has_profile ? current_profile : 'dummy', pack, { expires: 365 });
   console.log('Packing to ' + current_profile + ': ' + pack);
@@ -157,6 +158,7 @@ function unpack_state() {
       var p0 = unpack.split('|');
       var hp = parseInt(p0[0]) || 0;
       var mp = parseInt(p0[1]) || 0;
+      var ip = parseInt(p0[8]) || 0;
       var strain = p0[2];
 
       $('#strain-selector').multiselect('select', 'Select Strain').multiselect('refresh');
@@ -164,8 +166,11 @@ function unpack_state() {
       reset_all_skills('planned-list');
       set_stat_build($('#hp-addition'), 'hp-total', hp, false);
       set_stat_build($('#mp-addition'), 'mp-total', mp, false);
+      set_stat_build($('#ip-reduction'), 'ip-total', ip, false);
       initialize_stats_controller('#hp-sub');
       initialize_stats_controller('#mp-sub');
+      initialize_stats_controller('#ip-sub');
+
       var professions = p0[3].split(',');
       var acquired_skills = decrypt_skills(p0[4].split(','));
       var planned_skills = decrypt_skills(p0[5].split(','));
@@ -220,6 +225,7 @@ function unpack_state() {
       update_profession_cost();
       update_strain_specs();
       update_strain_stats();
+      initialize_infection_controller();
       recalculate();
       replan();
       //update_availability();
