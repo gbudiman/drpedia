@@ -1,2 +1,2 @@
 # drpedia
-Dystopia Rising Interactive Encyclopedia
+Dystopia Rising Persona Designer
