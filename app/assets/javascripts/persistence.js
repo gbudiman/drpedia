@@ -91,9 +91,10 @@ function unpack_state() {
     }
 
     current_profile = 'dummy';
-    $('#alert-desktop').hide();
-    $('#alert-mobile').hide();
   }
+
+  $('#alert-desktop').hide();
+  $('#alert-mobile').hide();
 
   var decrypt_psionic_skills = function(a) {
     var prefix = '';
